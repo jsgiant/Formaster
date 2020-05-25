@@ -1,31 +1,149 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Formaster
 
-## Available Scripts
+## Authentication
 
-In the project directory, you can run:
+### Components
 
-### `npm start`
+#### Common
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    - LoadingWrapperWithFailureOrSuccessState
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+#### SignupForm
 
-### `npm test`
+    - Create a component called SignupForm
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    -Props
+        - Name:string
+        - UserName:any
+        - Password:any
+        - Confirm Password:any
+        - onChangeName()
+        - onChangeUserName()
+        - onChangePassword()
+        - onChangeConfirmPassword()
+        - onClickSignup()
 
-### `npm run build`
+#### LoginForm
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    - Create a component called LoginForm
 
-The build is minified and the filenames include the hashes.<br />
+    -Props
+        - userName:any
+        - password:any
+        - onClickLogin()
 
-### `npm run deploy`
+### Stores
 
-Builds the app for production to the `build` folder.<br />
+#### Authentication Store
 
-Deploys the build folder to S3 bucket from cloud9 environment
+    - Create a AuthStore which will Get/Set the user data using AuthAPI
+
+### Constants
+
+    - Endpoint APIs
+    - Error Messages
+        - Username Error
+        - Password strength error
+        - Authentication acces error (Admin/User)
+
+### Services
+
+#### Authentication Service
+
+    - Create a AuthAPI which will Get/Post the User Signin/SignUp data
+    -Methods
+        -GetUserSigninAPI()
+        -SetUserSignupAPI()
+
+### fixtures
+
+    - admin-auth-data.json
+    - user-auth-data.json
+
+### routes
+
+    - LoginRoute
+        - State Variables
+            - userName:any
+            - password:any
+            - errorMessage: string
+
+        -Methods
+            - onChangeUserName()
+            - onChangePassword()
+            - onClickLogin()
+
+
+    - SignUpRoute
+        - State Variables
+            - Name:string
+            - UserName:any
+            - Password:any
+            - Confirm Password:any
+            - errorMessage: string
+
+        - Methods
+            - onChangeName()
+            - onChangeUserName()
+            - onChangePassword()
+            - onChangeConfirmPassword()
+            - onClickSignup()
+            - onSignUpSuccess()
+            - onSignUpFailure()
+
+## Admin
+
+### components
+
+#### Header
+
+    - Create a component called Header
+    - Props
+        - Username
+    - Methods
+        - onClickAdminProfile()
+        - onLogout()
+
+#### AdminDashboard
+
+    - Create a component called AdminDashboard
+    - Props
+        - adminFormsData
+        - onCreateNewForm()
+        - onEditForm()
+        - onDeleteForm()
+        - onRenameForm()
+
+#### NewFormScreen
+
+    - _AddQuestion_ Component
+        - Methods
+            - onAddQuestion()
+    - _QuestionsListUI_ Component
+        - Props
+            - questionsList
+            - onEditQuestionData()
+            - onDeleteQuestion()
+            -
+    - _QuestionSettingsUI_ Component
+        - Props
+    - Props
+        - questionsList
+        - onAddQuestion()
+        - onEditQuestion()
+        - onDeleteQuestion()
+
+#### Stores
+
+##### AdminDataStore
+
+-  Maintains Admin's data throughout the application
+
+#### Services
+
+##### AdminDataAPI
+
+-  Which will give the Admin data or Admin's Form data
+   -Methods - constructor() - create an api using apisauce's create method - getAdminData() - returns an networkCallWithapisauce promise
+
+##
