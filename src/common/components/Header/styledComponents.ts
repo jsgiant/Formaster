@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 export const HeaderDiv = styled.div`
-   ${tw`flex justify-between pl-3 items-center px-3 shadow-lg text-lg lg:text-2xl h-20`}
+   ${tw`flex justify-between pl-3 items-center px-3 shadow-lg text-lg lg:text-2xl h-16`}
 `
 
 export const TitleDiv = styled.div`

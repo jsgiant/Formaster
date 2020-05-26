@@ -36,13 +36,13 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
       // should show error message
    }
 
-   @action
-   onChangeUsername = e => {
+   @action.bound
+   onChangeUsername(e) {
       this.userName = e.target.value
    }
 
-   @action
-   onChangePassword = e => {
+   @action.bound
+   onChangePassword(e) {
       this.password = e.target.value
    }
 
