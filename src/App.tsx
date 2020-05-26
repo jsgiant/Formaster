@@ -7,6 +7,7 @@ import './App.css'
 import { LoginFormRoute } from './Authentication/routes/LoginPageRoute/LoginFormRoute'
 import authRoutes from './Authentication/routes'
 import Header from './common/components/Header/Header'
+import Dashboard from './User/components/Dashboard'
 
 const App = () => {
    console.log(authStores)
@@ -14,8 +15,8 @@ const App = () => {
       <Provider {...authStores}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               <Route exact path='/header' component={Header} />
-               {authRoutes}
+               <Route exact path='/' component={Dashboard} />
+               {/* {authRoutes} */}
             </Switch>
          </Router>
       </Provider>

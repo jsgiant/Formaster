@@ -2,7 +2,7 @@ import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import strings from './../../i18n/strings.json'
-import { setAccessToken } from '../../../utils/StorageUtils'
+import { setAccessToken, clearUserSession } from '../../../utils/StorageUtils'
 
 class AuthStore {
    @observable getLoginAPIStatus
@@ -54,6 +54,11 @@ class AuthStore {
             this.setGetLoginAPIError(error)
             onFailure()
          })
+   }
+
+   onSignOut = () => {
+      this.init()
+      clearUserSession()
    }
 }
 export { AuthStore }
