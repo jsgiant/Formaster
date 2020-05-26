@@ -1,0 +1,12 @@
+{
+   "admin": {
+      "access_token": "aer4-dff-2er-8er",
+      "username": "Admin",
+      "is_admin": true
+   },
+   "customer": {
+      "access_token": "urr4-mf9-2ed-3dr",
+      "username": "User",
+      "is_admin": false
+   }
+}

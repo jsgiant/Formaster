@@ -23,7 +23,7 @@
         - onChangeConfirmPassword()
         - onClickSignup()
 
-#### LoginForm
+#### LoginForm -V1
 
     - Create a component called LoginForm
 
@@ -97,21 +97,21 @@
 
 #### Header
 
-    - Create a component called Header
-    - Props
-        - Username
-    - Methods
-        - onClickAdminProfile()
-        - onLogout()
+-  Create a component called Header
+   -  Props
+      -  Username
+   -  Methods
+      -  onClickAdminProfile()
+      -  onLogout()
 
 #### AdminDashboard
 
-    - Create a component called AdminDashboard
-    - Props
-        - adminFormsData
-        - onCreateNewForm()
-        - onDeleteForm()
-        - onRenameForm()
+-  Create a component called AdminDashboard
+   -  Props
+      -  adminFormsData
+      -  onCreateNewForm()
+      -  onDeleteForm()
+      -  onRenameForm()
 
 ##### FormsList
 
