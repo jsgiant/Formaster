@@ -110,40 +110,152 @@
     - Props
         - adminFormsData
         - onCreateNewForm()
-        - onEditForm()
         - onDeleteForm()
         - onRenameForm()
 
+##### FormsList
+
+-  renders current forms in the formsData
+   -  Props
+      -  adminFormsData
+
+##### NewFormCard
+
+    - Props
+        - onCreateNewForm()
+
+##### DefaultFormCard
+
+    - Props
+        - formDetails
+        - onRenameForm()
+        - onDeleteForm()
+
+    - Methods
+        - onEditForm()
+            - redirects to new form screen
+
 #### NewFormScreen
 
-    - _AddQuestion_ Component
+    - AddQuestion Component
         - Methods
             - onAddQuestion()
-    - _QuestionsListUI_ Component
+    - QuestionsListUI Component
         - Props
             - questionsList
-            - onEditQuestionData()
+            - onEditQuestion()
             - onDeleteQuestion()
-            -
-    - _QuestionSettingsUI_ Component
+            - onChangeQuestionTitle()
+            - onChangeQuestionDescription()
+    - QuestionSettingsUI Component
         - Props
+            - questionDetails
+            - onToggleRequired()
+            - onToggleDescription()
+
+    - QuestionUI Component
+        - Props
+            - questionDetails
+    - FormPreview Component
+        - Props
+            - questionList
+            - navigateToPrevious()
+            - navigateToNext()
+
+    - PublishButton Component
+        - onClickPublishButton()
     - Props
         - questionsList
         - onAddQuestion()
-        - onEditQuestion()
+
+### Stores
+
+#### FormStore
+
+-  Maintains Form's data
+
+   -  State variables
+
+      -  Formslist : Observable Map()
+      -  getFormsAPIStatus
+      -  getFormsAPIError
+
+   -  Methods
+      -  constructor()
+      -  setGetFormsAPIStatus()
+      -  setGetFormsAPIError()
+      -  setGetFormsAPIResponse()
+      -  onCreateNewForm(new FormModel)
+      -  onDeleteNewForm()
+
+#### QuestionStore
+
+    - State Variables
+        - questionsList:new Observable Map()
+
+    - Methods
+        - constructor(questionList)
+            - questionList : new QuestionModel(questionList)
+        - onAddQuestion()
         - onDeleteQuestion()
 
-#### Stores
+### Models
 
-##### AdminDataStore
+#### FormModel
 
--  Maintains Admin's data throughout the application
+    - State Variables
+        - name
+        - questionStore
+        - responses : ObservableMap()
+    -Methods
+        - constructor(questionStore)
+            - this.questionStore:questionStore
 
-#### Services
+        - onRenameForm()
+        - onEditForm()
 
-##### AdminDataAPI
+#### QuestionModel
 
--  Which will give the Admin data or Admin's Form data
-   -Methods - constructor() - create an api using apisauce's create method - getAdminData() - returns an networkCallWithapisauce promise
+    - State Variables
+        - title
+        - description
+        - isRequired
+        - hasDescription
 
-##
+    - Methods
+        - constructor(questionData)
+            -> initializes the state variables with questionData
+        - onChangeQuestionTitle()
+        - onChangeQuestionDescription()
+        - onToggleRequired()
+        - onToggleHasDescription()
+        - onSubmitResponse()
+
+### Services
+
+#### AdminDataAPI
+
+    - Methods
+        - getAdminFormsData
+        - PostAdminFormsDara
+
+### fixtures
+
+    - adminFormsData
+
+### routes
+
+    - DashBoardRoute
+    - newFormScreenRoute
+
+## Customer
+
+### components
+
+#### FormUI
+
+    - Props
+        - questionsList
+        - navigateToPrevious()
+        - navigateToNext()
+        - onSubmitResponse()
