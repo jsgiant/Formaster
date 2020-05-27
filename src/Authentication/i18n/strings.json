@@ -1,6 +1,17 @@
 {
-   "username": "Anonymous",
-   "baseURL": "https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/",
-   "loginEndpoint": "v1/signin",
-   "empty": ""
+   "login": {
+      "username": "Anonymous",
+      "baseURL": "https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/",
+      "loginEndpoint": "v1/signin",
+      "empty": "",
+      "loginButtonContent": "Login",
+      "testId": "login-btn",
+      "logoAlt": "ib_hubs_logo",
+      "loginHeading": " Hi there, please login!",
+      "usernameLabel": "USERNAME",
+      "passwordLabel": "PASSWORD",
+      "usernamePlaceholder": "Username",
+      "passwordPlaceholder": "Password",
+      "logoURL": "https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d1119fe1-4f3a-40fd-860b-3adee7ca7915.svg"
+   }
 }

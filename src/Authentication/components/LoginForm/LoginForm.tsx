@@ -1,10 +1,21 @@
 import React from 'react'
 
-import './index.css'
+import strings from '../../i18n/strings.json'
+import {
+   LoginContainer,
+   LoginFormWrapper,
+   Logo,
+   Heading,
+   Label,
+   UserInput,
+   ValidationError,
+   LoginButton
+} from './styledComponents'
 
 type LoginFormProps = {
    userName: any
    password: any
+   errorMessage: string
    onClickLogin: () => void
    onChangeUsername: (e) => void
    onChangePassword: (e) => void
@@ -15,44 +26,37 @@ class LoginForm extends React.Component<LoginFormProps> {
       const {
          userName,
          password,
+         errorMessage,
          onClickLogin,
          onChangePassword,
          onChangeUsername
       } = this.props
       return (
-         <div className='login-container'>
-            <div className='login-form'>
-               <img
-                  className='logo'
-                  src='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d1119fe1-4f3a-40fd-860b-3adee7ca7915.svg'
-                  alt='ibhubs_logo'
-               />
-               <p className='heading'> Hi there, please login!</p>
-               <label className='label' htmlFor='user-input'>
-                  USERNAME
-               </label>
-               <input
+         <LoginContainer>
+            <LoginFormWrapper>
+               <Logo src={strings.login.logoURL} alt={strings.login.logoAlt} />
+               <Heading>{strings.login.loginHeading}</Heading>
+               <ValidationError>{errorMessage}</ValidationError>
+               <Label>{strings.login.usernameLabel}</Label>
+               <UserInput
                   onChange={onChangeUsername}
-                  className='user-input'
                   value={userName}
                   type='name'
-                  placeholder='Username'
+                  placeholder={strings.login.usernamePlaceholder}
                />
-               <label className='label' htmlFor='user-input'>
-                  PASSWORD
-               </label>
-               <input
+               <Label>{strings.login.passwordLabel}</Label>
+               <UserInput
                   onChange={onChangePassword}
-                  className='user-input'
                   value={password}
                   type='password'
-                  placeholder='Password'
+                  placeholder={strings.login.passwordPlaceholder}
                />
-               <button onClick={onClickLogin} className='login-btn'>
+
+               <LoginButton data-testid='login-btn' onClick={onClickLogin}>
                   Login
-               </button>
-            </div>
-         </div>
+               </LoginButton>
+            </LoginFormWrapper>
+         </LoginContainer>
       )
    }
 }

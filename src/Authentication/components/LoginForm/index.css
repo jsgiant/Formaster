@@ -21,20 +21,9 @@
 }
 
 .logo {
-   width: 90px;
-   height: 90px;
-   object-fit: contain;
 }
 
 .heading {
-   height: 80px;
-   font-size: 32px;
-   font-weight: normal;
-   font-stretch: normal;
-   font-style: normal;
-   line-height: 1.25;
-   letter-spacing: normal;
-   color: #171f46;
 }
 
 .label {
@@ -53,20 +42,6 @@
 }
 
 .user-input {
-   width: 320px;
-   height: 40px;
-   font-size: 14px;
-   font-weight: normal;
-   font-stretch: normal;
-   font-style: normal;
-   line-height: 1.71;
-   letter-spacing: normal;
-   margin-left: 3px;
-   padding-left: 10px;
-   margin-bottom: 12px;
-   border-radius: 2px;
-   border: solid 1px #7e858e;
-   background-color: white;
 }
 
 .user-input:focus {
@@ -74,13 +49,6 @@
 }
 
 .login-btn {
-   width: 320px;
-   height: 40px;
-   border-radius: 4px;
-   margin-top: 20px;
-   margin-bottom: 20px;
-   color: white;
-   background-color: #0b69ff;
 }
 
 .login-btn:focus {
