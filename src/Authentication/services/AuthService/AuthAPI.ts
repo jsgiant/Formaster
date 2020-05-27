@@ -8,14 +8,14 @@ class AuthService {
 
    constructor() {
       this.api = create({
-         baseURL: strings.baseURL
+         baseURL: strings.login.baseURL
       })
    }
 
    getLoginAPI(request) {
       return networkCallWithApisauce(
          this.api,
-         strings.loginEndpoint,
+         strings.login.loginEndpoint,
          { request },
          apiMethods.get
       )

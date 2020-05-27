@@ -7,7 +7,10 @@ import {
    FormName,
    NameContainer,
    FooterContainer,
-   ResponseButton
+   IconContainer,
+   ResponseButton,
+   OptionsList,
+   OptionItem
 } from './styledComponents'
 
 @observer
@@ -27,12 +30,15 @@ class FormCard extends React.Component {
             <FooterContainer>
                <ResponseButton>No responses</ResponseButton>
                {!this.isListOpen ? (
-                  <MdMoreHoriz onClick={this.onToogleList} />
+                  <IconContainer onClick={this.onToogleList}>
+                     <MdMoreHoriz />
+                  </IconContainer>
                ) : (
-                  <ul>
-                     <li>hi</li>
-                     <li>hello</li>
-                  </ul>
+                  <OptionsList onBlur={this.onToogleList}>
+                     <OptionItem>View</OptionItem>
+                     <OptionItem>Rename</OptionItem>
+                     <OptionItem>Delete</OptionItem>
+                  </OptionsList>
                )}
             </FooterContainer>
          </FormCardContainer>

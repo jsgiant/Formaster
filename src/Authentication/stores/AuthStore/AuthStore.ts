@@ -1,14 +1,12 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import strings from './../../i18n/strings.json'
 import { setAccessToken, clearUserSession } from '../../../utils/StorageUtils'
 
 class AuthStore {
    @observable getLoginAPIStatus
    @observable getLoginAPIError
    @observable isAdmin
-   @observable username
 
    authAPIService
 
@@ -22,7 +20,6 @@ class AuthStore {
       this.getLoginAPIStatus = API_INITIAL
       this.getLoginAPIError = null
       this.isAdmin = false
-      this.username = strings.username
    }
 
    @action.bound
@@ -37,7 +34,6 @@ class AuthStore {
 
    @action.bound
    setGetLoginAPIResponse(apiResponse) {
-      this.username = apiResponse.username
       this.isAdmin = apiResponse.is_admin
       setAccessToken(apiResponse.access_token)
    }

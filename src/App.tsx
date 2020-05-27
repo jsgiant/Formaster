@@ -2,12 +2,8 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { authStores } from './Authentication/stores'
-
-import './App.css'
-import { LoginFormRoute } from './Authentication/routes/LoginPageRoute/LoginFormRoute'
 import authRoutes from './Authentication/routes'
-import Header from './common/components/Header/Header'
-import Dashboard from './User/components/Dashboard'
+import { userRoutes } from './User/routes'
 
 const App = () => {
    console.log(authStores)
@@ -15,8 +11,8 @@ const App = () => {
       <Provider {...authStores}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               <Route exact path='/' component={Dashboard} />
-               {/* {authRoutes} */}
+               {userRoutes}
+               {authRoutes}
             </Switch>
          </Router>
       </Provider>
