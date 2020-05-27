@@ -6,13 +6,17 @@ import {
    AddButton
 } from './styledComponents'
 
-class CreateFormCard extends React.Component {
+type CreateFormCardProps = {
+   onCreateForm: () => void
+}
+class CreateFormCard extends React.Component<CreateFormCardProps> {
    render() {
+      const { onCreateForm } = this.props
       return (
          <CreateCard>
             <Title>New Form</Title>
             <ButtonContainer>
-               <AddButton>+</AddButton>
+               <AddButton onClick={onCreateForm}>+</AddButton>
             </ButtonContainer>
          </CreateCard>
       )

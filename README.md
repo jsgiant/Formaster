@@ -220,6 +220,7 @@
         - title
         - description
         - isRequired
+        - response
         - hasDescription
 
     - Methods

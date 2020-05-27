@@ -1,8 +1,8 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { Redirect } from 'react-router-dom'
 
+import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
 import { paths } from '../../../constants/Paths'
@@ -18,17 +18,25 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    @observable password = strings.login.empty
    @observable errorMessage = strings.login.empty
 
-   onClickLogin = () => {
-      console.log('logged in')
+   @action.bound
+   onClickLogin() {
       const { userLogin } = this.props.authStore
-      userLogin(
-         {
-            username: this.userName,
-            password: this.password
-         },
-         this.onLoginSuccess,
-         this.onLoginFailure
-      )
+      if (
+         this.userName !== strings.login.empty &&
+         this.password !== strings.login.empty
+      ) {
+         this.errorMessage = strings.login.empty
+         userLogin(
+            {
+               username: this.userName,
+               password: this.password
+            },
+            this.onLoginSuccess,
+            this.onLoginFailure
+         )
+      } else {
+         this.errorMessage = messages.errors.emptyError
+      }
    }
 
    onLoginSuccess = () => {
@@ -38,7 +46,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
 
    @action.bound
    onLoginFailure(error) {
-      this.errorMessage = error.response
+      this.errorMessage = error
    }
 
    @action.bound

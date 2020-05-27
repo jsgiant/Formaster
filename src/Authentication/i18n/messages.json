@@ -1,0 +1,9 @@
+{
+   "errors": {
+      "emptyError": "Username/Password can't be empty",
+      "failureError": {
+         "response": "Network Error",
+         "statusCode": 403
+      }
+   }
+}

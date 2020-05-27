@@ -1,14 +1,15 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { authStores } from './Authentication/stores'
-import authRoutes from './Authentication/routes'
+
 import { userRoutes } from './User/routes'
+import { stores } from './stores'
+import authRoutes from './Authentication/routes'
 
 const App = () => {
-   console.log(authStores)
+   console.log(stores)
    return (
-      <Provider {...authStores}>
+      <Provider {...stores}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
                {userRoutes}

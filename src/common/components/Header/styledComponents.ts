@@ -14,5 +14,5 @@ export const HeaderLeftSection = styled.div`
 `
 
 export const LogoutButton = styled.button`
-   ${tw`focus:outline-none`}
+   ${tw`focus:outline-none border border-black py-2 px-3`}
 `
