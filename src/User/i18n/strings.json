@@ -1,0 +1,11 @@
+{
+   "popup": {
+      "namePlaceholder": "Enter name",
+      "createCaption": "Give it a name!",
+      "renameCaption": "Rename the form",
+      "empty": ""
+   },
+   "formcard": {
+      "options": ["View", "Rename", "Delete"]
+   }
+}

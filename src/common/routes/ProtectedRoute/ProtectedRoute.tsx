@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { getAccessToken } from '../../../utils/StorageUtils'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
@@ -10,10 +10,10 @@ type ProtectedRouteProps = {
 export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
    render() {
       const { path, component: Component } = this.props
-      if (getAccessToken()) {
-         return <Route exact path={path} component={Component} />
-      } else {
+      if (getAccessToken() === undefined) {
          return <Redirect to={LOGIN_PATH} />
+      } else {
+         return <Route exact path={path} component={Component} />
       }
    }
 }

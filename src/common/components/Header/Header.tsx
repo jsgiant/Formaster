@@ -19,7 +19,9 @@ class Header extends React.Component<HeaderProps> {
                <a href='/'>Formaster</a>
             </TitleDiv>
             <HeaderLeftSection>
-               <LogoutButton onClick={onLogoutClick}>Logout</LogoutButton>
+               <LogoutButton data-testid='logout-btn' onClick={onLogoutClick}>
+                  Logout
+               </LogoutButton>
             </HeaderLeftSection>
          </HeaderDiv>
       )
