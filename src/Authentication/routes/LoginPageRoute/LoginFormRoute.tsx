@@ -6,6 +6,7 @@ import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
 import { paths } from '../../../constants/Paths'
+import { getAccessToken } from '../../../utils/StorageUtils'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -42,6 +43,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    onLoginSuccess = () => {
       const { history } = this.props
       history.push(paths.dashboard)
+      return null
    }
 
    @action.bound
@@ -60,6 +62,9 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    render() {
+      if (getAccessToken() !== undefined) {
+         return this.onLoginSuccess()
+      }
       return (
          <LoginForm
             userName={this.userName}
