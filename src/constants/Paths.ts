@@ -1,3 +1,4 @@
 export const paths = {
-   dashboard: '/dashboard'
+   dashboard: '/admin/dashboard/v1',
+   form: '/admin/form/v1'
 }

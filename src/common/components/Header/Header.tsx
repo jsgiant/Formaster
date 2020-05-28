@@ -2,7 +2,7 @@ import React from 'react'
 import {
    HeaderDiv,
    TitleDiv,
-   HeaderLeftSection,
+   HeaderRightSection,
    LogoutButton
 } from './styledComponents'
 
@@ -18,11 +18,11 @@ class Header extends React.Component<HeaderProps> {
             <TitleDiv>
                <a href='/'>Formaster</a>
             </TitleDiv>
-            <HeaderLeftSection>
+            <HeaderRightSection>
                <LogoutButton data-testid='logout-btn' onClick={onLogoutClick}>
                   Logout
                </LogoutButton>
-            </HeaderLeftSection>
+            </HeaderRightSection>
          </HeaderDiv>
       )
    }
