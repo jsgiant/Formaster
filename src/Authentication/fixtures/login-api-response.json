@@ -1,10 +1,13 @@
-{
-   "admin": {
-      "access_token": "aer4-dff-2er-8er",
-      "is_admin": true
-   },
-   "customer": {
-      "access_token": "urr4-mf9-2ed-3dr",
-      "is_admin": false
+[
+   { "access_token": "f5af9f51-07e6-4332-8f1a-c0c11c1e3434" },
+   {
+      "admin": {
+         "access_token": "aer4-dff-2er-8er",
+         "is_admin": true
+      },
+      "customer": {
+         "access_token": "urr4-mf9-2ed-3dr",
+         "is_admin": false
+      }
    }
-}
+]

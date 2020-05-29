@@ -1,4 +1,5 @@
 import React from 'react'
+import strings from './../../i18n/strings.json'
 import {
    CreateCard,
    Title,
@@ -14,7 +15,7 @@ class CreateFormCard extends React.Component<CreateFormCardProps> {
       const { onCreateForm } = this.props
       return (
          <CreateCard>
-            <Title>Create a Form</Title>
+            <Title>{strings.formcard.create_card_title}</Title>
             <ButtonContainer>
                <AddButton onClick={onCreateForm}>+</AddButton>
             </ButtonContainer>

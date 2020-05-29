@@ -30,8 +30,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
    }
 
    renderFormsList = () => {
-      const { onDeleteForm, onCreateForm } = this.props.authStore
-      const { formList } = this.props.formStore
+      const { formList, onCreateForm, onDeleteForm } = this.props.formStore
       return (
          <FormList
             onCreateForm={onCreateForm}

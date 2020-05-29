@@ -34,7 +34,6 @@ class AuthStore {
 
    @action.bound
    setGetLoginAPIResponse(apiResponse) {
-      console.log(apiResponse[0].access_token)
       // this.isAdmin = apiResponse.is_admin
       setAccessToken(apiResponse[0].access_token)
    }

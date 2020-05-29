@@ -33,9 +33,9 @@ describe('authStore tests', () => {
          password: 'test-password'
       }
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
-      const mockSignInAPI = jest.fn()
-      mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authAPI.getLoginAPI = mockSignInAPI
+      const mockLoginAPI = jest.fn()
+      mockLoginAPI.mockReturnValue(mockLoadingPromise)
+      authAPI.getLoginAPI = mockLoginAPI
 
       authStore.userLogin(requestObject, onSucccess, onFailure)
       expect(authStore.getLoginAPIStatus).toBe(API_FETCHING)
@@ -65,7 +65,7 @@ describe('authStore tests', () => {
       expect(onFailure).toBeCalled()
    })
 
-   it('should test userSignInAPI data success state', async () => {
+   it('should test userLoginAPI data success state', async () => {
       const onSucccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -76,9 +76,9 @@ describe('authStore tests', () => {
       const mockSuccessPromise = new Promise(function(resolve, reject) {
          resolve(getLoginAPIResponse)
       })
-      const mockSignInAPI = jest.fn()
-      mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authAPI.getLoginAPI = mockSignInAPI
+      const mockLoginAPI = jest.fn()
+      mockLoginAPI.mockReturnValue(mockSuccessPromise)
+      authAPI.getLoginAPI = mockLoginAPI
 
       const mockSetCookie = jest.fn()
       Cookie.set = mockSetCookie

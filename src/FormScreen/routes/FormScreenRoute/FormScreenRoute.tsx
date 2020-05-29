@@ -1,8 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import FormScreenUI from '../../components/FormScreenUI'
+import formsData from './../../../Admin/fixtures/forms-data.json'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import { paths } from '../../../constants/Paths'
+import FormModel from '../../../Admin/stores/Models/FormModel'
 
 type FormScreenRouteProps = {
    authStore: any
@@ -30,7 +32,7 @@ class FormScreenRoute extends React.Component<FormScreenRouteProps> {
             onClickLogout={this.onClickLogout}
             onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
-            formDetails={null}
+            formDetails={new FormModel(formsData.forms[0])}
          />
       )
    }

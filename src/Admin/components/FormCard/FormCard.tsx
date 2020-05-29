@@ -52,14 +52,17 @@ class FormCard extends React.Component<FormCardProps> {
    render() {
       const { formDetails, onClickForm } = this.props
       return (
-         <FormCardContainer onClick={onClickForm}>
-            <NameContainer>
+         <FormCardContainer>
+            <NameContainer onClick={onClickForm}>
                <FormName>{formDetails.name}</FormName>
             </NameContainer>
             <FooterContainer>
                <ResponseButton>No responses</ResponseButton>
                {!this.isListOpen ? (
-                  <IconContainer onClick={this.onToogleList}>
+                  <IconContainer
+                     data-testid='test-toggle'
+                     onClick={this.onToogleList}
+                  >
                      <MdMoreHoriz />
                   </IconContainer>
                ) : (

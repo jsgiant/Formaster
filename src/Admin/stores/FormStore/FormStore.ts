@@ -40,7 +40,6 @@ class FormStore {
 
    @action.bound
    getUserForms() {
-      // this.setGetFormDataAPIResponse(formData)
       const getFormsPromise = this.getFormsAPIService.getFormsAPI()
       return bindPromiseWithOnSuccess(getFormsPromise)
          .to(this.setGetFormDataAPIStatus, this.setGetFormDataAPIResponse)

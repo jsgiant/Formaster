@@ -1,0 +1,9 @@
+{
+   "question_placeholder": "Type your question here...",
+   "description_placeholder": "Write your description here...",
+   "welcome_placeholder": "Write your welcome message here...",
+   "thankyou_placeholder": "Write your thankyou message here...",
+   "welcome_screen": "welcome_screen",
+   "thankyou_screen": "thankyou_screen",
+   "add_question": "Add new question"
+}
