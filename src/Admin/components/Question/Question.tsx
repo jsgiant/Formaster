@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdSettings } from 'react-icons/md'
 import { FaRegImage } from 'react-icons/fa'
-import { MdMoreHoriz } from 'react-icons/md'
+import { MdDelete } from 'react-icons/md'
 import strings from '../../i18n/form-strings.json'
 import {
    QuestionWrapper,
@@ -11,39 +11,62 @@ import {
    IconContainer,
    Required
 } from './styledComponents'
-import QuestionText from './QuestionText'
+
+import WelcomeScreen from './WelcomeScreen'
+import ThankyouScreen from './ThankYouScreen'
+import ShortText from './ShortText'
+import LargeText from './LargeText'
+import McqQuestion from './Mcq'
 
 type QuestionProps = {
    question: any
+   onDeleteQuestion: (question) => void
 }
 
 class Question extends React.Component<QuestionProps> {
+   renderQuestion = () => {
+      const { title, onChangeTitle, type } = this.props.question
+      switch (type) {
+         case strings.welcome_screen:
+            return <WelcomeScreen onChangeText={onChangeTitle} text={title} />
+         case strings.thankyou_screen:
+            return <ThankyouScreen onChangeText={onChangeTitle} text={title} />
+         case strings.large_text:
+            return <LargeText onChangeText={onChangeTitle} text={title} />
+
+         case strings.mcq:
+            const {
+               mcqChoices,
+               onChangeChoiceText,
+               onAddNewChoice
+            } = this.props.question
+            return (
+               <McqQuestion
+                  onChangeText={onChangeTitle}
+                  onAddNewChoice={onAddNewChoice}
+                  onChangeChoiceText={onChangeChoiceText}
+                  text={title}
+                  choices={mcqChoices}
+               />
+            )
+         default:
+            return <ShortText onChangeText={onChangeTitle} text={title} />
+      }
+   }
+
    render() {
       const {
-         id,
-         title,
          description,
          isRequired,
-         type,
-         onChangeTitle,
          hasDescription,
          onChangeDescription
       } = this.props.question
+      const { question, onDeleteQuestion } = this.props
       return (
          <QuestionWrapper>
             {isRequired && <Required>*</Required>}
-            <QuestionNumber>{id}.</QuestionNumber>
-            <QuestionText
-               onChangeText={onChangeTitle}
-               text={title}
-               placeholder={
-                  type !== 'welcome_screen'
-                     ? strings.question_placeholder
-                     : type !== 'thankyo_screen'
-                     ? strings.welcome_placeholder
-                     : strings.thankyou_placeholder
-               }
-            />
+            {this.renderQuestion()}
+
             {hasDescription && (
                <DescriptionText
                   onChange={onChangeDescription}
@@ -58,8 +81,8 @@ class Question extends React.Component<QuestionProps> {
                <IconContainer>
                   <FaRegImage />
                </IconContainer>
-               <IconContainer>
-                  <MdMoreHoriz />
+               <IconContainer onClick={() => onDeleteQuestion(question)}>
+                  <MdDelete />
                </IconContainer>
             </Toolbar>
          </QuestionWrapper>

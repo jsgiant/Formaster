@@ -40,6 +40,48 @@
                      "isSelected": false
                   }
                ]
+            },
+            {
+               "id": 4,
+               "title": "Answer the question 3",
+               "type": "thankyou_screen",
+               "description": "",
+               "response": "choice2",
+               "choices": [
+                  {
+                     "title": "choice1",
+                     "isSelected": false
+                  },
+                  {
+                     "title": "choice2",
+                     "isSelected": true
+                  },
+                  {
+                     "title": "choice3",
+                     "isSelected": false
+                  }
+               ]
+            },
+            {
+               "id": 5,
+               "title": "Answer the question 3",
+               "type": "welcome_screen",
+               "description": "",
+               "response": "choice2",
+               "choices": [
+                  {
+                     "title": "choice1",
+                     "isSelected": false
+                  },
+                  {
+                     "title": "choice2",
+                     "isSelected": true
+                  },
+                  {
+                     "title": "choice3",
+                     "isSelected": false
+                  }
+               ]
             }
          ]
       },

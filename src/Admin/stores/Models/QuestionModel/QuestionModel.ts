@@ -1,20 +1,27 @@
 import { observable, action } from 'mobx'
 
 class QuestionModel {
-   id: number
-   @observable type: string
-   @observable title: string
-   @observable description: any
-   @observable isRequired: boolean
+   id
+   @observable type: string = ''
+   @observable title: string = ''
+   @observable description: any = ''
+   @observable isRequired: boolean = false
    @observable hasDescription: boolean
-   @observable imageURL: string
+   @observable imageURL: string = ''
 
-   constructor(question) {
+   constructor(type, question?) {
       this.hasDescription = false
+      this.type = type
+      if (question) {
+         this.init(question)
+      }
+   }
+
+   @action.bound
+   init(question) {
       this.title = question.title
       this.description = question.description
       this.isRequired = question.isRequired
-      this.type = question.type
       this.id = question.id
       this.imageURL = question.imageURL
    }
@@ -35,8 +42,8 @@ class QuestionModel {
    }
 
    @action.bound
-   onChangeDescription(description) {
-      this.description = description
+   onChangeDescription(e: any) {
+      this.description = e.target.value
    }
 }
 

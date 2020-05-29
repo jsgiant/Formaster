@@ -16,11 +16,7 @@ import {
    FormName,
    NameContainer,
    FooterContainer,
-   IconContainer,
-   ResponseButton,
-   OptionsList,
-   OptionItem,
-   DeleteOption
+   ResponseButton
 } from './styledComponents'
 import FormNamePopup from '../FormNamePopup'
 

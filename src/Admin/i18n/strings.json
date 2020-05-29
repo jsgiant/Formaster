@@ -8,5 +8,27 @@
    "formcard": {
       "create_card_title": "Create a Form",
       "options": ["View", "Rename", "Delete"]
-   }
+   },
+   "question_options": [
+      {
+         "title": "Welcome Screen",
+         "type": "welcome_screen"
+      },
+      {
+         "title": "Thankyou Screen",
+         "type": "thankyou_screen"
+      },
+      {
+         "title": "Long Text",
+         "type": "large_text"
+      },
+      {
+         "title": "Short Text",
+         "type": "short_text"
+      },
+      {
+         "title": "Multiple Choice",
+         "type": "mcq"
+      }
+   ]
 }

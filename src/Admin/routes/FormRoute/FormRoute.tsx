@@ -19,12 +19,12 @@ class FormRoute extends React.Component<FormScreenRouteProps> {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
-      history.push(LOGIN_PATH)
+      history.replace(LOGIN_PATH)
    }
 
    onNavigateBack = () => {
       const { history } = this.props
-      history.push(paths.dashboard)
+      history.replace(paths.dashboard)
    }
    render() {
       return (
@@ -32,7 +32,7 @@ class FormRoute extends React.Component<FormScreenRouteProps> {
             onClickLogout={this.onClickLogout}
             onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
-            formDetails={new FormModel(formsData.forms[0])}
+            formDetails={new FormModel(formsData.forms[1])}
          />
       )
    }
