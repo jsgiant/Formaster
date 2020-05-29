@@ -1,0 +1,12 @@
+{
+   "baseURL": "localhost:port/api/formaster",
+   "login": "/login/v1/",
+   "get_forms": "/forms/v1/",
+   "create_form": "/form/v1/",
+   "delete_form": "/form/{form_id}/v1/",
+   "rename_form": "/form/{form_id}/v1/",
+   "post_questions": "/form/{form_id}/questions/v1/",
+   "get_questions": "/form/{form_id}/questions/v1/",
+   "put_questions": "/form/{form_id}/questions/v1/",
+   "post_response": "/form/{form_id}/response/v1/"
+}

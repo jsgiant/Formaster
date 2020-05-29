@@ -83,60 +83,47 @@
                ]
             }
          ]
+      },
+      {
+         "id": 3,
+         "name": "New form",
+         "questions": [
+            {
+               "id": 1,
+               "title": "Answer the question 1",
+               "type": "short_text",
+               "description": "",
+               "response": "answer"
+            },
+            {
+               "id": 2,
+               "title": "Answer the question 2",
+               "type": "large_text",
+               "description": "",
+               "response": "answer"
+            },
+            {
+               "id": 3,
+               "title": "Answer the question 3",
+               "type": "mcq",
+               "description": "",
+               "response": "answer",
+               "choices": [
+                  {
+                     "title": "choice1",
+                     "isSelected": false
+                  },
+                  {
+                     "title": "choice2",
+                     "isSelected": true
+                  },
+                  {
+                     "title": "choice3",
+                     "isSelected": false
+                  }
+               ]
+            }
+         ]
       }
-   ],
-   "post_forms_resonse": {
-      "form_name": "New form"
-   },
-
-   "delete_form_data": {
-      "forms": [
-         {
-            "id": 1,
-            "name": "Form 1",
-            "questions": [
-               {
-                  "id": 1,
-                  "title": "Answer the question 1",
-                  "type": "short_text",
-                  "isRequired": true,
-                  "description": "",
-                  "response": "answer"
-               },
-               {
-                  "id": 2,
-                  "title": "Answer the question 2",
-                  "type": "large_text",
-                  "isRequired": false,
-                  "description": "",
-                  "response": "answer"
-               },
-               {
-                  "id": 3,
-                  "title": "Answer the question 3",
-                  "type": "mcq",
-                  "description": "",
-                  "response": "choice2",
-                  "choices": [
-                     {
-                        "title": "choice1",
-                        "isSelected": false
-                     },
-                     {
-                        "title": "choice2",
-                        "isSelected": true
-                     },
-                     {
-                        "title": "choice3",
-                        "isSelected": false
-                     }
-                  ]
-               }
-            ]
-         }
-      ]
-   },
-   "put_forms_data": {
-      "form_name": "Renamed form"
-   }
+   ]
 }

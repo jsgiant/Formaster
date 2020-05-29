@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import Dashboard from '../../components/Dashboard'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import FormList from '../../components/FormList'
-import { paths } from '../../../constants/Paths'
+import { paths } from '../../../common/constants/Paths'
 
 type DashboardRouteProps = {
    authStore: any
@@ -26,16 +26,23 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
 
    onClickForm = form => {
       const { history } = this.props
-      history.push(paths.form)
+      // history.replace(`/form/${form.id}`)
+      history.replace(paths.form)
    }
 
    renderFormsList = () => {
-      const { formList, onCreateForm, onDeleteForm } = this.props.formStore
+      const {
+         formList,
+         onCreateForm,
+         onDeleteForm,
+         updateFormsAPIError
+      } = this.props.formStore
       return (
          <FormList
             onCreateForm={onCreateForm}
             onDeleteForm={onDeleteForm}
             formsList={formList}
+            apiError={updateFormsAPIError}
             onClickForm={this.onClickForm}
          />
       )

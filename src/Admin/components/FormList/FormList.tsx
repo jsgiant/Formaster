@@ -12,25 +12,23 @@ type FormListProps = {
    onDeleteForm: (form) => void
    onCreateForm: (form) => void
    onClickForm: (form) => void
+   apiError: string
 }
 
 @observer
 class FormList extends React.Component<FormListProps> {
    @observable shouldShowPopup: boolean = false
    @action.bound
-   onTogglePopup() {
+   onShowPopup() {
       this.shouldShowPopup = !this.shouldShowPopup
    }
 
    @action.bound
-   onClickContinue(name) {
-      this.onTogglePopup()
+   async onClickContinue(name) {
+      this.onShowPopup()
       const { onCreateForm } = this.props
-      onCreateForm({
-         id: 45,
-         name: name,
-         questions: []
-      })
+
+      onCreateForm(name)
    }
 
    renderFormCards = () => {
@@ -56,7 +54,7 @@ class FormList extends React.Component<FormListProps> {
                   caption={strings.popup.createCaption}
                />
             )}
-            <CreateFormCard onCreateForm={this.onTogglePopup} />
+            <CreateFormCard onCreateForm={this.onShowPopup} />
             {this.renderFormCards()}
          </FormListContainer>
       )

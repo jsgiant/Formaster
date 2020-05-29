@@ -1,10 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import FormScreenUI from '../../components/FormScreenUI'
-import formsData from './../../../Admin/fixtures/forms-data.json'
+import FormScreenUI from '../../components/FormUI'
+import formsData from '../../fixtures/forms-data.json'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
-import { paths } from '../../../constants/Paths'
-import FormModel from '../../../Admin/stores/Models/FormModel'
+import { paths } from '../../../common/constants/Paths'
+import FormModel from '../../stores/Models/FormModel'
 
 type FormScreenRouteProps = {
    authStore: any
@@ -14,7 +14,7 @@ type FormScreenRouteProps = {
 
 @inject('authStore', 'formStore')
 @observer
-class FormScreenRoute extends React.Component<FormScreenRouteProps> {
+class FormRoute extends React.Component<FormScreenRouteProps> {
    onClickLogout = () => {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
@@ -38,4 +38,4 @@ class FormScreenRoute extends React.Component<FormScreenRouteProps> {
    }
 }
 
-export { FormScreenRoute }
+export { FormRoute }

@@ -1,17 +1,25 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import formData from '../../fixtures/forms-data.json'
 import FormModel from '../Models/FormModel'
+import FormsAPI from '../../services/FormsService/FormsFixture'
 
 class FormStore {
    @observable formList
-   @observable getFormsDataAPIStatus
-   @observable getFormsDataAPIError
-   getFormsAPIService
+   @observable getFormsDataAPIStatus: any
+   @observable getFormsDataAPIError: any
+   @observable postFormsAPIStatus: any
+   @observable postFormsAPIResponse: any
+   @observable putFormsAPIStatus: any
+   @observable putFormsAPIResponse: any
+   @observable deleteFormsAPIStatus: any
+   @observable deleteFormsAPIResponse: any
+   @observable updateFormsAPIError: any
 
-   constructor(getFormsAPIService) {
-      this.getFormsAPIService = getFormsAPIService
+   formService: any
+
+   constructor(formService: FormsAPI) {
+      this.formService = formService
       this.init()
    }
 
@@ -19,6 +27,14 @@ class FormStore {
    init() {
       this.getFormsDataAPIStatus = API_INITIAL
       this.getFormsDataAPIError = null
+      this.postFormsAPIStatus = API_INITIAL
+      this.postFormsAPIResponse = null
+      this.putFormsAPIStatus = API_INITIAL
+      this.putFormsAPIResponse = null
+      this.deleteFormsAPIStatus = API_INITIAL
+      this.deleteFormsAPIResponse = null
+      this.updateFormsAPIError = null
+      this.formList = []
    }
 
    @action.bound
@@ -39,20 +55,90 @@ class FormStore {
    }
 
    @action.bound
-   getUserForms() {
-      const getFormsPromise = this.getFormsAPIService.getFormsAPI()
-      return bindPromiseWithOnSuccess(getFormsPromise)
-         .to(this.setGetFormDataAPIStatus, this.setGetFormDataAPIResponse)
-         .catch(error => this.setGetFormDataAPIError(error))
+   setPostFormsAPIStatus(apiStatus) {
+      this.postFormsAPIStatus = apiStatus
    }
 
    @action.bound
-   onCreateForm(form) {
-      this.formList.push(new FormModel(form))
+   setPostFormsAPIResponse(apiResponse) {
+      this.postFormsAPIResponse = apiResponse
+      //this.getUserForms()
+      //for testing
+      const getFormsPromise = this.formService.getUpdatedFormAPI()
+      this.onBindPromiseWithOnSuccess(
+         getFormsPromise,
+         this.setGetFormDataAPIStatus,
+         this.setGetFormDataAPIResponse,
+         this.setGetFormDataAPIError
+      )
+   }
+
+   @action.bound
+   setPutFormsAPIStatus(apiStatus) {
+      this.putFormsAPIStatus = apiStatus
+   }
+
+   @action.bound
+   setPutFormsAPIResponse(apiResponse) {
+      this.putFormsAPIResponse = apiResponse
+   }
+
+   @action.bound
+   setDeleteFormsAPIStatus(apiStatus) {
+      this.deleteFormsAPIStatus = apiStatus
+   }
+
+   @action.bound
+   setDeleteFormsAPIResponse(apiResponse) {
+      this.deleteFormsAPIResponse = apiResponse
+      //this.getUserForms()
+      // for testing
+      const getFormsPromise = this.formService.getUpdatedFormsAPI()
+      this.onBindPromiseWithOnSuccess(
+         getFormsPromise,
+         this.setGetFormDataAPIStatus,
+         this.setGetFormDataAPIResponse,
+         this.setGetFormDataAPIError
+      )
+   }
+
+   @action.bound
+   setupdateFormsAPIError(apiError) {
+      this.updateFormsAPIError = apiError
+   }
+
+   @action.bound
+   getUserForms(): any {
+      const getFormsPromise = this.formService.getFormsAPI()
+      this.onBindPromiseWithOnSuccess(
+         getFormsPromise,
+         this.setGetFormDataAPIStatus,
+         this.setGetFormDataAPIResponse,
+         this.setGetFormDataAPIError
+      )
+   }
+
+   @action.bound
+   onCreateForm(formname: string): any {
+      const postFormPromise = this.formService.postFormsAPI(formname)
+      return bindPromiseWithOnSuccess(postFormPromise)
+         .to(this.setPostFormsAPIStatus, this.setPostFormsAPIResponse)
+         .catch(error => this.setupdateFormsAPIError(error))
+   }
+
+   @action.bound
+   onBindPromiseWithOnSuccess(promise, setStatus, onSuccess, onFailure) {
+      return bindPromiseWithOnSuccess(promise)
+         .to(setStatus, onSuccess)
+         .catch(error => onFailure(error))
    }
 
    @action.bound
    onDeleteForm(form) {
+      // const deleteFormsResponse = this.formService.deleteFormsAPI(form.id)
+      // return bindPromiseWithOnSuccess(deleteFormsResponse)
+      //    .to(this.setDeleteFormsAPIStatus, this.setDeleteFormsAPIResponse)
+      //    .catch(error => this.setupdateFormsAPIError(error))
       this.formList.remove(form)
    }
 }

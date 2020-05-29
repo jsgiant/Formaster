@@ -7,10 +7,10 @@ import formsData from './../../fixtures/forms-data.json'
 import loginAPIResponse from './../../../Authentication/fixtures/login-api-response.json'
 import AuthService from '../../../Authentication/services/AuthService'
 import AuthStore from '../../../Authentication/stores/AuthStore'
-import GetFormsAPI from '../../services/FormsService/GetFormsAPI'
+import GetFormsAPI from '../../services/GetFormsService'
 import FormStore from '../../stores/FormStore'
 import { DashboardRoute } from './DashboardRoute'
-import { paths } from '../../../constants/Paths'
+import { paths } from '../../../common/constants/Paths'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
 const LoginDisplay = withRouter(({ location }) => (
@@ -58,29 +58,6 @@ describe('dashboard route tests', () => {
    //       expect(getByTestId('test-loader')).not.toBeInTheDocument()
    //    })
    // })
-   it('should test logout button', () => {
-      const route = paths.dashboard
-      history.push(route)
-      const { getByTestId } = render(
-         <Provider authStore={authStore} formStore={formStore}>
-            <Router history={history}>
-               <Route path={paths.dashboard}>
-                  <DashboardRoute history={history} />
-               </Route>
-               <Route path={LOGIN_PATH}>
-                  <LoginDisplay />
-               </Route>
-            </Router>
-         </Provider>
-      )
-
-      fireEvent.click(getByTestId('logout-btn'))
-
-      waitFor(() => {
-         expect(getByTestId('logout-btn')).not.toBeInTheDocument()
-         expect(getByTestId('login-display')).toHaveTextContent(LOGIN_PATH)
-      })
-   })
    it('should test get forms loading state', async () => {
       const { getAByTestId } = render(
          <DashboardRoute
@@ -120,6 +97,29 @@ describe('dashboard route tests', () => {
          expect(getAllByRole('button', 'No responses').length).toBe(
             formsData.forms.length
          )
+      })
+   })
+   it('should test logout button', () => {
+      const route = paths.dashboard
+      history.push(route)
+      const { getByTestId } = render(
+         <Provider authStore={authStore} formStore={formStore}>
+            <Router history={history}>
+               <Route path={paths.dashboard}>
+                  <DashboardRoute history={history} />
+               </Route>
+               <Route path={LOGIN_PATH}>
+                  <LoginDisplay />
+               </Route>
+            </Router>
+         </Provider>
+      )
+
+      fireEvent.click(getByTestId('logout-btn'))
+
+      waitFor(() => {
+         expect(getByTestId('logout-btn')).not.toBeInTheDocument()
+         expect(getByTestId('login-display')).toHaveTextContent(LOGIN_PATH)
       })
    })
 })
