@@ -1,7 +1,10 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { setAccessToken, clearUserSession } from '../../../utils/StorageUtils'
+import {
+   setAccessToken,
+   clearUserSession
+} from '../../../common/utils/StorageUtils'
 
 class AuthStore {
    @observable getLoginAPIStatus

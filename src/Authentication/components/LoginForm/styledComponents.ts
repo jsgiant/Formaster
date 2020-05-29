@@ -77,6 +77,16 @@ export const LoginButton = styled.button`
    margin-bottom: 20px;
    background-color: #0b69ff;
 `
+
+export const LoginButtonWhileLoading = styled.button`
+   ${tw`text-white flex justify-center items-center cursor-wait opacity-50 focus:outline-none`}
+   width: 320px;
+   height: 40px;
+   border-radius: 4px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   background-color: #0b69ff;
+`
 export const ValidationError = styled.span`
    ${tw`text-center text-sm`}align-self: start;
    margin-left: 92px;

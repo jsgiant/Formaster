@@ -2,6 +2,14 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { MdMoreHoriz } from 'react-icons/md'
+import {
+   Menu,
+   MenuList,
+   MenuButton,
+   MenuItem,
+   MenuItems
+} from '@reach/menu-button'
+import '@reach/menu-button/styles.css'
 import strings from '../../i18n/strings.json'
 import {
    FormCardContainer,
@@ -49,6 +57,21 @@ class FormCard extends React.Component<FormCardProps> {
       onDeleteForm(formDetails)
    }
 
+   renderMenuBar = () => {
+      return (
+         <Menu>
+            <MenuButton>
+               <MdMoreHoriz data-testid='test-toggle' />
+            </MenuButton>
+            <MenuList>
+               <MenuItem onSelect={() => {}}>View</MenuItem>
+               <MenuItem onSelect={this.onFormRename}>Rename</MenuItem>
+               <MenuItem onSelect={this.onDeleteForm}>Delete</MenuItem>
+            </MenuList>
+         </Menu>
+      )
+   }
+
    render() {
       const { formDetails, onClickForm } = this.props
       return (
@@ -58,22 +81,7 @@ class FormCard extends React.Component<FormCardProps> {
             </NameContainer>
             <FooterContainer>
                <ResponseButton>No responses</ResponseButton>
-               {!this.isListOpen ? (
-                  <IconContainer
-                     data-testid='test-toggle'
-                     onClick={this.onToogleList}
-                  >
-                     <MdMoreHoriz />
-                  </IconContainer>
-               ) : (
-                  <OptionsList onFocusCapture={this.onToogleList}>
-                     <OptionItem onClick={this.onToogleList}>View</OptionItem>
-                     <OptionItem onClick={this.onFormRename}>Rename</OptionItem>
-                     <DeleteOption onClick={this.onDeleteForm}>
-                        Delete
-                     </DeleteOption>
-                  </OptionsList>
-               )}
+               {this.renderMenuBar()}
 
                {this.shouldShowPopup && (
                   <FormNamePopup

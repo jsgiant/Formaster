@@ -9,7 +9,7 @@ import strings from './../../i18n/strings.json'
 import loginAPIResponse from './../../fixtures/login-api-response.json'
 import { LoginFormRoute } from './LoginFormRoute'
 import { LOGIN_PATH } from '../../constants/Paths'
-import { paths } from '../../../constants/Paths'
+import { paths } from '../../../common/constants/Paths'
 
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>

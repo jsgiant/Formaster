@@ -2,7 +2,7 @@ import React from 'react'
 import { MdSettings } from 'react-icons/md'
 import { FaRegImage } from 'react-icons/fa'
 import { MdMoreHoriz } from 'react-icons/md'
-import strings from './../../i18n/strings.json'
+import strings from '../../i18n/form-strings.json'
 import {
    QuestionWrapper,
    QuestionNumber,

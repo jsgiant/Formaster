@@ -3,10 +3,8 @@ import { Provider } from 'mobx-react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { userRoutes } from './Admin/routes'
-import { stores } from './stores'
+import { stores } from './common/stores'
 import authRoutes from './Authentication/routes'
-import FormScreenUI from './FormScreen/components/FormScreenUI'
-import { formRoutes } from './FormScreen/routes'
 
 const App = () => {
    return (
@@ -15,7 +13,6 @@ const App = () => {
             <Switch>
                {userRoutes}
                {authRoutes}
-               {formRoutes}
             </Switch>
          </Router>
       </Provider>

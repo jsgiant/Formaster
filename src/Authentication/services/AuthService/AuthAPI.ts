@@ -1,7 +1,7 @@
 import { create } from 'apisauce'
 import strings from './../../i18n/strings.json'
-import { networkCallWithApisauce } from '../../../utils/APIUtils'
-import { apiMethods } from '../../../constants/APIConstants'
+import { networkCallWithApisauce } from '../../../common/utils/APIUtils'
+import { apiMethods } from '../../../common/constants/APIConstants'
 
 class AuthService {
    api

@@ -1,5 +1,5 @@
 import React from 'react'
-import strings from './../../i18n/strings.json'
+import strings from './../../i18n/form-strings.json'
 import {
    AddQuestionWrapper,
    AddQuestionButton,

@@ -4,7 +4,7 @@ import { FormScreenUIWrapper } from './styledComponents'
 import FormHeader from '../FormHeader'
 import QuestionList from '../QuestionList'
 
-type FormScreenUIProps = {
+type FormUIProps = {
    onClickLogout: () => void
    onClickPreview: () => void
    formDetails: any
@@ -12,7 +12,7 @@ type FormScreenUIProps = {
 }
 
 @observer
-class FormScreenUI extends React.Component<FormScreenUIProps> {
+class FormUI extends React.Component<FormUIProps> {
    render() {
       const { onClickLogout, onNavigateBack, formDetails } = this.props
       return (
@@ -30,4 +30,4 @@ class FormScreenUI extends React.Component<FormScreenUIProps> {
    }
 }
 
-export { FormScreenUI }
+export { FormUI }

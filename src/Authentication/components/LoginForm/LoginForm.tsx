@@ -1,4 +1,6 @@
 import React from 'react'
+import { API_FETCHING } from '@ib/api-constants'
+import Loader from 'react-loader-spinner'
 
 import strings from '../../i18n/strings.json'
 import {
@@ -9,7 +11,8 @@ import {
    Label,
    UserInput,
    ValidationError,
-   LoginButton
+   LoginButton,
+   LoginButtonWhileLoading
 } from './styledComponents'
 
 type LoginFormProps = {
@@ -17,6 +20,7 @@ type LoginFormProps = {
    password: any
    errorMessage: string
    onClickLogin: () => void
+   apiStatus: number
    onChangeUsername: (e) => void
    onChangePassword: (e) => void
 }
@@ -29,7 +33,8 @@ class LoginForm extends React.Component<LoginFormProps> {
          errorMessage,
          onClickLogin,
          onChangePassword,
-         onChangeUsername
+         onChangeUsername,
+         apiStatus
       } = this.props
       return (
          <LoginContainer>
@@ -52,9 +57,20 @@ class LoginForm extends React.Component<LoginFormProps> {
                   placeholder={strings.login.passwordPlaceholder}
                />
 
-               <LoginButton data-testid='login-btn' onClick={onClickLogin}>
-                  Login
-               </LoginButton>
+               {apiStatus === API_FETCHING ? (
+                  <LoginButtonWhileLoading>
+                     <Loader
+                        type='TailSpin'
+                        color='#f3f3f3'
+                        height={20}
+                        width={20}
+                     />
+                  </LoginButtonWhileLoading>
+               ) : (
+                  <LoginButton data-testid='login-btn' onClick={onClickLogin}>
+                     Login
+                  </LoginButton>
+               )}
             </LoginFormWrapper>
          </LoginContainer>
       )

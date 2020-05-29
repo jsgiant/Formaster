@@ -5,8 +5,8 @@ import { observer, inject } from 'mobx-react'
 import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
-import { paths } from '../../../constants/Paths'
-import { getAccessToken } from '../../../utils/StorageUtils'
+import { paths } from '../../../common/constants/Paths'
+import { getAccessToken } from '../../../common/utils/StorageUtils'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -42,7 +42,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
 
    onLoginSuccess = () => {
       const { history } = this.props
-      history.push(paths.dashboard)
+      history.replace(paths.dashboard)
       return null
    }
 
@@ -62,11 +62,13 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    render() {
+      const { getLoginAPIStatus } = this.props.authStore
       if (getAccessToken() !== undefined) {
          return this.onLoginSuccess()
       }
       return (
          <LoginForm
+            apiStatus={getLoginAPIStatus}
             userName={this.userName}
             password={this.password}
             errorMessage={this.errorMessage}
