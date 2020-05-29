@@ -6,6 +6,7 @@
       "empty": ""
    },
    "formcard": {
+      "create_card_title": "Create a Form",
       "options": ["View", "Rename", "Delete"]
    }
 }

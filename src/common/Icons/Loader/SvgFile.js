@@ -11,6 +11,7 @@ class Loader extends Component {
       const { width, height, fill } = this.props
       return (
          <svg
+            data-testid='test-loader'
             width={width}
             height={height}
             viewBox='0 0 120 30'

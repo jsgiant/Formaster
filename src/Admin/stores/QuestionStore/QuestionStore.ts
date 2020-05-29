@@ -17,7 +17,7 @@ class QuestionStore {
 
    @action.bound
    onAddQuestion(question) {
-      // this.questionsList.push(new QuestionModel(question))
+      this.questionsList.push(new QuestionModel(question))
    }
 
    @action.bound

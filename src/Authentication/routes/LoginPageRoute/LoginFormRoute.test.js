@@ -114,7 +114,7 @@ describe('loginRoute tests', () => {
       const loginButton = getByRole('button', { name: 'Login' })
 
       const mockSuccessPromise = new Promise(function(resolve, reject) {
-         resolve(loginAPIResponse.customer)
+         resolve(loginAPIResponse.admin)
       })
 
       const mockLoginAPI = jest.fn()

@@ -30,8 +30,10 @@ describe('LoginForm', () => {
       expect(passwordField.value).toBe(password)
    })
 
-   it('should render given error message', () => {
-      const { getByText } = render(<LoginForm errorMessage='error' />)
+   it('should render given username error message', () => {
+      const { getByText, getByRole } = render(
+         <LoginForm errorMessage='error' />
+      )
       expect(getByText(/error/)).toBeInTheDocument()
    })
 
