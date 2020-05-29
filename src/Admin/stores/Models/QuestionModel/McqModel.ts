@@ -2,16 +2,24 @@ import { observable, action } from 'mobx'
 import QuestionModel from '.'
 
 class McqModel extends QuestionModel {
-   @observable mcqChoices: Array<string> = []
+   @observable mcqChoices: Array<any> = [{ title: '', isSelected: false }]
 
-   constructor(question) {
-      super(question)
+   constructor(type, question?) {
+      super(type, question)
+      if (question) {
+         this.init(question)
+      }
+   }
+
+   @action.bound
+   init(question) {
       this.mcqChoices = question.choices
    }
 
    @action.bound
-   onChangeChoiceText(index, text) {
-      this.mcqChoices[index] = text
+   onChangeChoiceText(e) {
+      this.mcqChoices[e.target.tabIndex] = e.target.value
+      console.log(this.mcqChoices[e.target.tabIndex])
    }
 
    @action
