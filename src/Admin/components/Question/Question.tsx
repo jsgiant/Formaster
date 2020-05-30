@@ -44,7 +44,8 @@ class Question extends React.Component<QuestionProps> {
    }
 
    renderQuestion = () => {
-      const { title, type } = this.props.question
+      const { title, id, type } = this.props.question
+
       switch (type) {
          case strings.welcome_screen:
             return (
