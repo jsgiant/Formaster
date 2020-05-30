@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../../../common/components/Header/Header'
+import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
+import Header from '../../../Common/components/Header/Header'
 import { DashboardWrapper } from './styledComponents'
-import LoadingWrapperWithFailure from '../../../common/components/LoadingWrapperWithFailure'
 
 type DashboardProps = {
    onLogoutClick: () => void

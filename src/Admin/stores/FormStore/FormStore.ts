@@ -1,11 +1,12 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import FormModel from '../Models/FormModel'
 import FormsAPI from '../../services/FormsService/FormsFixture'
+import FormModel from '../Models/FormModel'
 
 class FormStore {
    @observable formList
+   @observable currentForm
    @observable getFormsDataAPIStatus: any
    @observable getFormsDataAPIError: any
    @observable postFormsAPIStatus: any
@@ -15,6 +16,8 @@ class FormStore {
    @observable deleteFormsAPIStatus: any
    @observable deleteFormsAPIResponse: any
    @observable updateFormsAPIError: any
+   @observable getQuestionsAPIStatus: any
+   @observable getQuestionsAPIError: any
 
    formService: any
 
@@ -32,6 +35,8 @@ class FormStore {
       this.putFormsAPIStatus = API_INITIAL
       this.putFormsAPIResponse = null
       this.deleteFormsAPIStatus = API_INITIAL
+      this.getFormsDataAPIStatus = API_INITIAL
+      this.getFormsDataAPIError = null
       this.deleteFormsAPIResponse = null
       this.updateFormsAPIError = null
       this.formList = []
@@ -108,6 +113,21 @@ class FormStore {
    }
 
    @action.bound
+   setGetQuestionsAPIStatus(apiStatus) {
+      this.getQuestionsAPIStatus = apiStatus
+   }
+
+   @action.bound
+   setGetQuestionsAPIError(apiError) {
+      this.getQuestionsAPIError = apiError
+   }
+
+   @action.bound
+   setGetQuestionsAPIResponse(apiResponse) {
+      this.currentForm = new FormModel(apiResponse)
+   }
+
+   @action.bound
    getUserForms(): any {
       const getFormsPromise = this.formService.getFormsAPI()
       this.onBindPromiseWithOnSuccess(
@@ -119,11 +139,25 @@ class FormStore {
    }
 
    @action.bound
-   onCreateForm(formname: string): any {
-      const postFormPromise = this.formService.postFormsAPI(formname)
-      return bindPromiseWithOnSuccess(postFormPromise)
-         .to(this.setPostFormsAPIStatus, this.setPostFormsAPIResponse)
-         .catch(error => this.setupdateFormsAPIError(error))
+   getFormQuestions(formId: number) {
+      const getQuestionsPromise = this.formService.getQuestionsAPI(formId)
+      this.onBindPromiseWithOnSuccess(
+         getQuestionsPromise,
+         this.setGetQuestionsAPIStatus,
+         this.setGetQuestionsAPIResponse,
+         this.setGetQuestionsAPIError
+      )
+   }
+
+   @action.bound
+   onCreateForm(formName: string): any {
+      const postFormPromise = this.formService.postFormsAPI(formName)
+      this.onBindPromiseWithOnSuccess(
+         postFormPromise,
+         this.setPostFormsAPIStatus,
+         this.setPostFormsAPIResponse,
+         this.setupdateFormsAPIError
+      )
    }
 
    @action.bound

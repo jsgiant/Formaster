@@ -1,8 +1,13 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { FormScreenUIWrapper } from './styledComponents'
+import FormPreview from '../../../Common/components/FormPreview'
 import FormHeader from '../FormHeader'
 import QuestionList from '../QuestionList'
+import {
+   FormScreenUIWrapper,
+   FormDetails,
+   FormPreviewWrapper
+} from './styledComponents'
 
 type FormUIProps = {
    onClickLogout: () => void
@@ -24,7 +29,14 @@ class FormUI extends React.Component<FormUIProps> {
                name={formDetails.name}
                onClickPublish={() => {}}
             />
-            <QuestionList questionStore={formDetails.questionStore} />
+            <FormDetails>
+               <QuestionList questionStore={formDetails.questionStore} />
+               <FormPreviewWrapper>
+                  <FormPreview
+                     questions={formDetails.questionStore.questionsList}
+                  />
+               </FormPreviewWrapper>
+            </FormDetails>
          </FormScreenUIWrapper>
       )
    }

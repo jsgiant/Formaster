@@ -1,9 +1,8 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import Dashboard from '../../components/Dashboard'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import Dashboard from '../../components/Dashboard'
 import FormList from '../../components/FormList'
-import { paths } from '../../../common/constants/Paths'
 
 type DashboardRouteProps = {
    authStore: any
@@ -24,10 +23,11 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
       getUserForms()
    }
 
-   onClickForm = form => {
+   onClickForm = formId => {
+      console.log(formId)
       const { history } = this.props
-      // history.replace(`/form/${form.id}`)
-      history.replace(paths.form)
+      history.replace(`/form/${formId}/v1`)
+      // history.replace(paths.form)
    }
 
    renderFormsList = () => {

@@ -1,8 +1,8 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import Question from '../Question'
 import AddQuestion from '../AddQuestion'
 import { QuestionListWrapper } from './styledComponents'
-import { observer } from 'mobx-react'
 
 type QuestionListProps = {
    questionStore: any
@@ -12,7 +12,6 @@ type QuestionListProps = {
 class QuestionList extends React.Component<QuestionListProps> {
    renderQuestionList = () => {
       const { questionsList, onDeleteQuestion } = this.props.questionStore
-      console.log(onDeleteQuestion)
       return questionsList.map(question => {
          return (
             <Question

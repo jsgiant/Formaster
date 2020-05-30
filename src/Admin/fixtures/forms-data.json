@@ -26,62 +26,21 @@
                "type": "mcq",
                "description": "",
                "response": "choice2",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
+               "choices": ["choice1", "choice2", "choice3"]
             },
             {
                "id": 4,
                "title": "Answer the question 3",
                "type": "thankyou_screen",
                "description": "",
-               "response": "choice2",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
+               "response": "choice2"
             },
             {
                "id": 5,
                "title": "Answer the question 3",
                "type": "welcome_screen",
                "description": "",
-               "response": "choice2",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
+               "response": "choice2"
             }
          ]
       },
@@ -109,20 +68,7 @@
                "type": "mcq",
                "description": "",
                "response": "answer",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
+               "choices": ["choice1", "choice2", "choice3"]
             }
          ]
       }

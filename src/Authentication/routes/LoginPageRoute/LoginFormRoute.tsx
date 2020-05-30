@@ -2,11 +2,11 @@ import React from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
+import { paths } from '../../../Common/constants/Paths'
+import { getAccessToken } from '../../../Common/utils/StorageUtils'
 import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
-import { paths } from '../../../common/constants/Paths'
-import { getAccessToken } from '../../../common/utils/StorageUtils'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -52,7 +52,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    @action.bound
-   onChangeUsername(e) {
+   onChangeUserName(e) {
       this.userName = e.target.value
    }
 
@@ -73,7 +73,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
             password={this.password}
             errorMessage={this.errorMessage}
             onClickLogin={this.onClickLogin}
-            onChangeUsername={this.onChangeUsername}
+            onChangeUserName={this.onChangeUserName}
             onChangePassword={this.onChangePassword}
          />
       )

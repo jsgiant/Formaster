@@ -27,8 +27,8 @@ class QuestionModel {
    }
 
    @action.bound
-   onChangeTitle(e: any) {
-      this.title = e.target.value
+   onChangeTitle(title) {
+      this.title = title
    }
 
    @action.bound
@@ -42,8 +42,8 @@ class QuestionModel {
    }
 
    @action.bound
-   onChangeDescription(e: any) {
-      this.description = e.target.value
+   onChangeDescription(description) {
+      this.description = description
    }
 }
 

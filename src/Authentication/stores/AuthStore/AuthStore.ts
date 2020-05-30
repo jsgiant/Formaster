@@ -4,7 +4,7 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import {
    setAccessToken,
    clearUserSession
-} from '../../../common/utils/StorageUtils'
+} from '../../../Common/utils/StorageUtils'
 
 class AuthStore {
    @observable getLoginAPIStatus

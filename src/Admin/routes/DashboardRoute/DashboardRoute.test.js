@@ -3,15 +3,17 @@ import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, getByTestId } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
-import formsData from './../../fixtures/forms-data.json'
-import loginAPIResponse from './../../../Authentication/fixtures/login-api-response.json'
+
 import AuthService from '../../../Authentication/services/AuthService'
 import AuthStore from '../../../Authentication/stores/AuthStore'
+import { paths } from '../../../Common/constants/Paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+
+import formsData from './../../fixtures/forms-data.json'
 import GetFormsAPI from '../../services/GetFormsService'
 import FormStore from '../../stores/FormStore'
+
 import { DashboardRoute } from './DashboardRoute'
-import { paths } from '../../../common/constants/Paths'
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
 const LoginDisplay = withRouter(({ location }) => (
    <div data-testid='login-display'>LoginForm</div>

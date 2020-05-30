@@ -21,7 +21,7 @@ type LoginFormProps = {
    errorMessage: string
    onClickLogin: () => void
    apiStatus: number
-   onChangeUsername: (e) => void
+   onChangeUserName: (e) => void
    onChangePassword: (e) => void
 }
 
@@ -33,7 +33,7 @@ class LoginForm extends React.Component<LoginFormProps> {
          errorMessage,
          onClickLogin,
          onChangePassword,
-         onChangeUsername,
+         onChangeUserName,
          apiStatus
       } = this.props
       return (
@@ -44,7 +44,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                <ValidationError>{errorMessage}</ValidationError>
                <Label>{strings.login.usernameLabel}</Label>
                <UserInput
-                  onChange={onChangeUsername}
+                  onChange={onChangeUserName}
                   value={userName}
                   type='name'
                   placeholder={strings.login.usernamePlaceholder}

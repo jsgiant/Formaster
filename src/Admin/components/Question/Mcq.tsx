@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import { FiCheck } from 'react-icons/fi'
 import strings from './../../i18n/form-strings.json'
 import {
@@ -12,23 +13,25 @@ type McqQuestionProps = {
    onChangeText: (name) => void
    text: string
    choices: Array<any>
-   onAddNewChoice: () => void
+   onAddOrRemoveChoice: (event) => void
    onChangeChoiceText: (event) => void
 }
 
+@observer
 class McqQuestion extends React.Component<McqQuestionProps> {
    renderChoices = () => {
-      const { choices, onChangeChoiceText } = this.props
+      const { choices, onChangeChoiceText, onAddOrRemoveChoice } = this.props
       return choices.map((choice, index) => {
          return (
             <>
                <ChoiceContainer>
-                  -
+                  {choice !== '' && '-'}
                   <Choice
                      key={index}
-                     defaultValue={choice.title}
+                     defaultValue={choice}
                      tabIndex={index}
                      onChange={onChangeChoiceText}
+                     onKeyDown={onAddOrRemoveChoice}
                      placeholder={strings.mcq_placeholder}
                   />
                </ChoiceContainer>
@@ -56,6 +59,3 @@ class McqQuestion extends React.Component<McqQuestionProps> {
 }
 
 export default McqQuestion
-
-// delete choice
-//  remove -

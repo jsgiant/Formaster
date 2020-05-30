@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { getAccessToken } from '../../utils/StorageUtils'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import { getAccessToken } from '../../utils/StorageUtils'
 
 type ProtectedRouteProps = {
    component: any
