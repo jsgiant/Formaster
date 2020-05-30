@@ -3,6 +3,8 @@ import QuestionModel from '.'
 
 class McqModel extends QuestionModel {
    @observable mcqChoices: Array<any> = ['']
+   @observable title
+   id
 
    constructor(type, question?) {
       super(type, question)
@@ -13,6 +15,8 @@ class McqModel extends QuestionModel {
 
    @action.bound
    init(question) {
+      this.id = question.id
+      this.title = question.title
       this.mcqChoices = question.choices
    }
 

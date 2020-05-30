@@ -23,25 +23,21 @@ class McqQuestion extends React.Component<McqQuestionProps> {
       const { choices, onChangeChoiceText, onAddOrRemoveChoice } = this.props
       return choices.map((choice, index) => {
          return (
-            <>
-               <ChoiceContainer>
-                  {choice !== '' && '-'}
-                  <Choice
-                     key={index}
-                     defaultValue={choice}
-                     tabIndex={index}
-                     onChange={onChangeChoiceText}
-                     onKeyDown={onAddOrRemoveChoice}
-                     placeholder={strings.mcq_placeholder}
-                  />
-               </ChoiceContainer>
-            </>
+            <ChoiceContainer key={index}>
+               {choice !== '' && '-'}
+               <Choice
+                  defaultValue={choice}
+                  tabIndex={index}
+                  onChange={onChangeChoiceText}
+                  onKeyDown={onAddOrRemoveChoice}
+                  placeholder={strings.mcq_placeholder}
+               />
+            </ChoiceContainer>
          )
       })
    }
    render() {
       const { onChangeText, text } = this.props
-
       return (
          <>
             <McqIcon>

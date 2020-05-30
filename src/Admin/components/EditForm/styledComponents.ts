@@ -8,5 +8,5 @@ export const FormDetails = styled.div`
    ${tw`w-full max-h-screen  flex flex-wrap`}
 `
 export const FormPreviewWrapper = styled.div`
-   ${tw` flex max-h-screen items-center p-5`}width: 48%
+   ${tw` flex max-h-screen h-full items-center p-5`}width: 48%
 `

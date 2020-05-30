@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import strings from './../../i18n/strings.json'
+import NoDataView from '../NoDataView'
 import {
    FormPreviewContainer,
    PaginationButtons,
@@ -40,6 +41,10 @@ class FormPreview extends React.Component<FormPreviewProps> {
 
    renderQuestions = () => {
       const { questions } = this.props
+
+      if (questions.length === 0) {
+         return <NoDataView />
+      }
       switch (questions[this.currentQuestion].type) {
          case strings.short_text:
             return (
@@ -64,9 +69,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
       const { questions } = this.props
       return (
          <FormPreviewContainer>
-            {questions.length && (
-               <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
-            )}
+            <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
             <PaginationContainer>
                <PaginationButtons>
                   <NavigationButton onClick={this.navigateToPreviousAction}>

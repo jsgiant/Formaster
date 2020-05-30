@@ -6,15 +6,15 @@
          "questions": [
             {
                "id": 1,
-               "title": "Answer the question 1",
-               "type": "short_text",
+               "title": "Welcome🙏",
+               "type": "welcome_screen",
                "isRequired": true,
                "description": "",
                "response": "answer"
             },
             {
                "id": 2,
-               "title": "Answer the question 2",
+               "title": "Large text question",
                "type": "large_text",
                "isRequired": false,
                "description": "",
@@ -22,23 +22,23 @@
             },
             {
                "id": 3,
-               "title": "Answer the question 3",
+               "title": "Short text question",
+               "type": "short_text",
+               "description": "",
+               "response": "choice2"
+            },
+            {
+               "id": 4,
+               "title": "Choose the answer",
                "type": "mcq",
                "description": "",
                "response": "choice2",
                "choices": ["choice1", "choice2", "choice3"]
             },
             {
-               "id": 4,
-               "title": "Answer the question 3",
-               "type": "thankyou_screen",
-               "description": "",
-               "response": "choice2"
-            },
-            {
                "id": 5,
-               "title": "Answer the question 3",
-               "type": "welcome_screen",
+               "title": "Thank you👍!",
+               "type": "thankyou_screen",
                "description": "",
                "response": "choice2"
             }

@@ -24,7 +24,7 @@ class ShortTextQuestionPreview extends Component<
                <FieldNumber>{question.id}.</FieldNumber>
                {question.title}
             </FieldTitle>
-            {question.hasDescription && (
+            {!question.hasDescription && (
                <FieldDescription>{question.description}</FieldDescription>
             )}
             <FieldResponse placeholder={strings.response_placeholder} />

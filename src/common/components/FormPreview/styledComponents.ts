@@ -6,7 +6,7 @@ export const FormPreviewContainer = styled.div`
 `
 
 export const FieldWrapper = styled.div`
-   ${tw`min-h-56 flex justify-center items-center flex-wrap shadow w-full p-5`}
+   ${tw`min-h-56 flex justify-center items-center flex-wrap  w-full p-5`}
 `
 export const FieldTitle = styled.div`
    ${tw`h-10 focus:outline-none text-gray-700 flex`}width: 100%;
@@ -15,7 +15,7 @@ export const FieldTitle = styled.div`
    line-height: 32px;
 `
 export const FieldDescription = styled.div`
-   ${tw`h-10 focus:outline-none text-lg ml-2 text-gray-500 flex`}width: 90%;
+   ${tw`h-10 focus:outline-none text-lg ml-2 text-gray-600 flex`}width: 90%;
    font-weight: unset;
    line-height: 32px;
 `
@@ -26,7 +26,7 @@ export const ScreenText = styled.div`
    line-height: 32px;
 `
 export const FieldNumber = styled.span`
-   ${tw`mr-3 text-lg text-teal-400`}
+   ${tw`mr-3 text-lg text-teal-500`}
 `
 
 export const FieldResponse = styled.input`
