@@ -1,3 +1,9 @@
 {
-   "response_placeholder": "Type your answer here..."
+   "response_placeholder": "Type your answer here...",
+   "welcome_screen": "welcome_screen",
+   "thankyou_screen": "thankyou_screen",
+   "add_question": "Add new question",
+   "short_text": "short_text",
+   "large_text": "large_text",
+   "mcq": "mcq"
 }
