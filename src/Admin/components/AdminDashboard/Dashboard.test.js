@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import formsData from './../../fixtures/forms-data.json'
+import formsData from '../../fixtures/forms-data.json'
 import Dashboard from '.'
 
 describe('dashboard tests', () => {
