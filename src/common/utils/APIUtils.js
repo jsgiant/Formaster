@@ -1,7 +1,6 @@
 import getData from '@ib/api'
 
 import { apiMethods } from '../constants/APIConstants'
-import { getAccessToken } from './StorageUtils'
 
 export const networkCallWithApisauce = async (
    api,
@@ -11,7 +10,6 @@ export const networkCallWithApisauce = async (
 ) => {
    let response = null
    try {
-      api.setHeader('Authorization', `Bearer ${getAccessToken()}`)
       response = await getData(api, url, requestObject, type)
    } catch (error) {
       throw error

@@ -3,13 +3,13 @@ import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
+import { paths } from '../../../Common/constants/Paths'
 import AuthService from '../../services/AuthService'
 import AuthStore from '../../stores/AuthStore'
 import strings from './../../i18n/strings.json'
 import loginAPIResponse from './../../fixtures/login-api-response.json'
-import { LoginFormRoute } from './LoginFormRoute'
 import { LOGIN_PATH } from '../../constants/Paths'
-import { paths } from '../../../common/constants/Paths'
+import { LoginFormRoute } from './LoginFormRoute'
 
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>

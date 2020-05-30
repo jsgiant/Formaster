@@ -41,6 +41,12 @@ class FormsAPI {
          resolve(formsData.delete_form_data)
       })
    }
+
+   getQuestionsAPI(formId: number) {
+      return new Promise(resolve => {
+         resolve(formsData.forms[--formId])
+      })
+   }
 }
 
 export default FormsAPI

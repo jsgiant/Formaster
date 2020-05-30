@@ -8,9 +8,6 @@ export const QuestionWrapper = styled.div`
 export const Required = styled.span`
    ${tw`text-sm text-red-600`}
 `
-export const QuestionNumber = styled.span`
-   ${tw`mr-3`}
-`
 export const QuestionTextInput = styled.input`
    ${tw`h-10 focus:outline-none `}width: 80%
 `

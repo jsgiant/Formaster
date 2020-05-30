@@ -2,7 +2,7 @@ import { observable, action } from 'mobx'
 import QuestionModel from '.'
 
 class McqModel extends QuestionModel {
-   @observable mcqChoices: Array<any> = [{ title: '', isSelected: false }]
+   @observable mcqChoices: Array<any> = ['']
 
    constructor(type, question?) {
       super(type, question)
@@ -17,14 +17,19 @@ class McqModel extends QuestionModel {
    }
 
    @action.bound
-   onChangeChoiceText(e) {
-      this.mcqChoices[e.target.tabIndex] = e.target.value
-      console.log(this.mcqChoices[e.target.tabIndex])
+   onChangeChoiceText(index, value) {
+      this.mcqChoices[index] = value
    }
 
-   @action
-   onAddNewChoice() {
-      this.mcqChoices.push('')
+   @action.bound
+   onAddOrRemoveChoice(keyCode, index, value) {
+      if (keyCode === 13 && value !== '') {
+         this.mcqChoices.push('')
+      } else if (value === '' && keyCode === 8) {
+         if (this.mcqChoices.length !== 1) {
+            this.mcqChoices.splice(index, 1)
+         }
+      }
    }
 }
 

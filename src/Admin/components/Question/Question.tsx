@@ -5,7 +5,6 @@ import { MdDelete } from 'react-icons/md'
 import strings from '../../i18n/form-strings.json'
 import {
    QuestionWrapper,
-   QuestionNumber,
    DescriptionText,
    Toolbar,
    IconContainer,
@@ -24,52 +23,67 @@ type QuestionProps = {
 }
 
 class Question extends React.Component<QuestionProps> {
+   onChangeTitle = e => {
+      const { onChangeTitle } = this.props.question
+      onChangeTitle(e.target.value)
+   }
+
+   onChangeDescription = e => {
+      const { onChangeDescription } = this.props.question
+      onChangeDescription(e.target.value)
+   }
+
+   onAddOrRemoveChoice = e => {
+      const { onAddOrRemoveChoice } = this.props.question
+      onAddOrRemoveChoice(e.keyCode, e.target.tabIndex, e.target.value)
+   }
+
+   onChangeChoiceText = e => {
+      const { onChangeChoiceText } = this.props.question
+      onChangeChoiceText(e.target.tabIndex, e.target.value)
+   }
+
    renderQuestion = () => {
-      const { title, onChangeTitle, type } = this.props.question
+      const { title, type } = this.props.question
       switch (type) {
          case strings.welcome_screen:
-            return <WelcomeScreen onChangeText={onChangeTitle} text={title} />
+            return (
+               <WelcomeScreen onChangeText={this.onChangeTitle} text={title} />
+            )
          case strings.thankyou_screen:
-            return <ThankyouScreen onChangeText={onChangeTitle} text={title} />
+            return (
+               <ThankyouScreen onChangeText={this.onChangeTitle} text={title} />
+            )
          case strings.large_text:
-            return <LargeText onChangeText={onChangeTitle} text={title} />
+            return <LargeText onChangeText={this.onChangeTitle} text={title} />
 
          case strings.mcq:
-            const {
-               mcqChoices,
-               onChangeChoiceText,
-               onAddNewChoice
-            } = this.props.question
+            const { mcqChoices } = this.props.question
             return (
                <McqQuestion
-                  onChangeText={onChangeTitle}
-                  onAddNewChoice={onAddNewChoice}
-                  onChangeChoiceText={onChangeChoiceText}
+                  onChangeText={this.onChangeTitle}
+                  onAddOrRemoveChoice={this.onAddOrRemoveChoice}
+                  onChangeChoiceText={this.onChangeChoiceText}
                   text={title}
                   choices={mcqChoices}
                />
             )
          default:
-            return <ShortText onChangeText={onChangeTitle} text={title} />
+            return <ShortText onChangeText={this.onChangeTitle} text={title} />
       }
    }
 
    render() {
-      const {
-         description,
-         isRequired,
-         hasDescription,
-         onChangeDescription
-      } = this.props.question
+      const { description, hasDescription, isRequired } = this.props.question
       const { question, onDeleteQuestion } = this.props
       return (
          <QuestionWrapper>
             {isRequired && <Required>*</Required>}
             {this.renderQuestion()}
 
-            {hasDescription && (
+            {!hasDescription && (
                <DescriptionText
-                  onChange={onChangeDescription}
+                  onChange={this.onChangeDescription}
                   defaultValue={description}
                   placeholder={strings.description_placeholder}
                />

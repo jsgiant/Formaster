@@ -1,20 +1,29 @@
 import React from 'react'
+import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import FormScreenUI from '../../components/FormUI'
-import formsData from '../../fixtures/forms-data.json'
+import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
-import { paths } from '../../../common/constants/Paths'
-import FormModel from '../../stores/Models/FormModel'
+import { paths } from '../../../Common/constants/Paths'
+import FormScreenUI from '../../components/EditForm'
 
 type FormScreenRouteProps = {
    authStore: any
    formStore: any
    history: any
+   match: any
 }
 
 @inject('authStore', 'formStore')
 @observer
 class FormRoute extends React.Component<FormScreenRouteProps> {
+   @observable formId
+
+   componentDidMount() {
+      const { getFormQuestions } = this.props.formStore
+      this.formId = this.props.match.params.form_id
+      getFormQuestions(this.formId)
+   }
+
    onClickLogout = () => {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
@@ -26,13 +35,31 @@ class FormRoute extends React.Component<FormScreenRouteProps> {
       const { history } = this.props
       history.replace(paths.dashboard)
    }
-   render() {
+
+   renderSuccessUI = () => {
+      const { currentForm } = this.props.formStore
       return (
          <FormScreenUI
             onClickLogout={this.onClickLogout}
             onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
-            formDetails={new FormModel(formsData.forms[1])}
+            formDetails={currentForm}
+         />
+      )
+   }
+
+   render() {
+      const {
+         getQuestionsAPIStatus,
+         getQuestionsAPIError,
+         getFormQuestions
+      } = this.props.formStore
+      return (
+         <LoadingWrapperWithFailure
+            apiStatus={getQuestionsAPIStatus}
+            apiError={getQuestionsAPIError}
+            onRetryClick={() => getFormQuestions(this.formId)}
+            renderSuccessUI={this.renderSuccessUI}
          />
       )
    }

@@ -4,12 +4,12 @@ import {
    API_FAILED,
    API_SUCCESS
 } from '@ib/api-constants'
+import { waitFor } from '@testing-library/react'
 
 import formsData from './../../fixtures/forms-data.json'
 import updateFormData from './../../fixtures/updated-forms-data.json'
-
-import { waitFor } from '@testing-library/react'
 import FormsAPI from '../../services/FormsService/FormsFixture'
+
 import FormStore from '.'
 
 describe('formstore tests', () => {
@@ -149,10 +149,26 @@ describe('formstore tests', () => {
       await formStore.onDeleteForm(formsData.forms[0])
 
       waitFor(() => {
-         expect(formStore.postFormsAPIStatus).toBe(API_SUCCESS)
+         expect(formStore.deleteFormsAPIStatus).toBe(API_SUCCESS)
          expect(formStore.deleteFormsAPIResponse).toBe(
             formsData.delete_form_data
          )
+      })
+   })
+
+   it('should test getQuestionsAPI success state', async () => {
+      const mockSuccessPromise = new Promise(function(resolve) {
+         resolve(formsData.forms[0])
+      })
+
+      const mockQuestionsAPI = jest.fn()
+      mockQuestionsAPI.mockReturnValue(mockSuccessPromise)
+      formsAPI.getQuestionsAPI = mockQuestionsAPI
+      await formStore.getFormQuestions(0)
+
+      waitFor(() => {
+         expect(formStore.getQuestionsAPIStatus).toBe(API_SUCCESS)
+         expect(formStore.getQuestionsAPIResponse).toBe(formsData.forms[0])
       })
    })
 })

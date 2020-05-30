@@ -14,5 +14,5 @@ export const FailureViewMessage = styled.p`
 `
 
 export const RetryButton = styled.button`
-   ${tw`px-8 py-2 bg-teal-400 text-white text-2xl rounded`}
+   ${tw`px-8 py-2 bg-teal-400 focus:outline-none text-white text-2xl rounded`}
 `

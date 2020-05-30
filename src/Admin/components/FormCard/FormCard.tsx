@@ -11,6 +11,7 @@ import {
 } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import strings from '../../i18n/strings.json'
+import FormNamePopup from '../FormNamePopup'
 import {
    FormCardContainer,
    FormName,
@@ -18,7 +19,6 @@ import {
    FooterContainer,
    ResponseButton
 } from './styledComponents'
-import FormNamePopup from '../FormNamePopup'
 
 type FormCardProps = {
    formDetails: any
@@ -72,7 +72,7 @@ class FormCard extends React.Component<FormCardProps> {
       const { formDetails, onClickForm } = this.props
       return (
          <FormCardContainer>
-            <NameContainer onClick={onClickForm}>
+            <NameContainer onClick={() => onClickForm(formDetails.id)}>
                <FormName>{formDetails.name}</FormName>
             </NameContainer>
             <FooterContainer>

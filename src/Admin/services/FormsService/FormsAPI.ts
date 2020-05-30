@@ -1,8 +1,8 @@
 import { create } from 'apisauce'
-import { getAccessToken } from '../../../common/utils/StorageUtils'
-import { apiMethods } from '../../../common/constants/APIConstants'
+import { getAccessToken } from '../../../Common/utils/StorageUtils'
+import { apiMethods } from '../../../Common/constants/APIConstants'
+import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
 import urls from '../../i18n/urls.json'
-import { networkCallWithApisauce } from '../../../common/utils/APIUtils'
 
 class FormsAPI {
    api
@@ -10,7 +10,7 @@ class FormsAPI {
    constructor() {
       this.api = create({
          baseURL: `${urls.baseURL}`,
-         headers: { Authorization: `bearer ${getAccessToken()}` }
+         headers: { Authorization: `Bearer ${getAccessToken()}` }
       })
    }
 
@@ -32,10 +32,10 @@ class FormsAPI {
       )
    }
 
-   putFormsAPI(formname: string) {
+   putFormsAPI(formname: string, formId: number) {
       return networkCallWithApisauce(
          this.api,
-         `${urls.rename_form}`,
+         `/form/${formId}/v1/`,
          { formname },
          apiMethods.put
       )
@@ -44,9 +44,36 @@ class FormsAPI {
    deleteFormsAPI(formId: number) {
       return networkCallWithApisauce(
          this.api,
-         `${urls.delete_form}`,
-         { formId },
+         `/form/${formId}/v1/`,
+         {},
          apiMethods.delete
+      )
+   }
+
+   getQuestionsAPI(formId: number) {
+      return networkCallWithApisauce(
+         this.api,
+         `/form/${formId}/questions/v1`,
+         {},
+         apiMethods.get
+      )
+   }
+
+   postQuestionsAPI(formId: number, questions) {
+      return networkCallWithApisauce(
+         this.api,
+         `/form/${formId}/questions/v1`,
+         { questions },
+         apiMethods.post
+      )
+   }
+
+   putQuestionsAPI(formId: number, questions) {
+      return networkCallWithApisauce(
+         this.api,
+         `/form/${formId}/questions/v1`,
+         { questions },
+         apiMethods.put
       )
    }
 }
