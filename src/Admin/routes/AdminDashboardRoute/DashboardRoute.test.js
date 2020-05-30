@@ -9,7 +9,7 @@ import AuthStore from '../../../Authentication/stores/AuthStore'
 import { paths } from '../../../Common/constants/Paths'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
-import formsData from './../../fixtures/forms-data.json'
+import formsData from '../../fixtures/forms-data.json'
 import GetFormsAPI from '../../services/GetFormsService'
 import FormStore from '../../stores/FormStore'
 

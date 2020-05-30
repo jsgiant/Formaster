@@ -1,7 +1,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
-import Dashboard from '../../components/Dashboard'
+import Dashboard from '../../components/AdminDashboard'
 import FormList from '../../components/FormList'
 
 type DashboardRouteProps = {
