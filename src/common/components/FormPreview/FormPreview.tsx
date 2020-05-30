@@ -1,55 +1,83 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import { observable, action } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import strings from './../../i18n/strings.json'
 import {
    FormPreviewContainer,
-   FieldTitle,
-   FieldNumber,
-   FieldWrapper,
-   FieldResponse,
    PaginationButtons,
    PaginationContainer,
+   FieldWrapper,
    NavigationButton
 } from './styledComponents'
+import ShortTextQuestionPreview from './ShortTextQuestionPreview'
+import LongTextQuestionPreview from './LongTextQuestionPreview'
+import ScreenPreview from './ScreenPreview'
+import McqPreview from './McqPreview'
 
 type FormPreviewProps = {
-   questions: Array<any>
+   questions: any
 }
 
 @observer
 class FormPreview extends React.Component<FormPreviewProps> {
+   @observable currentQuestion: number = 0
+
+   @action.bound
+   navigateToPreviousAction() {
+      if (this.currentQuestion !== 0) {
+         --this.currentQuestion
+      }
+   }
+
+   @action.bound
+   navigateToNextQuestion() {
+      const { questions } = this.props
+      if (this.currentQuestion !== questions.length - 1) {
+         ++this.currentQuestion
+      }
+   }
+
    renderQuestions = () => {
       const { questions } = this.props
+      switch (questions[this.currentQuestion].type) {
+         case strings.short_text:
+            return (
+               <ShortTextQuestionPreview
+                  question={questions[this.currentQuestion]}
+               />
+            )
+         case strings.large_text:
+            return (
+               <LongTextQuestionPreview
+                  question={questions[this.currentQuestion]}
+               />
+            )
+         case strings.mcq:
+            return <McqPreview question={questions[this.currentQuestion]} />
+         default:
+            return <ScreenPreview question={questions[this.currentQuestion]} />
+      }
+   }
+
+   render() {
+      const { questions } = this.props
       return (
-         <FieldWrapper>
-            <FieldTitle>
-               <FieldNumber>1.</FieldNumber>
-               {questions[0].title}
-            </FieldTitle>
-            <FieldResponse placeholder={strings.response_placeholder} />
+         <FormPreviewContainer>
+            {questions.length && (
+               <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
+            )}
             <PaginationContainer>
                <PaginationButtons>
-                  <NavigationButton>
+                  <NavigationButton onClick={this.navigateToPreviousAction}>
                      <IoIosArrowUp />
                   </NavigationButton>
-                  <NavigationButton>
+                  <NavigationButton onClick={this.navigateToNextQuestion}>
                      <IoIosArrowDown />
                   </NavigationButton>
                </PaginationButtons>
             </PaginationContainer>
-         </FieldWrapper>
-      )
-      //   return questions.map(question => (
-      //      <FieldWrapper>
-      //         <FieldTitle>{question.title}</FieldTitle>
-      //      </FieldWrapper>
-      //   ))
-   }
-
-   render() {
-      return (
-         <FormPreviewContainer>{this.renderQuestions()}</FormPreviewContainer>
+         </FormPreviewContainer>
       )
    }
 }
