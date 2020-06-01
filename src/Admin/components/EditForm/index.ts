@@ -1,3 +1,3 @@
-import { FormUI } from './FormUI'
+import { EditForm } from './EditForm'
 
-export default FormUI
+export default EditForm

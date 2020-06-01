@@ -8,6 +8,7 @@ class QuestionModel {
    @observable isRequired: boolean = false
    @observable hasDescription: boolean
    @observable imageURL: string = ''
+   @observable response: string = ''
 
    constructor(type, question?) {
       this.hasDescription = false
@@ -24,6 +25,11 @@ class QuestionModel {
       this.isRequired = question.isRequired
       this.id = question.id
       this.imageURL = question.imageURL
+   }
+
+   @action.bound
+   onChangeResponse(updatedResponse) {
+      this.response = updatedResponse
    }
 
    @action.bound

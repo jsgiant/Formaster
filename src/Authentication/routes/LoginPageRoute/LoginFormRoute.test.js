@@ -9,7 +9,7 @@ import AuthStore from '../../stores/AuthStore'
 import strings from './../../i18n/strings.json'
 import loginAPIResponse from './../../fixtures/login-api-response.json'
 import { LOGIN_PATH } from '../../constants/Paths'
-import { LoginFormRoute } from './LoginFormRoute'
+import LoginFormRoute from './LoginFormRoute'
 
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
@@ -69,7 +69,7 @@ describe('loginRoute tests', () => {
       const passwordField = getByPlaceholderText(passwordPlaceholder)
       const loginButton = getByRole('button', { name: 'Login' })
 
-      const mockFailurePromise = new Promise(function(resolve, reject) {
+      const mockFailurePromise = new Promise((_, reject) => {
          reject(new Error('Network Error'))
       }).catch()
 
@@ -113,7 +113,7 @@ describe('loginRoute tests', () => {
       const passwordField = getByPlaceholderText(passwordPlaceholder)
       const loginButton = getByRole('button', { name: 'Login' })
 
-      const mockSuccessPromise = new Promise(function(resolve, reject) {
+      const mockSuccessPromise = new Promise(resolve => {
          resolve(loginAPIResponse.admin)
       })
 

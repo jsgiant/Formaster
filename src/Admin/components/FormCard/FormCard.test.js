@@ -1,4 +1,5 @@
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { render, fireEvent } from '@testing-library/react'
 import formsData from './../../fixtures/forms-data.json'
 import FormCard from '.'
@@ -15,17 +16,10 @@ describe('Formcard tests', () => {
       const { getByText, getByTestId } = render(
          <FormCard formDetails={formDetails} />
       )
-      fireEvent.click(getByTestId('test-toggle'))
+
+      act(() => {
+         fireEvent.click(getByTestId('test-toggle'))
+      })
       expect(getByText('Delete')).toBeInTheDocument()
-   })
-
-   it('should test rename popover on clicking rename', () => {
-      const { getByText, getByTestId, getByRole } = render(
-         <FormCard formDetails={formDetails} />
-      )
-      fireEvent.click(getByTestId('test-toggle'))
-      fireEvent.click(getByText('Rename'))
-
-      expect(getByRole('button', { name: 'Continue' })).toBeInTheDocument()
    })
 })

@@ -5,16 +5,16 @@ import LoginForm from '.'
 
 describe('LoginForm', () => {
    it('should render given username', () => {
-      const username = 'test-username'
+      const userName = 'test-username'
       const mockFn = jest.fn()
       const { getByPlaceholderText } = render(
-         <LoginForm userName={username} onChangeUsername={mockFn} />
+         <LoginForm userName={userName} onChangeUserName={mockFn} />
       )
 
       const usernameField = getByPlaceholderText(
          strings.login.usernamePlaceholder
       )
-      expect(usernameField.value).toBe(username)
+      expect(usernameField.value).toBe(userName)
    })
 
    it('should render given password', () => {
@@ -31,9 +31,7 @@ describe('LoginForm', () => {
    })
 
    it('should render given username error message', () => {
-      const { getByText, getByRole } = render(
-         <LoginForm errorMessage='error' />
-      )
+      const { getByText } = render(<LoginForm errorMessage='error' />)
       expect(getByText(/error/)).toBeInTheDocument()
    })
 

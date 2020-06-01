@@ -7,11 +7,13 @@ import {
    ChoicesList,
    ChoiceContainer,
    ChoiceOption,
-   ChoiceLabel
+   ChoiceLabel,
+   Field
 } from './styledComponents'
 
 type McqPreviewProps = {
    question: any
+   questionNumber: number
 }
 
 @observer
@@ -29,18 +31,19 @@ class McqPreview extends PureComponent<McqPreviewProps> {
    }
 
    render() {
-      const { question } = this.props
+      const { id, title, hasDescription, description } = this.props.question
+      const { questionNumber } = this.props
       return (
-         <>
+         <Field>
             <FieldTitle>
-               <FieldNumber>{question.id}.</FieldNumber>
-               {question.title}
+               <FieldNumber>{questionNumber}.</FieldNumber>
+               {title || '...'}
             </FieldTitle>
-            {question.hasDescription && (
-               <FieldDescription>{question.description}</FieldDescription>
+            {hasDescription && (
+               <FieldDescription>{description}</FieldDescription>
             )}
             <ChoicesList>{this.renderChoices()}</ChoicesList>
-         </>
+         </Field>
       )
    }
 }

@@ -1,12 +1,13 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import { paths } from '../../../Common/constants/Paths'
-import FormScreenUI from '../../components/EditForm'
+import EditForm from '../../components/EditForm'
 
-type FormScreenRouteProps = {
+type EditFormRouteProps = {
    authStore: any
    formStore: any
    history: any
@@ -15,7 +16,7 @@ type FormScreenRouteProps = {
 
 @inject('authStore', 'formStore')
 @observer
-class FormRoute extends React.Component<FormScreenRouteProps> {
+class EditFormRoute extends React.Component<EditFormRouteProps> {
    @observable formId
 
    componentDidMount() {
@@ -39,7 +40,7 @@ class FormRoute extends React.Component<FormScreenRouteProps> {
    renderSuccessUI = () => {
       const { currentForm } = this.props.formStore
       return (
-         <FormScreenUI
+         <EditForm
             onClickLogout={this.onClickLogout}
             onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
@@ -65,4 +66,4 @@ class FormRoute extends React.Component<FormScreenRouteProps> {
    }
 }
 
-export { FormRoute }
+export default withRouter(EditFormRoute)

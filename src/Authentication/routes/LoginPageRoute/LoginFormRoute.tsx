@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
@@ -12,6 +13,7 @@ type LoginFormRouteProps = {
    authStore: any
    history: any
 }
+
 @inject('authStore')
 @observer
 class LoginFormRoute extends React.Component<LoginFormRouteProps> {
@@ -80,4 +82,4 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 }
 
-export { LoginFormRoute }
+export default withRouter(LoginFormRoute)

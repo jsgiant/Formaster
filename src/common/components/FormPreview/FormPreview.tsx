@@ -4,6 +4,7 @@ import { observable, action } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import strings from './../../i18n/strings.json'
 import NoDataView from '../NoDataView'
+
 import {
    FormPreviewContainer,
    PaginationButtons,
@@ -13,7 +14,7 @@ import {
 } from './styledComponents'
 import ShortTextQuestionPreview from './ShortTextQuestionPreview'
 import LongTextQuestionPreview from './LongTextQuestionPreview'
-import ScreenPreview from './ScreenPreview'
+import EndCardsPreview from './EndCardsPreview'
 import McqPreview from './McqPreview'
 
 type FormPreviewProps = {
@@ -23,11 +24,13 @@ type FormPreviewProps = {
 @observer
 class FormPreview extends React.Component<FormPreviewProps> {
    @observable currentQuestion: number = 0
+   questionNumber: number = 1
 
    @action.bound
-   navigateToPreviousAction() {
+   navigateToPreviousQuestion() {
       if (this.currentQuestion !== 0) {
          --this.currentQuestion
+         --this.questionNumber
       }
    }
 
@@ -36,12 +39,16 @@ class FormPreview extends React.Component<FormPreviewProps> {
       const { questions } = this.props
       if (this.currentQuestion !== questions.length - 1) {
          ++this.currentQuestion
+         ++this.questionNumber
       }
+   }
+
+   onClickEnterKey = e => {
+      e.keyCode === 13 && this.navigateToNextQuestion()
    }
 
    renderQuestions = () => {
       const { questions } = this.props
-
       if (questions.length === 0) {
          return <NoDataView />
       }
@@ -49,30 +56,45 @@ class FormPreview extends React.Component<FormPreviewProps> {
          case strings.short_text:
             return (
                <ShortTextQuestionPreview
+                  questionNumber={this.questionNumber}
+                  onClickEnterKey={this.onClickEnterKey}
+                  navigateToNext={this.navigateToNextQuestion}
                   question={questions[this.currentQuestion]}
                />
             )
          case strings.large_text:
             return (
                <LongTextQuestionPreview
+                  questionNumber={this.questionNumber}
+                  navigateToNext={this.navigateToNextQuestion}
+                  onClickEnterKey={this.onClickEnterKey}
                   question={questions[this.currentQuestion]}
                />
             )
          case strings.mcq:
-            return <McqPreview question={questions[this.currentQuestion]} />
+            return (
+               <McqPreview
+                  questionNumber={this.questionNumber}
+                  question={questions[this.currentQuestion]}
+               />
+            )
          default:
-            return <ScreenPreview question={questions[this.currentQuestion]} />
+            return (
+               <EndCardsPreview
+                  navigateToNext={this.navigateToNextQuestion}
+                  question={questions[this.currentQuestion]}
+               />
+            )
       }
    }
 
    render() {
-      const { questions } = this.props
       return (
          <FormPreviewContainer>
             <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
             <PaginationContainer>
                <PaginationButtons>
-                  <NavigationButton onClick={this.navigateToPreviousAction}>
+                  <NavigationButton onClick={this.navigateToPreviousQuestion}>
                      <IoIosArrowUp />
                   </NavigationButton>
                   <NavigationButton onClick={this.navigateToNextQuestion}>

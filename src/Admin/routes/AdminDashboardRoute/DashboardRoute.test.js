@@ -10,10 +10,10 @@ import { paths } from '../../../Common/constants/Paths'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
 import formsData from '../../fixtures/forms-data.json'
-import GetFormsAPI from '../../services/GetFormsService'
+import FormsAPI from '../../services/FormsService/FormsAPI'
 import FormStore from '../../stores/FormStore'
 
-import { DashboardRoute } from './DashboardRoute'
+import DashboardRoute from './DashboardRoute'
 
 const LoginDisplay = withRouter(({ location }) => (
    <div data-testid='login-display'>LoginForm</div>
@@ -22,15 +22,15 @@ const LoginDisplay = withRouter(({ location }) => (
 describe('dashboard route tests', () => {
    let authAPI
    let authStore
-   let getFormsAPI
+   let formsAPI
    let formStore
    const history = createMemoryHistory()
 
    beforeEach(() => {
       authAPI = new AuthService()
       authStore = new AuthStore(authAPI)
-      getFormsAPI = new GetFormsAPI()
-      formStore = new FormStore(getFormsAPI)
+      formsAPI = new FormsAPI()
+      formStore = new FormStore(formsAPI)
    })
 
    afterEach(() => {
@@ -39,11 +39,9 @@ describe('dashboard route tests', () => {
 
    // it('should test get forms failure state', async () => {
    //    const { getAByTestId } = render(
-   //       <DashboardRoute
-   //          history={history}
-   //          authStore={authStore}
-   //          formStore={formStore}
-   //       />
+   //       <Router history={history}>
+   //          <DashboardRoute authStore={authStore} formStore={formStore} />
+   //       </Router>
    //    )
 
    //    const mockFailurePromise = new Promise(function(resolve, reject) {
@@ -52,7 +50,7 @@ describe('dashboard route tests', () => {
 
    //    const mockGetFormsAPI = jest.fn()
    //    mockGetFormsAPI.mockReturnValue(mockFailurePromise)
-   //    getFormsAPI.getFormsAPI = mockGetFormsAPI
+   //    formsAPI.formsAPI = mockGetFormsAPI
 
    //    waitFor(() => {
    //       expect(getByText(/Something went wrong/i)).toBeInTheDocument()
@@ -60,19 +58,18 @@ describe('dashboard route tests', () => {
    //       expect(getByTestId('test-loader')).not.toBeInTheDocument()
    //    })
    // })
+
    it('should test get forms loading state', async () => {
       const { getAByTestId } = render(
-         <DashboardRoute
-            history={history}
-            authStore={authStore}
-            formStore={formStore}
-         />
+         <Router history={history}>
+            <DashboardRoute authStore={authStore} formStore={formStore} />
+         </Router>
       )
       const mockFormsLoadingPromise = new Promise(function(resolve, reject) {})
 
       const mockGetFormsAPI = jest.fn()
       mockGetFormsAPI.mockReturnValue(mockFormsLoadingPromise)
-      getFormsAPI.getFormsAPI = mockGetFormsAPI
+      formsAPI.getFormsAPI = mockGetFormsAPI
 
       waitFor(() => {
          expect(getByTestId('test-loader')).toBeInTheDocument()
@@ -81,11 +78,9 @@ describe('dashboard route tests', () => {
 
    it('should test get forms success state', async () => {
       const { getAllByRole } = render(
-         <DashboardRoute
-            history={history}
-            authStore={authStore}
-            formStore={formStore}
-         />
+         <Router history={history}>
+            <DashboardRoute authStore={authStore} formStore={formStore} />
+         </Router>
       )
       const mockFormsSuccessPromise = new Promise(function(resolve, reject) {
          resolve(formsData)
@@ -93,7 +88,7 @@ describe('dashboard route tests', () => {
 
       const mockGetFormsAPI = jest.fn()
       mockGetFormsAPI.mockReturnValue(mockFormsSuccessPromise)
-      getFormsAPI.getFormsAPI = mockGetFormsAPI
+      formsAPI.getFormsAPI = mockGetFormsAPI
 
       waitFor(() => {
          expect(getAllByRole('button', 'No responses').length).toBe(

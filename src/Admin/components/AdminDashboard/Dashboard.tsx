@@ -8,7 +8,7 @@ type DashboardProps = {
    isAdmin: boolean
    apiStatus: number
    apiError: any
-   onRetryClick: Function
+   onRetryClick: () => void
    successUI: () => any
 }
 
@@ -19,7 +19,7 @@ class Dashboard extends React.Component<DashboardProps> {
          apiError,
          apiStatus,
          onRetryClick,
-         successUI: UIComponent
+         successUI: SuccessUI
       } = this.props
       return (
          <DashboardWrapper>
@@ -28,7 +28,7 @@ class Dashboard extends React.Component<DashboardProps> {
                apiStatus={apiStatus}
                apiError={apiError}
                onRetryClick={onRetryClick}
-               renderSuccessUI={UIComponent}
+               renderSuccessUI={SuccessUI}
             />
          </DashboardWrapper>
       )
