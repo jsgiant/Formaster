@@ -13,7 +13,7 @@ const formsAPI = new FormsAPI()
 
 const formStore = new FormStore(formsAPI)
 
-export const userStores = {
+export const adminStores = {
    formStore
 }
 

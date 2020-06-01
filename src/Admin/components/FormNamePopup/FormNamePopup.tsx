@@ -40,6 +40,7 @@ class FormNamePopup extends React.Component<FormNamePopupProps> {
                />
                <ContinueButton
                   disabled={this.name === empty}
+                  isDisabled={this.name === empty}
                   onClick={this.onClickContinue}
                >
                   Continue

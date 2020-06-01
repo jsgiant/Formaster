@@ -1,10 +1,64 @@
 import React, { PureComponent } from 'react'
-import UserDashboard from '../../components/UserDashboard'
+import { observer, inject } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 
-class UserDashboardRoute extends PureComponent {
+import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import Dashboard from '../../../Common/components/Dashboard'
+import UserFormList from '../../components/UserFormList/UserFormList'
+
+type UserDashboardRouteProps = {
+   authStore: any
+   history: any
+   userFormStore: any
+}
+
+@inject('authStore', 'userFormStore')
+@observer
+class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
+   componentDidMount() {
+      const { getUserForms } = this.props.userFormStore
+      getUserForms()
+   }
+
+   onClickLogout = () => {
+      const { onSignOut } = this.props.authStore
+      const { history } = this.props
+      onSignOut()
+      history.replace(LOGIN_PATH)
+   }
+
+   onClickForm = formId => {
+      const { history } = this.props
+      history.replace(`/form/${formId}/response/v1/`)
+   }
+
+   renderUserFormsList = () => {
+      const { userFormsList } = this.props.userFormStore
+      console.log(userFormsList)
+      return (
+         <UserFormList
+            formsList={userFormsList}
+            onClickForm={this.onClickForm}
+         />
+      )
+   }
+
    render() {
-      return <UserDashboard />
+      const {
+         getUserFormsAPIStatus,
+         getUserFormsDataAPIError,
+         getUserForms
+      } = this.props.userFormStore
+      return (
+         <Dashboard
+            apiError={getUserFormsDataAPIError}
+            apiStatus={getUserFormsAPIStatus}
+            onRetryClick={getUserForms}
+            onLogoutClick={this.onClickLogout}
+            successUI={this.renderUserFormsList}
+         />
+      )
    }
 }
 
-export { UserDashboardRoute }
+export default withRouter(UserDashboardRoute)

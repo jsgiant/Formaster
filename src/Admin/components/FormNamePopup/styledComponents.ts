@@ -1,6 +1,10 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
+type ButtonProps = {
+   isDisabled: boolean
+}
+
 export const FormNamePopupWrapper = styled.div`
    ${tw`fixed w-full h-full inset-0 m-auto text-center`}background-color: rgba(
       0,
@@ -25,5 +29,8 @@ export const NameInput = styled.input`
    ${tw`w-full mt-5 pl-3 h-12 rounded`}border: solid 1px #7e858e;
 `
 export const ContinueButton = styled.button`
-   ${tw`items-center px-3 mt-5 h-10 rounded bg-gray-900 text-white focus:outline-none cursor-pointer`}
+   ${(props: ButtonProps) =>
+      !props.isDisabled
+         ? tw`items-center px-3 mt-5 h-10 rounded bg-gray-900 text-white focus:outline-none cursor-pointer`
+         : tw`items-center px-3 mt-5 h-10 rounded bg-gray-900 text-white opacity-50 focus:outline-none cursor-not-allowed`}
 `

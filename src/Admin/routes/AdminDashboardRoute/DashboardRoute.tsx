@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
-import Dashboard from '../../components/AdminDashboard'
+import Dashboard from '../../../Common/components/Dashboard'
 import FormList from '../../components/FormList'
 
 type DashboardRouteProps = {
@@ -27,7 +27,6 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
    onClickForm = formId => {
       const { history } = this.props
       history.replace(`/form/${formId}/v1`)
-      // history.replace(paths.form)
    }
 
    renderFormsList = () => {
@@ -35,12 +34,14 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
          formList,
          onCreateForm,
          onDeleteForm,
+         postFormsAPIStatus,
          updateFormsAPIError
       } = this.props.formStore
       return (
          <FormList
             onCreateForm={onCreateForm}
             onDeleteForm={onDeleteForm}
+            createFormApiStatus={postFormsAPIStatus}
             formsList={formList}
             apiError={updateFormsAPIError}
             onClickForm={this.onClickForm}
@@ -48,7 +49,6 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
       )
    }
    render() {
-      const { isAdmin } = this.props.authStore
       const {
          getFormsDataAPIStatus,
          getFormsDataAPIError,
@@ -58,7 +58,6 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
          <Dashboard
             apiError={getFormsDataAPIError}
             apiStatus={getFormsDataAPIStatus}
-            isAdmin={isAdmin}
             onRetryClick={getUserForms}
             onLogoutClick={this.onLogoutClick}
             successUI={this.renderFormsList}

@@ -1,0 +1,76 @@
+{
+   "forms": [
+      {
+         "form_id": 1,
+         "form_name": "User form 1",
+         "questions": [
+            {
+               "id": 1,
+               "title": "Welcome🙏",
+               "type": "welcome_screen",
+               "isRequired": true,
+               "description": "described",
+               "response": "answer"
+            },
+            {
+               "id": 2,
+               "title": "Large text question",
+               "type": "large_text",
+               "isRequired": false,
+               "description": "",
+               "response": "answer"
+            },
+            {
+               "id": 3,
+               "title": "Short text question",
+               "type": "short_text",
+               "description": "",
+               "response": "choice2"
+            },
+            {
+               "id": 4,
+               "title": "Choose the answer",
+               "type": "mcq",
+               "description": "",
+               "response": "choice2",
+               "choices": ["choice1", "choice2", "choice3"]
+            },
+            {
+               "id": 5,
+               "title": "Thank you👍!",
+               "type": "thankyou_screen",
+               "description": "",
+               "response": "choice2"
+            }
+         ]
+      },
+      {
+         "form_id": 2,
+         "form_name": "Form 2",
+         "questions": [
+            {
+               "id": 1,
+               "title": "Answer the question 1",
+               "type": "short_text",
+               "description": "",
+               "response": "answer"
+            },
+            {
+               "id": 2,
+               "title": "Answer the question 2",
+               "type": "large_text",
+               "description": "",
+               "response": "answer"
+            },
+            {
+               "id": 3,
+               "title": "Answer the question 3",
+               "type": "mcq",
+               "description": "",
+               "response": "answer",
+               "choices": ["choice1", "choice2", "choice3"]
+            }
+         ]
+      }
+   ]
+}

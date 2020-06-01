@@ -9,7 +9,7 @@ export const HeaderLeftSection = styled.div`
    ${tw`flex `}
 `
 export const GoBack = styled.button`
-   ${tw`focus:outline-none`}
+   ${tw`ml-2 focus:outline-none`}
 `
 export const FormTitle = styled.div`
    ${tw`ml-2`}
