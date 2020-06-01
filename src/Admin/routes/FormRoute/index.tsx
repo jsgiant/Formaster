@@ -1,14 +1,14 @@
 import React from 'react'
 import ProtectedRoute from '../../../Common/routes/ProtectedRoute'
 import { paths } from '../../../Common/constants/Paths'
-import { FormRoute } from './FormRoute'
+import EditFormRoute from './EditFormRoute'
 
-const formRoute = (
+const editFormRoute = (
    <ProtectedRoute
       key={paths.form}
       path='/form/:form_id/v1/'
-      component={FormRoute}
+      component={EditFormRoute}
    />
 )
 
-export { formRoute }
+export { editFormRoute }

@@ -4,7 +4,7 @@ class AuthService {
    api
    getLoginAPI(request) {
       return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(authData), 2000)
+         setTimeout(() => resolve(authData.customer), 2000)
       })
    }
 }

@@ -9,7 +9,7 @@ import {
    FormPreviewWrapper
 } from './styledComponents'
 
-type FormUIProps = {
+type EditFormProps = {
    onClickLogout: () => void
    onClickPreview: () => void
    formDetails: any
@@ -17,7 +17,7 @@ type FormUIProps = {
 }
 
 @observer
-class FormUI extends React.Component<FormUIProps> {
+class EditForm extends React.Component<EditFormProps> {
    render() {
       const { onClickLogout, onNavigateBack, formDetails } = this.props
       return (
@@ -42,4 +42,4 @@ class FormUI extends React.Component<FormUIProps> {
    }
 }
 
-export { FormUI }
+export { EditForm }

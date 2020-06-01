@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import Dashboard from '../../components/AdminDashboard'
@@ -16,7 +17,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
-      this.props.history.push(LOGIN_PATH)
+      history.push(LOGIN_PATH)
    }
    componentDidMount() {
       const { getUserForms } = this.props.formStore
@@ -24,7 +25,6 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
    }
 
    onClickForm = formId => {
-      console.log(formId)
       const { history } = this.props
       history.replace(`/form/${formId}/v1`)
       // history.replace(paths.form)
@@ -67,4 +67,4 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
    }
 }
 
-export { DashboardRoute }
+export default withRouter(DashboardRoute)

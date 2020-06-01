@@ -1,6 +1,6 @@
 import React from 'react'
-import { API_FETCHING } from '@ib/api-constants'
 import Loader from 'react-loader-spinner'
+import { API_FETCHING } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
 import {

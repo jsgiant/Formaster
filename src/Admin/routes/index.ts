@@ -1,5 +1,5 @@
 import { dashboardRoute } from './AdminDashboardRoute'
-import { formRoute } from './FormRoute'
-const userRoutes = [dashboardRoute, formRoute]
+import { editFormRoute } from './FormRoute'
+const adminRoutes = [dashboardRoute, editFormRoute]
 
-export { userRoutes }
+export { adminRoutes }
