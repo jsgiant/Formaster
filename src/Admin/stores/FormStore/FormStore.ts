@@ -81,6 +81,7 @@ class FormStore {
    @action.bound
    setPutFormsAPIStatus(apiStatus) {
       this.putFormsAPIStatus = apiStatus
+      console.log(apiStatus)
    }
 
    @action.bound

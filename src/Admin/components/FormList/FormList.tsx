@@ -1,10 +1,14 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
+import { API_SUCCESS } from '@ib/api-constants'
+
 import strings from '../../i18n/strings.json'
+
 import CreateFormCard from '../CreateFormCard/CreateFormCard'
 import FormCard from '../FormCard'
 import FormNamePopup from '../FormNamePopup'
+
 import { FormListContainer } from './styledComponents'
 
 type FormListProps = {
@@ -12,6 +16,7 @@ type FormListProps = {
    onDeleteForm: (form) => void
    onCreateForm: (form) => void
    onClickForm: (form) => void
+   createFormApiStatus: number
    apiError: string
 }
 
@@ -25,10 +30,9 @@ class FormList extends React.Component<FormListProps> {
 
    @action.bound
    async onClickContinue(name) {
-      this.onShowPopup()
       const { onCreateForm } = this.props
-
       onCreateForm(name)
+      // this.onShowPopup()
    }
 
    renderFormCards = () => {
@@ -45,15 +49,24 @@ class FormList extends React.Component<FormListProps> {
       })
    }
 
+   renderFormNamePopup = () => {
+      const { createFormApiStatus } = this.props
+      console.log(createFormApiStatus)
+      if (this.shouldShowPopup && createFormApiStatus !== API_SUCCESS) {
+         return (
+            <FormNamePopup
+               onClickContinue={this.onClickContinue}
+               caption={strings.popup.createCaption}
+            />
+         )
+      }
+      return
+   }
+
    render() {
       return (
          <FormListContainer>
-            {this.shouldShowPopup && (
-               <FormNamePopup
-                  onClickContinue={this.onClickContinue}
-                  caption={strings.popup.createCaption}
-               />
-            )}
+            {this.renderFormNamePopup()}
             <CreateFormCard onCreateForm={this.onShowPopup} />
             {this.renderFormCards()}
          </FormListContainer>

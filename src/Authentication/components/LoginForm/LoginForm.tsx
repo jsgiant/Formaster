@@ -26,15 +26,27 @@ type LoginFormProps = {
 }
 
 class LoginForm extends React.Component<LoginFormProps> {
+   renderLoginButton = () => {
+      const { apiStatus, onClickLogin } = this.props
+      return apiStatus === API_FETCHING ? (
+         <LoginButtonWhileLoading>
+            <Loader type='TailSpin' color='#f3f3f3' height={20} width={20} />
+         </LoginButtonWhileLoading>
+      ) : (
+         <LoginButton data-testid='login-btn' onClick={onClickLogin}>
+            Login
+         </LoginButton>
+      )
+   }
+
    render() {
       const {
          userName,
          password,
          errorMessage,
-         onClickLogin,
+
          onChangePassword,
-         onChangeUserName,
-         apiStatus
+         onChangeUserName
       } = this.props
       return (
          <LoginContainer>
@@ -56,21 +68,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                   type='password'
                   placeholder={strings.login.passwordPlaceholder}
                />
-
-               {apiStatus === API_FETCHING ? (
-                  <LoginButtonWhileLoading>
-                     <Loader
-                        type='TailSpin'
-                        color='#f3f3f3'
-                        height={20}
-                        width={20}
-                     />
-                  </LoginButtonWhileLoading>
-               ) : (
-                  <LoginButton data-testid='login-btn' onClick={onClickLogin}>
-                     Login
-                  </LoginButton>
-               )}
+               {this.renderLoginButton()}
             </LoginFormWrapper>
          </LoginContainer>
       )

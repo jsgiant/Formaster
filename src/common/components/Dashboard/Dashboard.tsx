@@ -1,17 +1,18 @@
 import React from 'react'
-import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
-import Header from '../../../Common/components/Header/Header'
+import { observer } from 'mobx-react'
+import LoadingWrapperWithFailure from '../LoadingWrapperWithFailure'
+import Header from '../Header/Header'
 import { DashboardWrapper } from './styledComponents'
 
 type DashboardProps = {
    onLogoutClick: () => void
-   isAdmin: boolean
    apiStatus: number
    apiError: any
    onRetryClick: () => void
    successUI: () => any
 }
 
+@observer
 class Dashboard extends React.Component<DashboardProps> {
    render() {
       const {
@@ -21,6 +22,7 @@ class Dashboard extends React.Component<DashboardProps> {
          onRetryClick,
          successUI: SuccessUI
       } = this.props
+
       return (
          <DashboardWrapper>
             <Header onLogoutClick={onLogoutClick} />
