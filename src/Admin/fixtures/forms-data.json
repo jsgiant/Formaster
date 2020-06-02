@@ -8,7 +8,7 @@
                "id": 1,
                "title": "Welcome🙏",
                "type": "welcome_screen",
-               "isRequired": true,
+               "isRequired": false,
                "description": "",
                "response": "answer"
             },
@@ -16,7 +16,7 @@
                "id": 2,
                "title": "Large text question",
                "type": "large_text",
-               "isRequired": false,
+               "isRequired": true,
                "description": "",
                "response": "answer"
             },
@@ -33,7 +33,11 @@
                "type": "mcq",
                "description": "",
                "response": "choice2",
-               "choices": ["choice1", "choice2", "choice3"]
+               "choices": [
+                  { "choice_id": 1, "choice": "choice 1" },
+                  { "choice_id": 2, "choice": "choice 2" },
+                  { "choice_id": 3, "choice": "choice 3" }
+               ]
             },
             {
                "id": 5,
@@ -68,7 +72,11 @@
                "type": "mcq",
                "description": "",
                "response": "answer",
-               "choices": ["choice1", "choice2", "choice3"]
+               "choices": [
+                  { "choice_id": 1, "choice": "choice 1" },
+                  { "choice_id": 2, "choice": "choice 2" },
+                  { "choice_id": 3, "choice": "choice 3" }
+               ]
             }
          ]
       }

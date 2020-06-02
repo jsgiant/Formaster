@@ -3,5 +3,6 @@ export const paths = {
    form: '/admin/form/v1',
    userDashboard: '/user/dashboard/v1',
    baseURL: 'localhost:port/api/formaster',
-   getFormsUrl: '/forms/v1/'
+   getFormsUrl: '/forms/v1/',
+   selectedFormUrl: '/form/${formId}/response/v1/'
 }

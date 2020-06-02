@@ -20,14 +20,9 @@ class EndCardsPreview extends Component<EndCardsPreviewProps> {
    renderButton = () => {
       const { type } = this.props.question
       const { navigateToNext } = this.props
-      return (
-         <Button
-            buttonText={
-               type === strings.welcome_screen ? buttons.start : buttons.again
-            }
-            callback={navigateToNext}
-         />
-      )
+      return type === strings.welcome_screen ? (
+         <Button buttonText={buttons.start} callback={navigateToNext} />
+      ) : null
    }
    render() {
       const { title, description, hasDescription } = this.props.question

@@ -21,7 +21,8 @@ type McqQuestionProps = {
 class McqQuestion extends React.Component<McqQuestionProps> {
    renderChoices = () => {
       const { choices, onChangeChoiceText, onAddOrRemoveChoice } = this.props
-      return choices.map((choice, index) => {
+      return choices.map((choiceOption, index) => {
+         const { choice } = choiceOption
          return (
             <ChoiceContainer key={index}>
                {choice !== '' && '-'}

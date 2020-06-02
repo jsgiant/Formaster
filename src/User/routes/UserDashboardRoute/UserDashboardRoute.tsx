@@ -29,12 +29,12 @@ class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
 
    onClickForm = formId => {
       const { history } = this.props
-      history.replace(`/form/${formId}/response/v1/`)
+      history.push(`/form/${formId}/response/v1/`)
    }
 
    renderUserFormsList = () => {
       const { userFormsList } = this.props.userFormStore
-      console.log(userFormsList)
+
       return (
          <UserFormList
             formsList={userFormsList}

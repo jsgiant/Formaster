@@ -1,6 +1,10 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
+type ButtonProps = {
+   isDisabled: boolean
+}
+
 export const FormPreviewContainer = styled.div`
    ${tw`relative min-h-screen flex flex-wrap justify-center items-center w-full `}
 `
@@ -10,14 +14,16 @@ export const FieldWrapper = styled.div`
 `
 
 export const Field = styled.div`
-   ${tw`w-full`} animation: field-animate 1s ease-in;
-   transition: opacity 1s ease;
+   ${tw`w-full h-64`} animation: field-animate 0.2s ease-in;
+   transition: all 0.2s ease-in;
    @keyframes field-animate {
       from {
          opacity: 0;
+         transform: translateX(20px);
       }
       to {
          opacity: 1;
+         transform: translateX(0px);
       }
    }
 `
@@ -65,13 +71,25 @@ export const LongFieldResponse = styled.textarea`
 `
 export const ButtonContainer = styled.div`
    ${tw` focus:outline-none`}
+   animation: button-animate 0.2s ease-in;
+   transition: all 0.2s ease-in;
+   @keyframes button-animate {
+      from {
+         opacity: 0;
+         transform: translateY(20px);
+      }
+      to {
+         opacity: 1;
+         transform: translateY(0px);
+      }
+   }
 `
 
 export const Btn = styled.button`
    ${tw`px-5 py-1 focus:outline-none bg-teal-400 text-white text-2xl rounded font-bold ml-4`}
 `
 export const PaginationContainer = styled.div`
-   ${tw`flex w-full justify-end`}
+   ${tw`flex w-full justify-end mb-5`}
 `
 
 export const PaginationButtons = styled.span`
@@ -79,7 +97,10 @@ export const PaginationButtons = styled.span`
 `
 
 export const NavigationButton = styled.span`
-   ${tw` rounded h-full px-3 py-2 cursor-pointer`}
+   ${(props: ButtonProps) =>
+      !props.isDisabled
+         ? tw` rounded h-full px-3 py-2 cursor-pointer`
+         : tw` rounded h-full px-3 py-2 cursor-not-allowed opacity-50`}
    border-right:1px solid white;
 `
 

@@ -18,12 +18,18 @@ type ShortTextQuestionPreviewProps = {
    onClickEnterKey: (e) => void
    navigateToNext: () => void
    questionNumber: number
+   isFinalQuestion: boolean
+   onSubmit: () => void
 }
 
 @observer
 class ShortTextQuestionPreview extends Component<
    ShortTextQuestionPreviewProps
 > {
+   onChangeResponse = e => {
+      const { onChangeResponse } = this.props.question
+      onChangeResponse(e.target.value)
+   }
    render() {
       const {
          description,
@@ -31,7 +37,13 @@ class ShortTextQuestionPreview extends Component<
          title,
          response
       } = this.props.question
-      const { onClickEnterKey, navigateToNext, questionNumber } = this.props
+      const {
+         onClickEnterKey,
+         navigateToNext,
+         questionNumber,
+         isFinalQuestion,
+         onSubmit
+      } = this.props
       return (
          <Field>
             <FieldTitle>
@@ -44,8 +56,15 @@ class ShortTextQuestionPreview extends Component<
             <FieldResponse
                placeholder={strings.response_placeholder}
                onKeyDown={onClickEnterKey}
+               value={response}
+               onChange={this.onChangeResponse}
             />
-            <Button buttonText={buttons.ok} callback={navigateToNext} />
+            {response && (
+               <Button
+                  buttonText={isFinalQuestion ? buttons.submit : buttons.ok}
+                  callback={isFinalQuestion ? onSubmit : navigateToNext}
+               />
+            )}
          </Field>
       )
    }
