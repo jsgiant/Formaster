@@ -1,6 +1,5 @@
 import React from 'react'
 import { MdSettings } from 'react-icons/md'
-import { FaRegImage } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 import strings from '../../i18n/form-strings.json'
 import {
@@ -60,6 +59,7 @@ class Question extends React.Component<QuestionProps> {
 
          case strings.mcq:
             const { mcqChoices } = this.props.question
+
             return (
                <McqQuestion
                   onChangeText={this.onChangeTitle}
@@ -92,9 +92,6 @@ class Question extends React.Component<QuestionProps> {
             <Toolbar>
                <IconContainer>
                   <MdSettings />
-               </IconContainer>
-               <IconContainer>
-                  <FaRegImage />
                </IconContainer>
                <IconContainer onClick={() => onDeleteQuestion(question)}>
                   <MdDelete />

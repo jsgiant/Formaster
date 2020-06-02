@@ -1,6 +1,5 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
@@ -17,7 +16,7 @@ type EditFormRouteProps = {
 @inject('authStore', 'formStore')
 @observer
 class EditFormRoute extends React.Component<EditFormRouteProps> {
-   @observable formId
+   formId
 
    componentDidMount() {
       const { getFormQuestions } = this.props.formStore

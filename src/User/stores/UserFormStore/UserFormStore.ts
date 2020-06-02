@@ -8,6 +8,7 @@ class UserFormStore {
    @observable getUserFormsAPIError: any
    @observable postUserResponsesStatus: any
    @observable postUserResponsesError: any
+
    userFormsAPI: any
 
    constructor(userFormsAPI: any) {

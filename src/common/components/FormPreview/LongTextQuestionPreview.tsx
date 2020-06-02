@@ -16,13 +16,30 @@ type LongTextQuestionPreviewProps = {
    onClickEnterKey: (e) => void
    navigateToNext: () => void
    questionNumber: number
+   isFinalQuestion: boolean
+   onSubmit: () => void
 }
 
 @observer
 class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
+   onChangeResponse = e => {
+      const { onChangeResponse } = this.props.question
+      onChangeResponse(e.target.value)
+   }
    render() {
-      const { description, hasDescription, title } = this.props.question
-      const { onClickEnterKey, navigateToNext, questionNumber } = this.props
+      const {
+         description,
+         hasDescription,
+         title,
+         response
+      } = this.props.question
+      const {
+         onClickEnterKey,
+         navigateToNext,
+         questionNumber,
+         isFinalQuestion,
+         onSubmit
+      } = this.props
       return (
          <Field>
             <FieldTitle>
@@ -35,8 +52,15 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
             <LongFieldResponse
                placeholder={strings.response_placeholder}
                onKeyDown={onClickEnterKey}
+               value={response}
+               onChange={this.onChangeResponse}
             />
-            <Button buttonText={buttons.ok} callback={navigateToNext} />
+            {response && (
+               <Button
+                  buttonText={isFinalQuestion ? buttons.submit : buttons.ok}
+                  callback={isFinalQuestion ? onSubmit : navigateToNext}
+               />
+            )}
          </Field>
       )
    }

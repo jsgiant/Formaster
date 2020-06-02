@@ -15,7 +15,7 @@ class UserFormList extends Component<UserFormListProps> {
       return formsList.map(form => {
          return (
             <UserFormCard
-               key={form.id}
+               key={form.form_id}
                formName={form.form_name}
                formId={form.form_id}
                onClickForm={onClickForm}
