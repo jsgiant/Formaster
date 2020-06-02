@@ -264,3 +264,24 @@
 # User form to fill route
 
 # integrate the preview so that user can fill form
+Deploys the build folder to S3 bucket from cloud9 environment
+
+### Base Typos
+
+```
+export const BaseHKGroteskText = styled.span`
+   font-family: 'HKGroteskRegular';
+`
+
+export const BaseHKGroteskBoldText = styled(BaseHKGroteskText)`
+   font-weight: bold;
+`
+
+export const BaseHKGroteskSemiBoldText = styled(BaseHKGroteskText)`
+   font-weight: 600;
+`
+
+export const BaseHKGroteskMediumText = styled(BaseHKGroteskText)`
+   font-weight: 500;
+`
+```
