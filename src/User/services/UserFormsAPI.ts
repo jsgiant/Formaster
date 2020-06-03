@@ -9,8 +9,7 @@ class UserFormsAPI {
 
    constructor() {
       this.api = create({
-         baseURL: `${paths.baseURL}`,
-         headers: { Authorization: `Bearer ${getAccessToken()}` }
+         baseURL: `${paths.baseURL}`
       })
    }
 
@@ -18,6 +17,15 @@ class UserFormsAPI {
       return networkCallWithApisauce(
          this.api,
          paths.getFormsUrl,
+         {},
+         apiMethods.get
+      )
+   }
+
+   getQuestionsAPI(formId) {
+      return networkCallWithApisauce(
+         this.api,
+         `/form/${formId}/questions`,
          {},
          apiMethods.get
       )

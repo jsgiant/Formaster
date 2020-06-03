@@ -13,28 +13,28 @@ type EditFormProps = {
    onClickLogout: () => void
    onClickPreview: () => void
    formDetails: any
+   formId: number
    onNavigateBack: () => void
 }
 
 @observer
 class EditForm extends React.Component<EditFormProps> {
    render() {
-      const { onClickLogout, onNavigateBack, formDetails } = this.props
+      const { onClickLogout, onNavigateBack, formId } = this.props
+      const { questionStore, name, onPublishForm } = this.props.formDetails
       return (
          <FormScreenUIWrapper>
             <FormHeader
                onClickLogout={onClickLogout}
                onClickPreview={() => {}}
                onNavigateBack={onNavigateBack}
-               name={formDetails.name}
-               onClickPublish={() => {}}
+               name={name}
+               onClickPublish={() => onPublishForm(formId)}
             />
             <FormDetails>
-               <QuestionList questionStore={formDetails.questionStore} />
+               <QuestionList questionStore={questionStore} />
                <FormPreviewWrapper>
-                  <FormPreview
-                     questions={formDetails.questionStore.questionsList}
-                  />
+                  <FormPreview questions={questionStore.questionsList} />
                </FormPreviewWrapper>
             </FormDetails>
          </FormScreenUIWrapper>

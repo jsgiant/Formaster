@@ -5,7 +5,7 @@ import { MdMoreHoriz } from 'react-icons/md'
 import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import strings from '../../i18n/strings.json'
-import FormNamePopup from '../FormNamePopup'
+import FormNamePopup from '../FormNameDialog'
 import {
    FormCardContainer,
    FormName,
@@ -23,7 +23,7 @@ type FormCardProps = {
 @observer
 class FormCard extends React.Component<FormCardProps> {
    @observable isListOpen: boolean = false
-   @observable shouldShowPopup: boolean = false
+   @observable shouldShowDialog: boolean = false
 
    @action.bound
    onToogleList() {
@@ -31,13 +31,18 @@ class FormCard extends React.Component<FormCardProps> {
    }
 
    @action.bound
+   onShowOrHideDialog() {
+      this.shouldShowDialog = !this.shouldShowDialog
+   }
+
+   @action.bound
    onFormRename() {
       this.onToogleList()
-      this.shouldShowPopup = !this.shouldShowPopup
+      this.onShowOrHideDialog()
    }
    @action.bound
    onClickContinue(name) {
-      this.shouldShowPopup = false
+      this.onShowOrHideDialog()
       const { onRenameForm } = this.props.formDetails
       onRenameForm(name)
    }
@@ -63,20 +68,23 @@ class FormCard extends React.Component<FormCardProps> {
    }
 
    render() {
-      const { formDetails, onClickForm } = this.props
+      const { onClickForm } = this.props
+      const { name, id } = this.props.formDetails
       return (
          <FormCardContainer>
-            <NameContainer onClick={() => onClickForm(formDetails.id)}>
-               <FormName>{formDetails.name}</FormName>
+            <NameContainer onClick={() => onClickForm(id)}>
+               <FormName>{name}</FormName>
             </NameContainer>
             <FooterContainer>
                <ResponseButton>No responses</ResponseButton>
                {this.renderMenuBar()}
 
-               {this.shouldShowPopup && (
+               {this.shouldShowDialog && (
                   <FormNamePopup
+                     defaultValue={name}
                      onClickContinue={this.onClickContinue}
                      caption={strings.popup.renameCaption}
+                     onShowOrHideDialog={this.onShowOrHideDialog}
                   />
                )}
             </FooterContainer>

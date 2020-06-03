@@ -16,7 +16,11 @@ export const FormTitle = styled.div`
 `
 
 export const HeaderRightSection = styled.div`
-   ${tw`flex items-center bg-green focus:outline-none text-lg`}
+   ${tw`flex items-center bg-green w-1/2 justify-between focus:outline-none text-lg`}
+`
+
+export const PublishButton = styled.button`
+   ${tw`bg-black text-white rounded py-1 px-2 focus:outline-none`}
 `
 
 export const LogoutButton = styled.button`

@@ -2,13 +2,13 @@ import { observable, action } from 'mobx'
 import Question from './QuestionModel'
 
 class MCQ extends Question {
-   choices: Array<any>
-   @observable responseId: any
+   mcqChoices: Array<any>
+   @observable responseId: number | null = null
 
    constructor(question) {
       super(question)
-      const { choices, response_id } = question
-      this.choices = choices
+      const { mcq_choices, response_id } = question
+      this.mcqChoices = mcq_choices
       this.responseId = response_id
    }
 

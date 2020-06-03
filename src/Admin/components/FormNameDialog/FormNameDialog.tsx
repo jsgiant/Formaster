@@ -7,18 +7,22 @@ import {
    FormNamePopupContainer,
    Caption,
    NameInput,
-   ContinueButton
+   ContinueButton,
+   CancelButton
 } from './styledComponents'
 
-type FormNamePopupProps = {
+type FormNameDialogProps = {
    onClickContinue: (name) => void
    caption: string
+   defaultValue: string
+   onShowOrHideDialog: () => void
 }
 
 const { empty, namePlaceholder } = strings.popup
 @observer
-class FormNamePopup extends React.Component<FormNamePopupProps> {
-   @observable name: string = empty
+class FormNameDialog extends React.Component<FormNameDialogProps> {
+   @observable name: string = this.props.defaultValue
+
    @action.bound
    onChangeName(e) {
       this.name = e.target.value
@@ -28,7 +32,7 @@ class FormNamePopup extends React.Component<FormNamePopupProps> {
       onClickContinue(this.name)
    }
    render() {
-      const { caption } = this.props
+      const { caption, onShowOrHideDialog } = this.props
       return (
          <FormNamePopupWrapper>
             <FormNamePopupContainer>
@@ -45,10 +49,14 @@ class FormNamePopup extends React.Component<FormNamePopupProps> {
                >
                   Continue
                </ContinueButton>
+               <CancelButton onClick={onShowOrHideDialog}>Cancel</CancelButton>
             </FormNamePopupContainer>
          </FormNamePopupWrapper>
       )
    }
 }
 
-export { FormNamePopup }
+export { FormNameDialog }
+
+//onClick for outer div
+// value for rename

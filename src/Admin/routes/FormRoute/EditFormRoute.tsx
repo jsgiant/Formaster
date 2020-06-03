@@ -44,6 +44,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
             onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
             formDetails={currentForm}
+            formId={this.formId}
          />
       )
    }

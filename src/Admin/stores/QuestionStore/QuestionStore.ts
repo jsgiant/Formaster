@@ -1,22 +1,22 @@
 import { observable, action } from 'mobx'
 import strings from './../../i18n/form-strings.json'
-import QuestionModel from '../Models/QuestionModel'
-import McqModel from '../Models/QuestionModel/McqModel'
+import QuestionModel from '../models/QuestionModel'
+import McqModel from '../models/QuestionModel/McqModel'
 
 class QuestionStore {
    @observable questionsList
 
    constructor(questionsList) {
-      this.getQuestions(questionsList)
+      this.initializeQuestions(questionsList)
    }
 
    @action.bound
-   getQuestions(questionsList) {
+   initializeQuestions(questionsList) {
       this.questionsList = questionsList.map(question => {
-         if (this.isMCQ(question.type)) {
-            return new McqModel(question.type, question)
+         if (this.isMCQ(question.question_type)) {
+            return new McqModel(question.question_type, question)
          }
-         return new QuestionModel(question.type, question)
+         return new QuestionModel(question.question_type, question)
       })
    }
 

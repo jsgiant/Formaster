@@ -12,8 +12,8 @@ const App = () => {
       <Provider {...stores}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               {adminRoutes}
                {userRoutes}
+               {adminRoutes}
                {authRoutes}
             </Switch>
          </Router>

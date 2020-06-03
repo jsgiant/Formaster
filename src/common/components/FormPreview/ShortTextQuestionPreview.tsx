@@ -34,8 +34,9 @@ class ShortTextQuestionPreview extends Component<
       const {
          description,
          hasDescription,
-         title,
-         response
+         questionTitle,
+         response,
+         position
       } = this.props.question
       const {
          onClickEnterKey,
@@ -48,11 +49,11 @@ class ShortTextQuestionPreview extends Component<
          <Field>
             <FieldTitle>
                <FieldNumber>{questionNumber}.</FieldNumber>
-               {title || '...'}
+               {questionTitle || '...'}
             </FieldTitle>
-            {hasDescription && (
-               <FieldDescription>{description}</FieldDescription>
-            )}
+
+            <FieldDescription>{description}</FieldDescription>
+
             <FieldResponse
                placeholder={strings.response_placeholder}
                onKeyDown={onClickEnterKey}

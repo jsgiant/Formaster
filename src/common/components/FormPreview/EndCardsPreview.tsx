@@ -5,7 +5,7 @@ import strings from '../../i18n/strings.json'
 import { buttons } from '../../constants/Buttons'
 import {
    EndCardText,
-   FieldDescription,
+   EndCardDescription,
    EndCardPreviewWrapper
 } from './styledComponents'
 import Button from './Button'
@@ -25,15 +25,13 @@ class EndCardsPreview extends Component<EndCardsPreviewProps> {
       ) : null
    }
    render() {
-      const { title, description, hasDescription } = this.props.question
+      const { questionTitle, description } = this.props.question
       return (
          <EndCardPreviewWrapper>
-            <EndCardText>{title || '...'}</EndCardText>
-            {hasDescription && (
-               <FieldDescription>
-                  <span>{description}</span>
-               </FieldDescription>
-            )}
+            <EndCardText>{questionTitle || '...'}</EndCardText>
+
+            <EndCardDescription>{description}</EndCardDescription>
+
             {this.renderButton()}
          </EndCardPreviewWrapper>
       )

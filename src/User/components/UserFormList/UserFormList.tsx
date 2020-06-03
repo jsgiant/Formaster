@@ -13,11 +13,12 @@ class UserFormList extends Component<UserFormListProps> {
    renderFormCards = () => {
       const { formsList, onClickForm } = this.props
       return formsList.map(form => {
+         const { form_id: id, form_name: name } = form
          return (
             <UserFormCard
-               key={form.form_id}
-               formName={form.form_name}
-               formId={form.form_id}
+               key={id}
+               formName={name}
+               formId={id}
                onClickForm={onClickForm}
             />
          )

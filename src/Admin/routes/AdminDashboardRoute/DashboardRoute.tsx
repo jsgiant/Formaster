@@ -26,7 +26,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
 
    onClickForm = formId => {
       const { history } = this.props
-      history.replace(`/form/${formId}/v1`)
+      history.replace(`/form/${formId}`)
    }
 
    renderFormsList = () => {

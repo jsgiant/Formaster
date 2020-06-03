@@ -1,30 +1,38 @@
 import { observable, action } from 'mobx'
 
 class QuestionModel {
-   id
-   @observable type: string = ''
-   @observable title: string = ''
-   @observable description: any = ''
-   @observable isRequired: boolean = false
-   @observable hasDescription: boolean
-   @observable imageURL: string = ''
-   @observable response: string = ''
+   questionId = null
+   @observable type = ''
+   @observable questionTitle = ''
+   @observable description = ''
+   @observable isRequired = false
+   @observable hasDescription
+   @observable imageURL = ''
+   @observable position = 0
+   @observable response = ''
 
    constructor(type, question?) {
       this.hasDescription = false
       this.type = type
       if (question) {
-         this.init(question)
+         this.initializeQuestion(question)
       }
    }
 
    @action.bound
-   init(question) {
-      this.title = question.title
-      this.description = question.description
-      this.isRequired = question.isRequired
-      this.id = question.id
-      this.imageURL = question.imageURL
+   initializeQuestion(question) {
+      const {
+         question_text,
+         is_required,
+         description,
+         question_id,
+         position_number
+      } = question
+      this.questionTitle = question_text
+      this.description = description
+      this.isRequired = is_required
+      this.questionId = question_id
+      this.position = position_number
    }
 
    @action.bound
@@ -34,7 +42,7 @@ class QuestionModel {
 
    @action.bound
    onChangeTitle(title) {
-      this.title = title
+      this.questionTitle = title
    }
 
    @action.bound

@@ -44,7 +44,7 @@ class FormsAPI {
 
    getQuestionsAPI(formId: number) {
       return new Promise(resolve => {
-         resolve(formsData.forms[--formId])
+         setTimeout(() => resolve(formsData.form_questions[--formId]), 2000)
       })
    }
 }
