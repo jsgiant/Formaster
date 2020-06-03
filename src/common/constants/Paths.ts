@@ -1,8 +1,8 @@
 export const paths = {
-   dashboard: '/admin/dashboard/v1',
-   form: '/admin/form/v1',
-   userDashboard: '/user/dashboard/v1',
+   dashboard: '/admin/dashboard',
+   form: '/admin/form',
+   userDashboard: '/user/dashboard',
    baseURL: 'localhost:port/api/formaster',
-   getFormsUrl: '/forms/v1/',
-   selectedFormUrl: '/form/${formId}/response/v1/'
+   getFormsUrl: '/forms',
+   selectedFormUrl: '/form/:formId/response'
 }

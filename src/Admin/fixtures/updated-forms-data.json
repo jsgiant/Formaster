@@ -1,129 +1,20 @@
 {
    "forms": [
       {
-         "id": 1,
-         "name": "Form 1",
-         "questions": [
-            {
-               "id": 1,
-               "title": "Answer the question 1",
-               "type": "short_text",
-               "isRequired": true,
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 2,
-               "title": "Answer the question 2",
-               "type": "large_text",
-               "isRequired": false,
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 3,
-               "title": "Answer the question 3",
-               "type": "mcq",
-               "description": "",
-               "response": "choice2",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
-            }
-         ]
+         "form_id": 1,
+         "form_name": "Admin form1"
       },
       {
-         "id": 2,
-         "name": "Form 2",
-         "questions": [
-            {
-               "id": 1,
-               "title": "Answer the question 1",
-               "type": "short_text",
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 2,
-               "title": "Answer the question 2",
-               "type": "large_text",
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 3,
-               "title": "Answer the question 3",
-               "type": "mcq",
-               "description": "",
-               "response": "answer",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
-            }
-         ]
+         "form_id": 2,
+         "form_name": "Admin form2"
       },
       {
-         "id": 3,
-         "name": "New form",
-         "questions": [
-            {
-               "id": 1,
-               "title": "Answer the question 1",
-               "type": "short_text",
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 2,
-               "title": "Answer the question 2",
-               "type": "large_text",
-               "description": "",
-               "response": "answer"
-            },
-            {
-               "id": 3,
-               "title": "Answer the question 3",
-               "type": "mcq",
-               "description": "",
-               "response": "answer",
-               "choices": [
-                  {
-                     "title": "choice1",
-                     "isSelected": false
-                  },
-                  {
-                     "title": "choice2",
-                     "isSelected": true
-                  },
-                  {
-                     "title": "choice3",
-                     "isSelected": false
-                  }
-               ]
-            }
-         ]
+         "form_id": 3,
+         "form_name": "Admin form3"
+      },
+      {
+         "form_id": 4,
+         "form_name": "Admin form4"
       }
    ]
 }

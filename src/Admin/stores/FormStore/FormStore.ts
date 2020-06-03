@@ -2,7 +2,7 @@ import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import FormsAPI from '../../services/FormsService/FormsFixture'
-import FormModel from '../Models/FormModel'
+import FormModel from '../models/FormModel'
 
 class FormStore {
    @observable formList
@@ -81,7 +81,6 @@ class FormStore {
    @action.bound
    setPutFormsAPIStatus(apiStatus) {
       this.putFormsAPIStatus = apiStatus
-      console.log(apiStatus)
    }
 
    @action.bound

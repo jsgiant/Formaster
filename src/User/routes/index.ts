@@ -1,6 +1,6 @@
 import { userDashboardRoute } from './UserDashboardRoute'
 import { selectedFormRoute } from './SelectedFormRoute'
 
-const userRoutes = [userDashboardRoute, selectedFormRoute]
+const userRoutes = [selectedFormRoute, userDashboardRoute]
 
 export { userRoutes }

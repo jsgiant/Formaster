@@ -2,6 +2,8 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
+import { Line } from 'rc-progress'
+
 import strings from './../../i18n/strings.json'
 
 import NoDataView from '../NoDataView'
@@ -11,7 +13,8 @@ import {
    PaginationButtons,
    PaginationContainer,
    FieldWrapper,
-   NavigationButton
+   NavigationButton,
+   ProgressBar
 } from './styledComponents'
 import ShortTextQuestionPreview from './ShortTextQuestionPreview'
 import LongTextQuestionPreview from './LongTextQuestionPreview'
@@ -38,7 +41,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
    @action.bound
    navigateToNextQuestion() {
       const { questions } = this.props
-      if (this.currentQuestion !== questions.length - 2) {
+      if (this.currentQuestion !== questions.length - 1) {
          ++this.currentQuestion
          ++this.questionNumber
       }
@@ -52,6 +55,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
       } else {
          alert('thankyou!')
       }
+      this.navigateToNextQuestion()
    }
 
    onClickEnterKey = e => {
@@ -60,6 +64,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
 
    renderQuestions = () => {
       const { questions } = this.props
+      // console.log(questions)
       const isFinalQuestion = this.currentQuestion === questions.length - 2
       if (questions.length === 0) {
          return <NoDataView />
@@ -107,22 +112,35 @@ class FormPreview extends React.Component<FormPreviewProps> {
       }
    }
 
-   render() {
+   isArrowDisabled = (arrow): boolean => {
       const { questions } = this.props
-      const isUpArrowDisabled = this.questionNumber <= 1
-      const isDownArrowDisabled = this.questionNumber >= questions.length - 2
+      if (arrow === strings.downArrow) {
+         return this.questionNumber <= 1
+      }
+      return this.questionNumber >= questions.length - 2
+   }
+
+   render() {
+      const isUpArrowDisabled = this.isArrowDisabled(strings.downArrow)
+      const isDownArrowDisabled = this.isArrowDisabled(strings.upArrow)
       return (
          <FormPreviewContainer>
             <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
             <PaginationContainer>
+               {/* <ProgressBar>
+                  progress
+                  <Line percent={50} strokeWidth={2} strokeColor='#4fd1c5' />
+               </ProgressBar> */}
                <PaginationButtons>
                   <NavigationButton
+                     disabled={isUpArrowDisabled}
                      isDisabled={isUpArrowDisabled}
                      onClick={this.navigateToPreviousQuestion}
                   >
                      <IoIosArrowUp />
                   </NavigationButton>
                   <NavigationButton
+                     disabled={isDownArrowDisabled}
                      isDisabled={isDownArrowDisabled}
                      onClick={this.navigateToNextQuestion}
                   >

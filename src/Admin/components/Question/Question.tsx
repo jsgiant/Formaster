@@ -33,8 +33,13 @@ class Question extends React.Component<QuestionProps> {
    }
 
    onAddOrRemoveChoice = e => {
-      const { onAddOrRemoveChoice } = this.props.question
-      onAddOrRemoveChoice(e.keyCode, e.target.tabIndex, e.target.value)
+      const keyCode = e.keyCode
+      const { onAddChoice, onRemoveChoice } = this.props.question
+      if (keyCode === 13 && e.target.value !== '') {
+         onAddChoice()
+      } else if (e.target.value === '' && keyCode === 8) {
+         onRemoveChoice(e.target.tabIndex)
+      }
    }
 
    onChangeChoiceText = e => {
@@ -43,19 +48,30 @@ class Question extends React.Component<QuestionProps> {
    }
 
    renderQuestion = () => {
-      const { title, id, type } = this.props.question
+      const { questionTitle, questionId, type } = this.props.question
 
       switch (type) {
          case strings.welcome_screen:
             return (
-               <WelcomeScreen onChangeText={this.onChangeTitle} text={title} />
+               <WelcomeScreen
+                  onChangeText={this.onChangeTitle}
+                  text={questionTitle}
+               />
             )
          case strings.thankyou_screen:
             return (
-               <ThankyouScreen onChangeText={this.onChangeTitle} text={title} />
+               <ThankyouScreen
+                  onChangeText={this.onChangeTitle}
+                  text={questionTitle}
+               />
             )
          case strings.large_text:
-            return <LargeText onChangeText={this.onChangeTitle} text={title} />
+            return (
+               <LargeText
+                  onChangeText={this.onChangeTitle}
+                  text={questionTitle}
+               />
+            )
 
          case strings.mcq:
             const { mcqChoices } = this.props.question
@@ -65,12 +81,17 @@ class Question extends React.Component<QuestionProps> {
                   onChangeText={this.onChangeTitle}
                   onAddOrRemoveChoice={this.onAddOrRemoveChoice}
                   onChangeChoiceText={this.onChangeChoiceText}
-                  text={title}
+                  text={questionTitle}
                   choices={mcqChoices}
                />
             )
          default:
-            return <ShortText onChangeText={this.onChangeTitle} text={title} />
+            return (
+               <ShortText
+                  onChangeText={this.onChangeTitle}
+                  text={questionTitle}
+               />
+            )
       }
    }
 

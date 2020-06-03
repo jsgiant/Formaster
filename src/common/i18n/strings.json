@@ -5,5 +5,7 @@
    "add_question": "Add new question",
    "short_text": "short_text",
    "large_text": "large_text",
-   "mcq": "mcq"
+   "mcq": "mcq",
+   "downArrow": "down",
+   "upArrow": "up"
 }

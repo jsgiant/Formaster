@@ -5,7 +5,8 @@ import {
    HeaderLeftSection,
    GoBack,
    LogoutButton,
-   HeaderRightSection
+   HeaderRightSection,
+   PublishButton
 } from './styledComponents'
 
 type FormHeaderProps = {
@@ -17,7 +18,7 @@ type FormHeaderProps = {
 }
 class FormHeader extends React.Component<FormHeaderProps> {
    render() {
-      const { name, onClickLogout, onNavigateBack } = this.props
+      const { name, onClickLogout, onNavigateBack, onClickPublish } = this.props
       return (
          <HeaderContainer>
             <HeaderLeftSection>
@@ -25,6 +26,7 @@ class FormHeader extends React.Component<FormHeaderProps> {
                <FormTitle>{name}</FormTitle>
             </HeaderLeftSection>
             <HeaderRightSection>
+               <PublishButton onClick={onClickPublish}>Publish</PublishButton>
                <LogoutButton onClick={onClickLogout} data-testid='logout-btn'>
                   Logout
                </LogoutButton>

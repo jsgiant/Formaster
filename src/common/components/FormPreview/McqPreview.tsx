@@ -26,7 +26,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
    onChangeChoice = e => {
       const { onChangeresponseId } = this.props.question
       const { navigateToNext } = this.props
-      onChangeresponseId(e.target.value)
+      onChangeresponseId(parseInt(e.target.value))
       navigateToNext()
    }
 
@@ -50,17 +50,22 @@ class McqPreview extends PureComponent<McqPreviewProps> {
    }
 
    render() {
-      const { id, title, hasDescription, description } = this.props.question
+      const {
+         questionId,
+         questionTitle,
+         hasDescription,
+         description
+      } = this.props.question
       const { questionNumber, onSubmit, isFinalQuestion } = this.props
       return (
          <Field>
             <FieldTitle>
                <FieldNumber>{questionNumber}.</FieldNumber>
-               {title || '...'}
+               {questionTitle || '...'}
             </FieldTitle>
-            {hasDescription && (
-               <FieldDescription>{description}</FieldDescription>
-            )}
+
+            <FieldDescription>{description}</FieldDescription>
+
             <ChoicesList>{this.renderChoices()}</ChoicesList>
             {isFinalQuestion && (
                <Button buttonText={buttons.submit} callback={onSubmit} />

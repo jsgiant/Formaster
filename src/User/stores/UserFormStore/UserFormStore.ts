@@ -1,11 +1,15 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import FormModel from '../models/FormModel/FormModel'
 
 class UserFormStore {
    @observable userFormsList: Array<any> = []
+   @observable selectedForm: any
    @observable getUserFormsAPIStatus: any
    @observable getUserFormsAPIError: any
+   @observable getQuestionsAPIStatus: any
+   @observable getQuestionsAPIError: any
    @observable postUserResponsesStatus: any
    @observable postUserResponsesError: any
 
@@ -40,11 +44,34 @@ class UserFormStore {
    }
 
    @action.bound
+   setGetQuesionsAPIStatus(apiStatus: number) {
+      this.getQuestionsAPIStatus = apiStatus
+   }
+
+   @action.bound
+   setGetQuestionsAPIError(apiError) {
+      this.getQuestionsAPIError = apiError
+   }
+
+   @action.bound
+   setGetQuestionsAPIResponse(apiResponse) {
+      this.selectedForm = new FormModel(apiResponse)
+   }
+
+   @action.bound
    getUserForms() {
       const getUserFormsPromise = this.userFormsAPI.getUserFormsAPI()
       return bindPromiseWithOnSuccess(getUserFormsPromise)
          .to(this.setGetUserFormAPIStatus, this.setGetUserFormsResponse)
          .catch(e => this.setGetUserFormAPIError(e))
+   }
+
+   @action.bound
+   getSelectedFormQuestions(formId) {
+      const getQuestionsPromise = this.userFormsAPI.getQuestionsAPI(formId)
+      return bindPromiseWithOnSuccess(getQuestionsPromise)
+         .to(this.setGetQuesionsAPIStatus, this.setGetQuestionsAPIResponse)
+         .catch(e => this.setGetQuestionsAPIError(e))
    }
 }
 

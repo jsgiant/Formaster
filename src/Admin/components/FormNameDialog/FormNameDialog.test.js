@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import strings from './../../i18n/strings.json'
-import FormNamePopup from '.'
+import strings from '../../i18n/strings.json'
+import FormNameDialog from '.'
 
 describe('FormNamePopup tests', () => {
    it('should render given name', () => {

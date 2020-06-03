@@ -7,7 +7,7 @@ import strings from '../../i18n/strings.json'
 
 import CreateFormCard from '../CreateFormCard/CreateFormCard'
 import FormCard from '../FormCard'
-import FormNamePopup from '../FormNamePopup'
+import FormNameDialog from '../FormNameDialog'
 
 import { FormListContainer } from './styledComponents'
 
@@ -22,17 +22,17 @@ type FormListProps = {
 
 @observer
 class FormList extends React.Component<FormListProps> {
-   @observable shouldShowPopup: boolean = false
+   @observable shouldShowDialog: boolean = false
    @action.bound
-   onShowPopup() {
-      this.shouldShowPopup = !this.shouldShowPopup
+   onShowOrHideDialog() {
+      this.shouldShowDialog = !this.shouldShowDialog
    }
 
    @action.bound
    async onClickContinue(name) {
       const { onCreateForm } = this.props
       onCreateForm(name)
-      // this.onShowPopup()
+      // this.onShowDialog()
    }
 
    renderFormCards = () => {
@@ -49,14 +49,16 @@ class FormList extends React.Component<FormListProps> {
       })
    }
 
-   renderFormNamePopup = () => {
+   renderFormNameDialog = () => {
       const { createFormApiStatus } = this.props
-      console.log(createFormApiStatus)
-      if (this.shouldShowPopup && createFormApiStatus !== API_SUCCESS) {
+
+      if (this.shouldShowDialog && createFormApiStatus !== API_SUCCESS) {
          return (
-            <FormNamePopup
+            <FormNameDialog
+               defaultValue=''
                onClickContinue={this.onClickContinue}
                caption={strings.popup.createCaption}
+               onShowOrHideDialog={this.onShowOrHideDialog}
             />
          )
       }
@@ -66,8 +68,8 @@ class FormList extends React.Component<FormListProps> {
    render() {
       return (
          <FormListContainer>
-            {this.renderFormNamePopup()}
-            <CreateFormCard onCreateForm={this.onShowPopup} />
+            {this.renderFormNameDialog()}
+            <CreateFormCard onCreateForm={this.onShowOrHideDialog} />
             {this.renderFormCards()}
          </FormListContainer>
       )

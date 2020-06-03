@@ -1,1 +1,1 @@
-export const LOGIN_PATH = '/v1/login'
+export const LOGIN_PATH = '/login'

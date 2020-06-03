@@ -2,7 +2,7 @@ import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
 export const FormCardContainer = styled.div`
-   ${tw`text-black shadow cursor-pointer m-auto mt-6 text-lg h-64 bg-white w-56 sm:mt-0 sm:m-6 rounded`}
+   ${tw`text-black shadow cursor-pointer m-auto mt-6 text-lg h-64 bg-white w-56 sm:mt-0 sm:m-4 rounded`}
 `
 
 export const NameContainer = styled.div`

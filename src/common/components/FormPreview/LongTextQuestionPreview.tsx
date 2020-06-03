@@ -30,7 +30,7 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
       const {
          description,
          hasDescription,
-         title,
+         questionTitle,
          response
       } = this.props.question
       const {
@@ -44,11 +44,9 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
          <Field>
             <FieldTitle>
                <FieldNumber>{questionNumber}.</FieldNumber>
-               {title || '...'}
+               {questionTitle || '...'}
             </FieldTitle>
-            {hasDescription && (
-               <FieldDescription>{description}</FieldDescription>
-            )}
+            <FieldDescription>{description}</FieldDescription>
             <LongFieldResponse
                placeholder={strings.response_placeholder}
                onKeyDown={onClickEnterKey}

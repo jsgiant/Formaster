@@ -1,15 +1,16 @@
 import { observable, action } from 'mobx'
+
 import QuestionModel from '.'
 import Choice from './ChoiceModel'
 
 class McqModel extends QuestionModel {
-   @observable mcqChoices: Array<any> = ['']
+   @observable mcqChoices: Array<any> = [{ choice_id: null, choice: '' }]
    @observable responseId: any = null
 
    constructor(type, question?) {
       super(type, question)
       if (question) {
-         this.mcqChoices = question.choices
+         this.mcqChoices = question.mcq_choices
       }
    }
 
@@ -20,22 +21,21 @@ class McqModel extends QuestionModel {
 
    @action.bound
    onChangeChoiceText(index, value) {
-      console.log(value, index)
       this.mcqChoices[index].choice = value
    }
 
    @action.bound
-   onAddOrRemoveChoice(keyCode, index, value) {
-      if (keyCode === 13 && value !== '') {
-         this.mcqChoices.push({
-            choice: '',
-            choice_id: this.mcqChoices.length + 1
-         })
-      } else if (value === '' && keyCode === 8) {
-         if (this.mcqChoices.length !== 1) {
-            this.mcqChoices.splice(index, 1)
-         }
-      }
+   onRemoveChoice(index) {
+      // this.mcqChoices.remove(choice)
+      this.mcqChoices.splice(index, 1)
+   }
+
+   @action.bound
+   onAddChoice() {
+      this.mcqChoices.push({
+         choice: '',
+         choice_id: null
+      })
    }
 }
 

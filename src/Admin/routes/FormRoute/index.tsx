@@ -6,7 +6,7 @@ import EditFormRoute from './EditFormRoute'
 const editFormRoute = (
    <ProtectedRoute
       key={paths.form}
-      path='/form/:form_id/v1/'
+      path='/form/:form_id'
       component={EditFormRoute}
    />
 )

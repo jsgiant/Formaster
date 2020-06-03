@@ -7,6 +7,12 @@ class UserFormsAPI {
          resolve(userFormsData)
       })
    }
+
+   getQuestionsAPI(formId) {
+      return new Promise(resolve =>
+         resolve(userFormsData.form_questions[--formId])
+      )
+   }
 }
 
 export default UserFormsAPI
