@@ -44,7 +44,6 @@ class LoginForm extends React.Component<LoginFormProps> {
          userName,
          password,
          errorMessage,
-
          onChangePassword,
          onChangeUserName
       } = this.props
@@ -58,14 +57,14 @@ class LoginForm extends React.Component<LoginFormProps> {
                <UserInput
                   onChange={onChangeUserName}
                   value={userName}
-                  type='name'
+                  type={strings.login.nameType}
                   placeholder={strings.login.usernamePlaceholder}
                />
                <Label>{strings.login.passwordLabel}</Label>
                <UserInput
                   onChange={onChangePassword}
                   value={password}
-                  type='password'
+                  type={strings.login.passwordType}
                   placeholder={strings.login.passwordPlaceholder}
                />
                {this.renderLoginButton()}

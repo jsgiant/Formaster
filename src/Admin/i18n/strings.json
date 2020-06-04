@@ -12,23 +12,23 @@
    "question_options": [
       {
          "title": "Welcome Screen",
-         "type": "welcome_screen"
-      },
-      {
-         "title": "Thankyou Screen",
-         "type": "thankyou_screen"
+         "type": "WELCOME_SCREEN"
       },
       {
          "title": "Long Text",
-         "type": "large_text"
+         "type": "LARGE_TEXT"
       },
       {
          "title": "Short Text",
-         "type": "short_text"
+         "type": "SHORT_TEXT"
       },
       {
          "title": "Multiple Choice",
-         "type": "mcq"
+         "type": "MCQ"
+      },
+      {
+         "title": "Thankyou Screen",
+         "type": "THANKYOU_SCREEN"
       }
    ]
 }

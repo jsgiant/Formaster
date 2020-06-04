@@ -11,11 +11,12 @@ class Question {
    description: string
 
    constructor(question) {
+      console.log(question.user_response)
       const {
          question_id,
          question_text,
          question_type,
-         response,
+         user_response,
          is_required,
          description,
          position_number
@@ -23,7 +24,7 @@ class Question {
       this.questionId = question_id
       this.questionTitle = question_text
       this.type = question_type
-      this.response = response
+      this.response = user_response
       this.isRequired = is_required
       this.description = description
       this.position = position_number
@@ -32,10 +33,6 @@ class Question {
    @action.bound
    onChangeResponse(response) {
       this.response = response
-   }
-
-   onSubmitResponses() {
-      //postAPI call
    }
 }
 

@@ -4,15 +4,16 @@ import updatedFormData from '../../fixtures/updated-forms-data.json'
 class FormsAPI {
    api
 
-   getFormsAPI() {
+   getFormsAPI(limit, offset) {
       return new Promise((resolve, reject) => {
          setTimeout(() => resolve(formsData), 2000)
       })
    }
 
    postFormsAPI(formName: string) {
-      return new Promise(resolve => {
-         resolve(formsData.post_forms_resonse)
+      return new Promise((resolve, reject) => {
+         setTimeout(() => resolve(formsData.post_forms_resonse), 1500)
+         // reject(new Error('try again!'))
       })
    }
 
@@ -30,22 +31,24 @@ class FormsAPI {
       })
    }
 
-   putFormsAPI(formname: string) {
-      return new Promise(resolve => {
-         resolve(formsData.put_forms_data)
-      })
+   putFormsAPI(formname: string, formId: number) {
+      return new Promise(resolve => setTimeout(() => resolve('success'), 2000))
    }
 
    deleteFormsAPI(formId: number) {
-      return new Promise(resolve => {
-         resolve(formsData.delete_form_data)
-      })
+      return new Promise(resolve =>
+         setTimeout(() => resolve(formsData.delete_form_data), 2000)
+      )
    }
 
-   getQuestionsAPI(formId: number) {
+   getQuestionsAPI(formId: number, limit, offset) {
       return new Promise(resolve => {
          setTimeout(() => resolve(formsData.form_questions[--formId]), 2000)
       })
+   }
+
+   postQuestionsAPI(formId: number, questions) {
+      return new Promise(resolve => setTimeout(() => resolve('success'), 1500))
    }
 }
 

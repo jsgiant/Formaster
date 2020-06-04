@@ -5,6 +5,7 @@ class AuthService {
    getLoginAPI(request) {
       return new Promise((resolve, reject) => {
          setTimeout(() => resolve(authData.customer), 2000)
+         // reject(new Error('Invalid credentials'))
       })
    }
 }

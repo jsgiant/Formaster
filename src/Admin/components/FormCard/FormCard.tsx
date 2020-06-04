@@ -2,6 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { MdMoreHoriz } from 'react-icons/md'
+import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import strings from '../../i18n/strings.json'
@@ -42,7 +43,6 @@ class FormCard extends React.Component<FormCardProps> {
    }
    @action.bound
    onClickContinue(name) {
-      this.onShowOrHideDialog()
       const { onRenameForm } = this.props.formDetails
       onRenameForm(name)
    }
@@ -67,9 +67,24 @@ class FormCard extends React.Component<FormCardProps> {
       )
    }
 
+   renderFormNameDialog = () => {
+      const { name, putFormsAPIStatus } = this.props.formDetails
+      const isProcessing = putFormsAPIStatus === API_FETCHING
+      return this.shouldShowDialog && putFormsAPIStatus !== API_SUCCESS ? (
+         <FormNamePopup
+            defaultValue={name}
+            onClickContinue={this.onClickContinue}
+            caption={strings.popup.renameCaption}
+            onShowOrHideDialog={this.onShowOrHideDialog}
+            isProcessing={isProcessing}
+         />
+      ) : null
+   }
+
    render() {
       const { onClickForm } = this.props
       const { name, id } = this.props.formDetails
+
       return (
          <FormCardContainer>
             <NameContainer onClick={() => onClickForm(id)}>
@@ -78,16 +93,8 @@ class FormCard extends React.Component<FormCardProps> {
             <FooterContainer>
                <ResponseButton>No responses</ResponseButton>
                {this.renderMenuBar()}
-
-               {this.shouldShowDialog && (
-                  <FormNamePopup
-                     defaultValue={name}
-                     onClickContinue={this.onClickContinue}
-                     caption={strings.popup.renameCaption}
-                     onShowOrHideDialog={this.onShowOrHideDialog}
-                  />
-               )}
             </FooterContainer>
+            {this.renderFormNameDialog()}
          </FormCardContainer>
       )
    }

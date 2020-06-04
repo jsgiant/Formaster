@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 import { paths } from '../../../Common/constants/Paths'
 import EditForm from '../../components/EditForm'
 

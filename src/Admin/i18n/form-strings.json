@@ -4,10 +4,11 @@
    "welcome_placeholder": "Write your welcome message here...",
    "thankyou_placeholder": "Write your thankyou message here...",
    "mcq_placeholder": "- choice",
-   "welcome_screen": "welcome_screen",
-   "thankyou_screen": "thankyou_screen",
+   "welcome_screen": "WELCOME_SCREEN",
+   "thankyou_screen": "THANKYOU_SCREEN",
+   "short_text": "SHORT_TEXT",
+   "large_text": "LARGE_TEXT",
+   "mcq": "MCQ",
    "add_question": "Add new question",
-   "short_text": "short_text",
-   "large_text": "large_text",
-   "mcq": "mcq"
+   "confirmMessage": "Do you want to save changes?"
 }

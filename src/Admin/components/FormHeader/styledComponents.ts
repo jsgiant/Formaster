@@ -2,7 +2,7 @@ import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
 export const HeaderContainer = styled.div`
-   ${tw`flex justify-between w-full pl-2 items-center px-2 shadow lg:text-lg h-16`}
+   ${tw`flex justify-between w-full pl-2 sticky items-center px-2 shadow lg:text-lg h-16 `}
 `
 
 export const HeaderLeftSection = styled.div`

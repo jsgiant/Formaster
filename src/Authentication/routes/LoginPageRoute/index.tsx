@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { LOGIN_PATH } from '../../constants/Paths'
+import { LOGIN_PATH } from '../../constants/paths'
 import LoginFormRoute from './LoginFormRoute'
 
 const loginFormRoute = (

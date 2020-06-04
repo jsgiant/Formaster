@@ -8,7 +8,7 @@ import AuthService from '../../services/AuthService'
 import AuthStore from '../../stores/AuthStore'
 import strings from './../../i18n/strings.json'
 import loginAPIResponse from './../../fixtures/login-api-response.json'
-import { LOGIN_PATH } from '../../constants/Paths'
+import { LOGIN_PATH } from '../../constants/paths'
 import LoginFormRoute from './LoginFormRoute'
 
 const LocationDisplay = withRouter(({ location }) => (

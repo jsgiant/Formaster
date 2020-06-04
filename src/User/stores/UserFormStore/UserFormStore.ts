@@ -55,7 +55,7 @@ class UserFormStore {
 
    @action.bound
    setGetQuestionsAPIResponse(apiResponse) {
-      this.selectedForm = new FormModel(apiResponse)
+      this.selectedForm = new FormModel(apiResponse, this.userFormsAPI)
    }
 
    @action.bound

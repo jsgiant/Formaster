@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 import Dashboard from '../../../Common/components/Dashboard'
 import UserFormList from '../../components/UserFormList/UserFormList'
 

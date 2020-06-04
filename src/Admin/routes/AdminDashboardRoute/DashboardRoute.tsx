@@ -1,7 +1,8 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import { toast } from 'react-toastify'
+import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 import Dashboard from '../../../Common/components/Dashboard'
 import FormList from '../../components/FormList'
 
@@ -30,20 +31,19 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
    }
 
    renderFormsList = () => {
-      const {
-         formList,
-         onCreateForm,
-         onDeleteForm,
-         postFormsAPIStatus,
-         updateFormsAPIError
-      } = this.props.formStore
+      // toast.error('Wow so easy!', {
+      //    position: 'bottom-center',
+      //    autoClose: 5000,
+      //    hideProgressBar: true,
+      //    closeOnClick: true,
+      //    pauseOnHover: false,
+      //    draggable: true,
+      //    progress: undefined
+      // })
+
       return (
          <FormList
-            onCreateForm={onCreateForm}
-            onDeleteForm={onDeleteForm}
-            createFormApiStatus={postFormsAPIStatus}
-            formsList={formList}
-            apiError={updateFormsAPIError}
+            formStore={this.props.formStore}
             onClickForm={this.onClickForm}
          />
       )
@@ -54,6 +54,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
          getFormsDataAPIError,
          getUserForms
       } = this.props.formStore
+
       return (
          <Dashboard
             apiError={getFormsDataAPIError}

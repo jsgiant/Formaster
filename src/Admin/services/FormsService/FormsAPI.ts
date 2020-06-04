@@ -9,15 +9,14 @@ class FormsAPI {
 
    constructor() {
       this.api = create({
-         baseURL: `${urls.baseURL}`,
-         headers: { Authorization: `Bearer ${getAccessToken()}` }
+         baseURL: `${urls.baseURL}`
       })
    }
 
-   getFormsAPI() {
+   getFormsAPI(limit: number, offset: number) {
       return networkCallWithApisauce(
          this.api,
-         urls.get_forms,
+         `${urls.get_forms}?limit=${limit}&offset=${offset}`,
          {},
          apiMethods.get
       )
@@ -27,7 +26,7 @@ class FormsAPI {
       return networkCallWithApisauce(
          this.api,
          `${urls.create_form}`,
-         { formname },
+         formname,
          apiMethods.post
       )
    }
@@ -36,9 +35,21 @@ class FormsAPI {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/v1/`,
-         { formname },
+         formname,
          apiMethods.put
       )
+   }
+
+   getUpdatedFormAPI() {
+      return new Promise(resolve => {
+         setTimeout(() => resolve('success'), 2000)
+      })
+   }
+
+   getUpdatedFormsAPI() {
+      return new Promise(resolve => {
+         setTimeout(() => resolve('success'), 2000)
+      })
    }
 
    deleteFormsAPI(formId: number) {
@@ -50,10 +61,10 @@ class FormsAPI {
       )
    }
 
-   getQuestionsAPI(formId: number) {
+   getQuestionsAPI(formId: number, limit: number, offset: number) {
       return networkCallWithApisauce(
          this.api,
-         `/form/${formId}/questions/v1`,
+         `/form/${formId}/questions/v1/?limit=${limit}&offset=${offset}`,
          {},
          apiMethods.get
       )
@@ -62,8 +73,8 @@ class FormsAPI {
    postQuestionsAPI(formId: number, questions) {
       return networkCallWithApisauce(
          this.api,
-         `/form/${formId}/questions/v1`,
-         { questions },
+         `/form/${formId}/questions/v1/`,
+         questions,
          apiMethods.post
       )
    }
@@ -71,11 +82,11 @@ class FormsAPI {
    putQuestionsAPI(formId: number, questions) {
       return networkCallWithApisauce(
          this.api,
-         `/form/${formId}/questions/v1`,
-         { questions },
+         `/form/${formId}/questions/v1/`,
+         questions,
          apiMethods.put
       )
    }
 }
 
-export default FormsAPI
+export { FormsAPI }

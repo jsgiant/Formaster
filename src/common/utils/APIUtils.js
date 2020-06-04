@@ -45,8 +45,7 @@ export function isNetworkError(error) {
 export const getFormattedError = apiError => {
    //TODO: Need to use strings from i18n
    const errorViewTitle = 'Oops! Something Went Wrong'
-   const errorViewDescription =
-      "We're having some trouble completing your request. Please try again."
+   const errorViewDescription = 'Something went wrong. Please try again!'
    const connectionLost = 'Connection lost'
    const internetConnection = 'Please check your internet connection'
 

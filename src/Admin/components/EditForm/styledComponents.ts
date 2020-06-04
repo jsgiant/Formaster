@@ -2,7 +2,7 @@ import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
 export const FormScreenUIWrapper = styled.div`
-   ${tw`max-h-screen  w-full`}
+   ${tw`max-h-screen w-full`}
 `
 export const FormDetails = styled.div`
    ${tw`w-full max-h-screen  flex flex-wrap`}

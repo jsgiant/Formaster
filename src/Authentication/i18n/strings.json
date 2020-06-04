@@ -1,9 +1,11 @@
 {
    "login": {
       "username": "Anonymous",
-      "baseURL": "https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/",
-      "loginEndpoint": "v1/signin",
+      "baseURL": "https://a8ecfd7f5783.ngrok.io/api/formaster/",
+      "loginEndpoint": "/login/v1/",
       "empty": "",
+      "nameType": "name",
+      "passwordType": "password",
       "loginButtonContent": "Login",
       "testId": "login-btn",
       "logoAlt": "ib_hubs_logo",

@@ -16,7 +16,7 @@ class UserFormsAPI {
    getUserFormsAPI() {
       return networkCallWithApisauce(
          this.api,
-         paths.getFormsUrl,
+         `/forms/v1/?limit=${100}&offset=${0}`,
          {},
          apiMethods.get
       )
@@ -25,9 +25,19 @@ class UserFormsAPI {
    getQuestionsAPI(formId) {
       return networkCallWithApisauce(
          this.api,
-         `/form/${formId}/questions`,
+         `/form/${formId}/response/v1/?limit=${100}&offset=${0}`,
          {},
          apiMethods.get
+      )
+   }
+
+   postResponsesAPI(formId, responses) {
+      console.log(formId)
+      return networkCallWithApisauce(
+         this.api,
+         `/form/${formId}/response/v1/`,
+         responses,
+         apiMethods.post
       )
    }
 }
