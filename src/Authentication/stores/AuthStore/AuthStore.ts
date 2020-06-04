@@ -3,7 +3,8 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import {
    setAccessToken,
-   clearUserSession
+   clearUserSession,
+   setIsAdmin
 } from '../../../Common/utils/StorageUtils'
 
 class AuthStore {
@@ -38,6 +39,7 @@ class AuthStore {
    @action.bound
    setGetLoginAPIResponse(apiResponse) {
       this.isAdmin = apiResponse.is_admin
+      setIsAdmin(apiResponse.is_admin)
       setAccessToken(apiResponse.access_token)
    }
 

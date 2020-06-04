@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
+import { API_FETCHING } from '@ib/api-constants'
 import strings from '../../i18n/strings.json'
 import {
    FormNamePopupWrapper,
@@ -14,6 +15,7 @@ import {
 type FormNameDialogProps = {
    onClickContinue: (name) => void
    caption: string
+   isProcessing: boolean
    defaultValue: string
    onShowOrHideDialog: () => void
 }
@@ -27,10 +29,17 @@ class FormNameDialog extends React.Component<FormNameDialogProps> {
    onChangeName(e) {
       this.name = e.target.value
    }
-   onClickContinue = () => {
+
+   @action.bound
+   onClickContinue() {
       const { onClickContinue } = this.props
       onClickContinue(this.name)
    }
+
+   isContinueDisabled() {
+      return this.name === empty || this.props.isProcessing
+   }
+
    render() {
       const { caption, onShowOrHideDialog } = this.props
       return (
@@ -43,8 +52,8 @@ class FormNameDialog extends React.Component<FormNameDialogProps> {
                   value={this.name}
                />
                <ContinueButton
-                  disabled={this.name === empty}
-                  isDisabled={this.name === empty}
+                  disabled={this.isContinueDisabled()}
+                  isDisabled={this.isContinueDisabled()}
                   onClick={this.onClickContinue}
                >
                   Continue

@@ -33,7 +33,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
 
    @action.bound
    navigateToPreviousQuestion() {
-      if (this.currentQuestion > 1) {
+      if (this.currentQuestion > 0) {
          --this.currentQuestion
          --this.questionNumber
       }
@@ -115,14 +115,14 @@ class FormPreview extends React.Component<FormPreviewProps> {
    isArrowDisabled = (arrow): boolean => {
       const { questions } = this.props
       if (arrow === strings.downArrow) {
-         return this.questionNumber <= 1
+         return this.questionNumber >= questions.length - 1
       }
-      return this.questionNumber >= questions.length - 2
+      return this.questionNumber === 0
    }
 
    render() {
-      const isUpArrowDisabled = this.isArrowDisabled(strings.downArrow)
-      const isDownArrowDisabled = this.isArrowDisabled(strings.upArrow)
+      const isUpArrowDisabled = this.isArrowDisabled(strings.upArrow)
+      const isDownArrowDisabled = this.isArrowDisabled(strings.downArrow)
       return (
          <FormPreviewContainer>
             <FieldWrapper>{this.renderQuestions()}</FieldWrapper>

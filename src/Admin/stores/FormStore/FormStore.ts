@@ -11,13 +11,13 @@ class FormStore {
    @observable getFormsDataAPIError: any
    @observable postFormsAPIStatus: any
    @observable postFormsAPIResponse: any
-   @observable putFormsAPIStatus: any
-   @observable putFormsAPIResponse: any
    @observable deleteFormsAPIStatus: any
    @observable deleteFormsAPIResponse: any
    @observable updateFormsAPIError: any
    @observable getQuestionsAPIStatus: any
    @observable getQuestionsAPIError: any
+   @observable offset: number = 0
+   @observable initialLimit: number = 9
 
    formService: any
 
@@ -32,8 +32,6 @@ class FormStore {
       this.getFormsDataAPIError = null
       this.postFormsAPIStatus = API_INITIAL
       this.postFormsAPIResponse = null
-      this.putFormsAPIStatus = API_INITIAL
-      this.putFormsAPIResponse = null
       this.deleteFormsAPIStatus = API_INITIAL
       this.getFormsDataAPIStatus = API_INITIAL
       this.getFormsDataAPIError = null
@@ -55,7 +53,7 @@ class FormStore {
    @action.bound
    setGetFormDataAPIResponse(formsData) {
       this.formList = formsData.forms.map(form => {
-         return new FormModel(form)
+         return new FormModel(form, this.formService)
       })
    }
 
@@ -67,25 +65,7 @@ class FormStore {
    @action.bound
    setPostFormsAPIResponse(apiResponse) {
       this.postFormsAPIResponse = apiResponse
-      //this.getUserForms()
-      //for testing
-      const getFormsPromise = this.formService.getUpdatedFormAPI()
-      this.onBindPromiseWithOnSuccess(
-         getFormsPromise,
-         this.setGetFormDataAPIStatus,
-         this.setGetFormDataAPIResponse,
-         this.setGetFormDataAPIError
-      )
-   }
-
-   @action.bound
-   setPutFormsAPIStatus(apiStatus) {
-      this.putFormsAPIStatus = apiStatus
-   }
-
-   @action.bound
-   setPutFormsAPIResponse(apiResponse) {
-      this.putFormsAPIResponse = apiResponse
+      this.formList.push(new FormModel(apiResponse, this.formService))
    }
 
    @action.bound
@@ -94,21 +74,7 @@ class FormStore {
    }
 
    @action.bound
-   setDeleteFormsAPIResponse(apiResponse) {
-      this.deleteFormsAPIResponse = apiResponse
-      //this.getUserForms()
-      // for testing
-      const getFormsPromise = this.formService.getUpdatedFormsAPI()
-      this.onBindPromiseWithOnSuccess(
-         getFormsPromise,
-         this.setGetFormDataAPIStatus,
-         this.setGetFormDataAPIResponse,
-         this.setGetFormDataAPIError
-      )
-   }
-
-   @action.bound
-   setupdateFormsAPIError(apiError) {
+   setUpdateFormError(apiError) {
       this.updateFormsAPIError = apiError
    }
 
@@ -124,12 +90,15 @@ class FormStore {
 
    @action.bound
    setGetQuestionsAPIResponse(apiResponse) {
-      this.currentForm = new FormModel(apiResponse)
+      this.currentForm = new FormModel(apiResponse, this.formService)
    }
 
    @action.bound
    getUserForms(): any {
-      const getFormsPromise = this.formService.getFormsAPI()
+      const getFormsPromise = this.formService.getFormsAPI(
+         this.initialLimit,
+         this.offset
+      )
       this.onBindPromiseWithOnSuccess(
          getFormsPromise,
          this.setGetFormDataAPIStatus,
@@ -140,7 +109,11 @@ class FormStore {
 
    @action.bound
    getFormQuestions(formId: number) {
-      const getQuestionsPromise = this.formService.getQuestionsAPI(formId)
+      const getQuestionsPromise = this.formService.getQuestionsAPI(
+         formId,
+         this.initialLimit,
+         this.offset
+      )
       this.onBindPromiseWithOnSuccess(
          getQuestionsPromise,
          this.setGetQuestionsAPIStatus,
@@ -151,12 +124,14 @@ class FormStore {
 
    @action.bound
    onCreateForm(formName: string): any {
-      const postFormPromise = this.formService.postFormsAPI(formName)
+      const postFormPromise = this.formService.postFormsAPI({
+         form_name: formName
+      })
       this.onBindPromiseWithOnSuccess(
          postFormPromise,
          this.setPostFormsAPIStatus,
          this.setPostFormsAPIResponse,
-         this.setupdateFormsAPIError
+         this.setUpdateFormError
       )
    }
 
@@ -169,11 +144,12 @@ class FormStore {
 
    @action.bound
    onDeleteForm(form) {
-      // const deleteFormsResponse = this.formService.deleteFormsAPI(form.id)
-      // return bindPromiseWithOnSuccess(deleteFormsResponse)
-      //    .to(this.setDeleteFormsAPIStatus, this.setDeleteFormsAPIResponse)
-      //    .catch(error => this.setupdateFormsAPIError(error))
-      this.formList.remove(form)
+      const deleteFormsResponse = this.formService.deleteFormsAPI(form.id)
+      return bindPromiseWithOnSuccess(deleteFormsResponse)
+         .to(this.setDeleteFormsAPIStatus, response =>
+            this.formList.remove(form)
+         )
+         .catch(error => this.setUpdateFormError(error))
    }
 }
 

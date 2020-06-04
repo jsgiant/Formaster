@@ -15,7 +15,7 @@ class QuestionList extends React.Component<QuestionListProps> {
       return questionsList.map(question => {
          return (
             <Question
-               key={question.id}
+               key={question.questionId}
                onDeleteQuestion={onDeleteQuestion}
                question={question}
             />

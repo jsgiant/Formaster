@@ -16,8 +16,8 @@ class AuthService {
       return networkCallWithApisauce(
          this.api,
          strings.login.loginEndpoint,
-         { request },
-         apiMethods.get
+         request,
+         apiMethods.post
       )
    }
 }

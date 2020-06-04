@@ -41,5 +41,8 @@ export const Choice = styled.input`
    ${tw`h-12 w-full ml-1 focus:outline-none`}
 `
 export const Toolbar = styled.div`
-   ${tw`w-full flex justify-end`}
+   ${tw`w-full flex justify-end items-center`}
+`
+export const RequiredToggler = styled.input`
+   ${tw`mr-2`}
 `

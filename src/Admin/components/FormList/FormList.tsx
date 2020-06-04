@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { API_SUCCESS } from '@ib/api-constants'
+import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
 
@@ -12,12 +12,8 @@ import FormNameDialog from '../FormNameDialog'
 import { FormListContainer } from './styledComponents'
 
 type FormListProps = {
-   formsList: any
-   onDeleteForm: (form) => void
-   onCreateForm: (form) => void
+   formStore: any
    onClickForm: (form) => void
-   createFormApiStatus: number
-   apiError: string
 }
 
 @observer
@@ -30,14 +26,14 @@ class FormList extends React.Component<FormListProps> {
 
    @action.bound
    async onClickContinue(name) {
-      const { onCreateForm } = this.props
+      const { onCreateForm } = this.props.formStore
       onCreateForm(name)
-      // this.onShowDialog()
    }
 
    renderFormCards = () => {
-      const { formsList, onDeleteForm, onClickForm } = this.props
-      return formsList.map(form => {
+      const { formList, onDeleteForm } = this.props.formStore
+      const { onClickForm } = this.props
+      return formList.map(form => {
          return (
             <FormCard
                key={form.id}
@@ -50,15 +46,16 @@ class FormList extends React.Component<FormListProps> {
    }
 
    renderFormNameDialog = () => {
-      const { createFormApiStatus } = this.props
-
-      if (this.shouldShowDialog && createFormApiStatus !== API_SUCCESS) {
+      const { postFormsAPIStatus } = this.props.formStore
+      const isProcessing = postFormsAPIStatus === API_FETCHING
+      if (postFormsAPIStatus !== API_SUCCESS && this.shouldShowDialog) {
          return (
             <FormNameDialog
-               defaultValue=''
+               defaultValue={strings.popup.empty}
                onClickContinue={this.onClickContinue}
                caption={strings.popup.createCaption}
                onShowOrHideDialog={this.onShowOrHideDialog}
+               isProcessing={isProcessing}
             />
          )
       }

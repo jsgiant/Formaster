@@ -7,7 +7,7 @@ import { createMemoryHistory } from 'history'
 import AuthService from '../../../Authentication/services/AuthService'
 import AuthStore from '../../../Authentication/stores/AuthStore'
 import { paths } from '../../../Common/constants/Paths'
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 
 import formsData from '../../fixtures/forms-data.json'
 import FormsAPI from '../../services/FormsService/FormsAPI'

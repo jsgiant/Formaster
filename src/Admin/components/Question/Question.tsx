@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import { MdSettings } from 'react-icons/md'
 import { MdDelete } from 'react-icons/md'
 import strings from '../../i18n/form-strings.json'
@@ -7,7 +8,8 @@ import {
    DescriptionText,
    Toolbar,
    IconContainer,
-   Required
+   Required,
+   RequiredToggler
 } from './styledComponents'
 
 import WelcomeScreen from './WelcomeScreen'
@@ -21,6 +23,7 @@ type QuestionProps = {
    onDeleteQuestion: (question) => void
 }
 
+@observer
 class Question extends React.Component<QuestionProps> {
    onChangeTitle = e => {
       const { onChangeTitle } = this.props.question
@@ -96,7 +99,12 @@ class Question extends React.Component<QuestionProps> {
    }
 
    render() {
-      const { description, hasDescription, isRequired } = this.props.question
+      const {
+         description,
+         hasDescription,
+         isRequired,
+         onChangeIsRequired
+      } = this.props.question
       const { question, onDeleteQuestion } = this.props
       return (
          <QuestionWrapper>
@@ -111,12 +119,18 @@ class Question extends React.Component<QuestionProps> {
                />
             )}
             <Toolbar>
-               <IconContainer>
+               <RequiredToggler
+                  type='checkbox'
+                  checked={isRequired}
+                  onChange={onChangeIsRequired}
+               />
+               Required
+               {/* <IconContainer onClick={() => onChangeIsRequired()}>
                   <MdSettings />
                </IconContainer>
                <IconContainer onClick={() => onDeleteQuestion(question)}>
                   <MdDelete />
-               </IconContainer>
+               </IconContainer> */}
             </Toolbar>
          </QuestionWrapper>
       )

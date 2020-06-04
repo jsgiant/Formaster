@@ -1,4 +1,4 @@
-import AuthService from '../services/AuthService/AuthFixture'
+import AuthService from '../services/AuthService'
 import AuthStore from './AuthStore'
 
 const authService = new AuthService()

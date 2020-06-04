@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import FormPreview from '../../../Common/components/FormPreview'
+import strings from './../../i18n/form-strings.json'
 import FormHeader from '../FormHeader'
 import QuestionList from '../QuestionList'
 import {
@@ -19,15 +20,23 @@ type EditFormProps = {
 
 @observer
 class EditForm extends React.Component<EditFormProps> {
+   onNavigateBack = () => {
+      const { formId, onNavigateBack } = this.props
+      const { onPublishForm } = this.props.formDetails
+      if (confirm(strings.confirmMessage)) {
+         onPublishForm(formId)
+         onNavigateBack()
+      }
+   }
    render() {
-      const { onClickLogout, onNavigateBack, formId } = this.props
+      const { onClickLogout, formId } = this.props
       const { questionStore, name, onPublishForm } = this.props.formDetails
       return (
          <FormScreenUIWrapper>
             <FormHeader
                onClickLogout={onClickLogout}
                onClickPreview={() => {}}
-               onNavigateBack={onNavigateBack}
+               onNavigateBack={this.onNavigateBack}
                name={name}
                onClickPublish={() => onPublishForm(formId)}
             />

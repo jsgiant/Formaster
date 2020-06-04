@@ -8,6 +8,7 @@ import { getAccessToken } from '../../../Common/utils/StorageUtils'
 import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
+import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -52,7 +53,8 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
 
    @action.bound
    onLoginFailure(error) {
-      this.errorMessage = error
+      this.errorMessage = getUserDisplayableErrorMessage(error)
+      console.log(this.errorMessage)
    }
 
    @action.bound
