@@ -36,6 +36,7 @@ class ShortTextQuestionPreview extends Component<
          hasDescription,
          questionTitle,
          response,
+         isRequired,
          position
       } = this.props.question
       const {
@@ -50,6 +51,7 @@ class ShortTextQuestionPreview extends Component<
             <FieldTitle>
                <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
                {questionTitle || strings.emptyTitle}
+               {isRequired && '*'}
             </FieldTitle>
 
             <FieldDescription>{description}</FieldDescription>

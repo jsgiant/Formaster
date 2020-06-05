@@ -2,6 +2,7 @@ import { create } from 'apisauce'
 import { getAccessToken } from '../../../Common/utils/StorageUtils'
 import { apiMethods } from '../../../Common/constants/APIConstants'
 import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
+import { paths } from '../../../Common/constants/Paths'
 import urls from '../../i18n/urls.json'
 
 class FormsAPI {
@@ -9,7 +10,7 @@ class FormsAPI {
 
    constructor() {
       this.api = create({
-         baseURL: `${urls.baseURL}`
+         baseURL: `${paths.baseURL}`
       })
    }
 
