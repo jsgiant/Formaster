@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { observable, action } from 'mobx'
-import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
+import { observable, action, reaction } from 'mobx'
+import { API_SUCCESS, API_FETCHING, API_FAILED } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
 
@@ -19,9 +19,16 @@ type FormListProps = {
 @observer
 class FormList extends React.Component<FormListProps> {
    @observable shouldShowDialog: boolean = false
+   @observable isFormCreated
+
    @action.bound
-   onShowOrHideDialog() {
-      this.shouldShowDialog = !this.shouldShowDialog
+   onShowDialog() {
+      this.shouldShowDialog = true
+   }
+
+   @action.bound
+   onHideDialog() {
+      this.shouldShowDialog = false
    }
 
    @action.bound
@@ -29,6 +36,18 @@ class FormList extends React.Component<FormListProps> {
       const { onCreateForm } = this.props.formStore
       onCreateForm(name)
    }
+
+   reaction = reaction(
+      () => {
+         const { postFormsAPIStatus } = this.props.formStore
+         return postFormsAPIStatus === API_SUCCESS
+      },
+      isSuccess => {
+         if (isSuccess) {
+            this.onHideDialog()
+         }
+      }
+   )
 
    renderFormCards = () => {
       const { formList, onDeleteForm } = this.props.formStore
@@ -48,13 +67,13 @@ class FormList extends React.Component<FormListProps> {
    renderFormNameDialog = () => {
       const { postFormsAPIStatus } = this.props.formStore
       const isProcessing = postFormsAPIStatus === API_FETCHING
-      if (postFormsAPIStatus !== API_SUCCESS && this.shouldShowDialog) {
+      if (this.shouldShowDialog) {
          return (
             <FormNameDialog
                defaultValue={strings.popup.empty}
                onClickContinue={this.onClickContinue}
                caption={strings.popup.createCaption}
-               onShowOrHideDialog={this.onShowOrHideDialog}
+               onShowOrHideDialog={this.onHideDialog}
                isProcessing={isProcessing}
             />
          )
@@ -66,7 +85,7 @@ class FormList extends React.Component<FormListProps> {
       return (
          <FormListContainer>
             {this.renderFormNameDialog()}
-            <CreateFormCard onCreateForm={this.onShowOrHideDialog} />
+            <CreateFormCard onCreateForm={this.onShowDialog} />
             {this.renderFormCards()}
          </FormListContainer>
       )

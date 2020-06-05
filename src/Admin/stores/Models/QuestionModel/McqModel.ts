@@ -5,7 +5,7 @@ import Choice from './ChoiceModel'
 
 class McqModel extends QuestionModel {
    @observable mcqChoices: Array<any> = [{ choice_id: null, choice: '' }]
-   @observable responseId: any = null
+   @observable responseId: number | null = null
 
    constructor(type, question?) {
       super(type, question)
@@ -27,7 +27,7 @@ class McqModel extends QuestionModel {
    @action.bound
    onRemoveChoice(index) {
       // this.mcqChoices.remove(choice)
-      this.mcqChoices.splice(index, 1)
+      this.mcqChoices.length > 1 && this.mcqChoices.splice(index, 1)
    }
 
    @action.bound

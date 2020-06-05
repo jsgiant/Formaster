@@ -13,7 +13,7 @@ class QuestionStore {
    @action.bound
    initializeQuestions(questionsList) {
       this.questionsList = questionsList.map(question => {
-         if (this.isMCQ(question.question_type)) {
+         if (question.question_type === strings.mcq) {
             return new McqModel(question.question_type, question)
          }
          return new QuestionModel(question.question_type, question)
@@ -22,15 +22,42 @@ class QuestionStore {
 
    @action.bound
    onAddQuestion(questionType) {
-      if (this.isMCQ(questionType)) {
-         this.questionsList.push(new McqModel(questionType))
-      } else {
-         this.questionsList.push(new QuestionModel(questionType))
+      switch (questionType) {
+         case strings.mcq:
+            if (this.hasQuestion(strings.thankyou_screen)) {
+               return this.questionsList.splice(
+                  this.questionsList.length - 1,
+                  0,
+                  new McqModel(questionType)
+               )
+            }
+            return this.questionsList.push(new McqModel(questionType))
+         case strings.welcome_screen:
+            if (this.hasQuestion(questionType)) {
+               return
+            }
+            return this.questionsList.unshift(new QuestionModel(questionType))
+         case strings.thankyou_screen:
+            if (this.hasQuestion(questionType)) {
+               return
+            }
+            return this.questionsList.push(new QuestionModel(questionType))
+         default:
+            if (this.hasQuestion(strings.thankyou_screen)) {
+               return this.questionsList.splice(
+                  this.questionsList.length - 1,
+                  0,
+                  new QuestionModel(questionType)
+               )
+            }
+            return this.questionsList.push(new QuestionModel(questionType))
       }
    }
 
-   isMCQ = type => {
-      return type === strings.mcq
+   hasQuestion = question_type => {
+      return this.questionsList.find(
+         question => question.type === question_type
+      )
    }
 
    @action.bound

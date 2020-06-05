@@ -16,21 +16,6 @@ class FormsAPI {
          // reject(new Error('try again!'))
       })
    }
-
-   //just for testing
-   getUpdatedFormAPI() {
-      return new Promise(resolve => {
-         setTimeout(() => resolve(updatedFormData), 2000)
-      })
-   }
-
-   //just for testing
-   getUpdatedFormsAPI() {
-      return new Promise(resolve => {
-         setTimeout(() => resolve(formsData.delete_form_data), 2000)
-      })
-   }
-
    putFormsAPI(formname: string, formId: number) {
       return new Promise(resolve => setTimeout(() => resolve('success'), 2000))
    }

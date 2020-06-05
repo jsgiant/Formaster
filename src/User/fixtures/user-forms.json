@@ -25,7 +25,7 @@
                "is_required": false,
                "position_number": 0,
                "description": "",
-               "response": "answer"
+               "text_resoonse": "answer"
             },
             {
                "question_id": 2,
@@ -34,7 +34,7 @@
                "position_number": 1,
                "is_required": true,
                "description": "",
-               "response": "answer"
+               "text_resoonse": "answer"
             },
             {
                "question_id": 3,
@@ -43,7 +43,7 @@
                "position_number": 2,
                "is_required": false,
                "description": "",
-               "response": "choice2"
+               "text_resoonse": "choice2"
             },
             {
                "question_id": 4,
@@ -52,7 +52,7 @@
                "position_number": 3,
                "is_required": false,
                "description": "",
-               "response_id": 1,
+               "choice_response_id": 1,
                "mcq_choices": [
                   { "choice_id": 1, "choice": "choice 1" },
                   { "choice_id": 2, "choice": "choice 2" },
@@ -78,7 +78,7 @@
                "question_type": "SHORT_TEXT",
                "position_number": 1,
                "description": "",
-               "response": "answer"
+               "text_response": "answer"
             },
             {
                "question_id": 2,
@@ -87,7 +87,7 @@
                "is_required": true,
                "question_type": "LARGE_TEXT",
                "description": "",
-               "response": "answer"
+               "text_response": "answer"
             },
             {
                "question_id": 3,
@@ -96,7 +96,7 @@
                "question_text": "Answer the question 3",
                "question_type": "MCQ",
                "description": "",
-               "response_id": 2,
+               "choice_response_id": 2,
                "mcq_choices": [
                   { "choice_id": 1, "choice": "choice 1" },
                   { "choice_id": 2, "choice": "choice 2" },

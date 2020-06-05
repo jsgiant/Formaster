@@ -3,13 +3,13 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import strings from './../../../i18n/form-strings.json'
 import QuestionStore from '../../QuestionStore'
+import { notify, showSuccessMessage } from '../../../../Common/utils/ToastUtils'
+import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
 
 class FormModel {
    @observable name: string
    @observable postQuestionsAPIStatus: number
-   @observable postQuestionsAPIError: any
    @observable putFormsAPIStatus: any
-   @observable putFormsAPIError: any
 
    formService
    questionStore
@@ -25,8 +25,6 @@ class FormModel {
       this.formService = formService
       this.postQuestionsAPIStatus = API_INITIAL
       this.putFormsAPIStatus = API_INITIAL
-      this.putFormsAPIError = null
-      this.postQuestionsAPIError = null
    }
 
    @action.bound
@@ -36,7 +34,7 @@ class FormModel {
 
    @action.bound
    setPutFormsAPIError(apiError) {
-      this.putFormsAPIError = apiError
+      notify(getUserDisplayableErrorMessage(apiError))
    }
 
    @action.bound
@@ -46,12 +44,11 @@ class FormModel {
 
    @action.bound
    setPostQuestionsAPIError(apiError) {
-      this.postQuestionsAPIError = apiError
+      notify(getUserDisplayableErrorMessage(apiError))
    }
 
-   @action.bound
-   setPostQuestionsAPIResponse(apiResponse) {
-      console.log(apiResponse)
+   showSuccessMessage = () => {
+      showSuccessMessage('Changes saved!')
    }
 
    @action.bound
@@ -63,7 +60,10 @@ class FormModel {
          this.id
       )
       return bindPromiseWithOnSuccess(putFormPromise)
-         .to(this.setPutFormsAPIStatus, response => (this.name = name))
+         .to(this.setPutFormsAPIStatus, response => {
+            this.name = name
+            this.showSuccessMessage()
+         })
          .catch(e => this.setPutFormsAPIError)
    }
 
@@ -75,19 +75,20 @@ class FormModel {
          this.getDataToPost()
       )
       return bindPromiseWithOnSuccess(postQuestionsPromise)
-         .to(this.setPostQuestionsAPIStatus, this.setPostQuestionsAPIError)
+         .to(this.setPostQuestionsAPIStatus, this.showSuccessMessage)
          .catch(e => this.setPostQuestionsAPIError(e))
    }
 
    getDataToPost = () => {
+      this.questionStore.onAddQuestion(strings.welcome_screen)
+      this.questionStore.onAddQuestion(strings.thankyou_screen)
       const { questionsList } = this.questionStore
       let postData = []
-      postData = questionsList.map(question => {
+      postData = questionsList.map((question, index: number) => {
          let choices = []
          const {
             questionId,
             type,
-            position,
             questionTitle,
             imageURL,
             isRequired,
@@ -99,7 +100,7 @@ class FormModel {
          return {
             question_id: questionId,
             question_type: type,
-            position_number: position,
+            position_number: index,
             question_text: questionTitle,
             image_url: imageURL,
             is_required: isRequired,
@@ -107,7 +108,6 @@ class FormModel {
             mcq_choices: choices
          }
       })
-      console.log({ questions: postData })
       return { questions: postData }
    }
 }

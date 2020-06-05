@@ -1,6 +1,8 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import { notify, showSuccessMessage } from '../../../Common/utils/ToastUtils'
+import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import FormsAPI from '../../services/FormsService/FormsFixture'
 import FormModel from '../models/FormModel'
 
@@ -75,7 +77,7 @@ class FormStore {
 
    @action.bound
    setUpdateFormError(apiError) {
-      this.updateFormsAPIError = apiError
+      notify(getUserDisplayableErrorMessage(apiError))
    }
 
    @action.bound
@@ -146,9 +148,10 @@ class FormStore {
    onDeleteForm(form) {
       const deleteFormsResponse = this.formService.deleteFormsAPI(form.id)
       return bindPromiseWithOnSuccess(deleteFormsResponse)
-         .to(this.setDeleteFormsAPIStatus, response =>
+         .to(this.setDeleteFormsAPIStatus, response => {
+            showSuccessMessage(`${form.name} successfully deleted!`)
             this.formList.remove(form)
-         )
+         })
          .catch(error => this.setUpdateFormError(error))
    }
 }

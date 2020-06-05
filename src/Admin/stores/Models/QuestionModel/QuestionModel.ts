@@ -8,7 +8,7 @@ class QuestionModel {
    @observable isRequired = false
    @observable hasDescription
    @observable imageURL = ''
-   @observable position = 0
+   @observable position = null
    @observable response = ''
 
    constructor(type, question?) {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { observable, action } from 'mobx'
+import { observable, action, reaction } from 'mobx'
 import { MdMoreHoriz } from 'react-icons/md'
-import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
+import { API_FETCHING, API_SUCCESS, API_INITIAL } from '@ib/api-constants'
 import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import strings from '../../i18n/strings.json'
@@ -47,6 +47,17 @@ class FormCard extends React.Component<FormCardProps> {
       onRenameForm(name)
    }
 
+   reaction = reaction(
+      () => {
+         const { putFormsAPIStatus } = this.props.formDetails
+         return putFormsAPIStatus === API_SUCCESS
+      },
+      isSuccess => {
+         if (isSuccess) {
+            this.onShowOrHideDialog()
+         }
+      }
+   )
    onDeleteForm = () => {
       const { onDeleteForm, formDetails } = this.props
       onDeleteForm(formDetails)
@@ -59,7 +70,6 @@ class FormCard extends React.Component<FormCardProps> {
                <MdMoreHoriz data-testid='test-toggle' />
             </MenuButton>
             <MenuList>
-               <MenuItem onSelect={() => {}}>View</MenuItem>
                <MenuItem onSelect={this.onFormRename}>Rename</MenuItem>
                <MenuItem onSelect={this.onDeleteForm}>Delete</MenuItem>
             </MenuList>
@@ -70,7 +80,7 @@ class FormCard extends React.Component<FormCardProps> {
    renderFormNameDialog = () => {
       const { name, putFormsAPIStatus } = this.props.formDetails
       const isProcessing = putFormsAPIStatus === API_FETCHING
-      return this.shouldShowDialog && putFormsAPIStatus !== API_SUCCESS ? (
+      return this.shouldShowDialog ? (
          <FormNamePopup
             defaultValue={name}
             onClickContinue={this.onClickContinue}

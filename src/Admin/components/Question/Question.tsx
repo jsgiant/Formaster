@@ -21,23 +21,32 @@ import McqQuestion from './Mcq'
 type QuestionProps = {
    question: any
    onDeleteQuestion: (question) => void
+   onSelectQuestion: (number) => void
+   number: number
 }
 
 @observer
 class Question extends React.Component<QuestionProps> {
    onChangeTitle = e => {
       const { onChangeTitle } = this.props.question
+      this.onSelectQuestion()
       onChangeTitle(e.target.value)
    }
 
+   onSelectQuestion = () => {
+      const { number, onSelectQuestion } = this.props
+      onSelectQuestion(number)
+   }
    onChangeDescription = e => {
       const { onChangeDescription } = this.props.question
+      this.onSelectQuestion()
       onChangeDescription(e.target.value)
    }
 
    onAddOrRemoveChoice = e => {
       const keyCode = e.keyCode
       const { onAddChoice, onRemoveChoice } = this.props.question
+      this.onSelectQuestion()
       if (keyCode === 13 && e.target.value !== '') {
          onAddChoice()
       } else if (e.target.value === '' && keyCode === 8) {
@@ -47,6 +56,8 @@ class Question extends React.Component<QuestionProps> {
 
    onChangeChoiceText = e => {
       const { onChangeChoiceText } = this.props.question
+      const { number, onSelectQuestion } = this.props
+      onSelectQuestion(number)
       onChangeChoiceText(e.target.tabIndex, e.target.value)
    }
 

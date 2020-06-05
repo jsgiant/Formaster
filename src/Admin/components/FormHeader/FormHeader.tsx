@@ -15,10 +15,17 @@ type FormHeaderProps = {
    onClickPublish: () => void
    onClickPreview: () => void
    onNavigateBack: () => void
+   isPublishing: boolean
 }
 class FormHeader extends React.Component<FormHeaderProps> {
    render() {
-      const { name, onClickLogout, onNavigateBack, onClickPublish } = this.props
+      const {
+         name,
+         onClickLogout,
+         onNavigateBack,
+         onClickPublish,
+         isPublishing
+      } = this.props
       return (
          <HeaderContainer>
             <HeaderLeftSection>
@@ -26,7 +33,13 @@ class FormHeader extends React.Component<FormHeaderProps> {
                <FormTitle>{name}</FormTitle>
             </HeaderLeftSection>
             <HeaderRightSection>
-               <PublishButton onClick={onClickPublish}>Publish</PublishButton>
+               <PublishButton
+                  disabled={isPublishing}
+                  isDisabled={isPublishing}
+                  onClick={onClickPublish}
+               >
+                  Publish
+               </PublishButton>
                <LogoutButton onClick={onClickLogout} data-testid='logout-btn'>
                   Logout
                </LogoutButton>

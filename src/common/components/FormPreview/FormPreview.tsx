@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { observable, action } from 'mobx'
+import { observable, action, reaction } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import { Line } from 'rc-progress'
 
@@ -23,6 +23,7 @@ import McqPreview from './McqPreview'
 
 type FormPreviewProps = {
    questions: any
+   selectedQuestion?: number
    onSubmitResponses?: () => void
 }
 
@@ -38,6 +39,19 @@ class FormPreview extends React.Component<FormPreviewProps> {
          --this.questionNumber
       }
    }
+
+   @action.bound
+   navigateToSelectedQuestion(questionNumber) {
+      this.currentQuestion = questionNumber
+   }
+   reaction = reaction(
+      () => {
+         return this.props.selectedQuestion
+      },
+      currentQuestion => {
+         this.navigateToSelectedQuestion(currentQuestion)
+      }
+   )
    @action.bound
    navigateToNextQuestion() {
       const { questions } = this.props
@@ -55,7 +69,6 @@ class FormPreview extends React.Component<FormPreviewProps> {
       } else {
          alert('thankyou!')
       }
-      this.navigateToNextQuestion()
    }
 
    onClickEnterKey = e => {
@@ -64,8 +77,8 @@ class FormPreview extends React.Component<FormPreviewProps> {
 
    renderQuestions = () => {
       const { questions } = this.props
-      // console.log(questions)
-      const isFinalQuestion = this.currentQuestion === questions.length - 2
+      let finalQuestion = questions.length - 1
+      const isFinalQuestion = this.currentQuestion === finalQuestion
       if (questions.length === 0) {
          return <NoDataView />
       }
@@ -107,6 +120,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
                <EndCardsPreview
                   navigateToNext={this.navigateToNextQuestion}
                   question={questions[this.currentQuestion]}
+                  onSubmit={this.onSubmit}
                />
             )
       }
