@@ -67,7 +67,7 @@ class FormPreview extends React.Component<FormPreviewProps> {
       if (onSubmitResponses) {
          onSubmitResponses()
       } else {
-         alert('thankyou!')
+         alert('Thankyou! Form tested successfully.')
       }
    }
 

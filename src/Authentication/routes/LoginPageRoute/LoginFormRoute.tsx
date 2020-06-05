@@ -4,7 +4,7 @@ import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import { paths } from '../../../Common/constants/Paths'
-import { getAccessToken } from '../../../Common/utils/StorageUtils'
+import { getAccessToken, isAdmin } from '../../../Common/utils/StorageUtils'
 import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
@@ -44,9 +44,9 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    onLoginSuccess = () => {
-      const { isAdmin } = this.props.authStore
       const { history } = this.props
-      const path = isAdmin ? paths.dashboard : paths.userDashboard
+
+      const path = isAdmin() ? paths.dashboard : paths.userDashboard
       history.replace(path)
       return null
    }

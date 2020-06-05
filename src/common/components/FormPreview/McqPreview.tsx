@@ -62,6 +62,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
          questionId,
          questionTitle,
          position,
+         isRequired,
          description
       } = this.props.question
       const { onSubmit, isFinalQuestion } = this.props
@@ -70,6 +71,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
             <FieldTitle>
                <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
                {questionTitle || strings.emptyTitle}
+               {isRequired && '*'}
             </FieldTitle>
 
             <FieldDescription>{description}</FieldDescription>

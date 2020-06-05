@@ -31,6 +31,7 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
          description,
          position,
          questionTitle,
+         isRequired,
          response
       } = this.props.question
       const {
@@ -45,6 +46,7 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
             <FieldTitle>
                <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
                {questionTitle || strings.emptyTitle}
+               {isRequired && '*'}
             </FieldTitle>
             <FieldDescription>{description}</FieldDescription>
             <LongFieldResponse

@@ -6,7 +6,7 @@ export const Toaster = () => {
    return (
       <ToastContainer
          position='bottom-center'
-         autoClose={3000}
+         autoClose={2500}
          hideProgressBar
          newestOnTop={false}
          closeOnClick

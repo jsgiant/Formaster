@@ -28,7 +28,7 @@ export const Field = styled.div`
    }
 `
 export const FieldTitle = styled.div`
-   ${tw`h-10 focus:outline-none items-center text-gray-700 flex`}width: 100%;
+   ${tw`h-10 focus:outline-none items-center text-gray-700 flex`}max-width: 90%;
    font-weight: unset;
    font-size: 24px;
 `
