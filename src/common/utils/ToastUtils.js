@@ -6,7 +6,7 @@ export const Toaster = () => {
    return (
       <ToastContainer
          position='bottom-center'
-         autoClose={2500}
+         autoClose={3000}
          hideProgressBar
          newestOnTop={false}
          closeOnClick
@@ -19,7 +19,7 @@ export const Toaster = () => {
 }
 
 export const notify = error => {
-   toast.error(`❌ ${error}`, {
+   toast.error(`${error}`, {
       className: {
          borderRadius: '50px',
          background: '#2FEDAD',

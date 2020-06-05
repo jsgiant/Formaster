@@ -10,11 +10,11 @@ export const FormPreviewContainer = styled.div`
 `
 
 export const FieldWrapper = styled.div`
-   ${tw`h-56 flex justify-center items-center flex-wrap overflow-y-visible w-full p-5`}
+   ${tw` flex justify-center items-center flex-wrap overflow-y-visible w-full p-5`}
 `
 
 export const Field = styled.div`
-   ${tw`w-full h-64`} animation: field-animate 0.2s ease-in;
+   ${tw`w-full`} animation: field-animate 0.2s ease-in;
    transition: all 0.2s ease-in;
    @keyframes field-animate {
       from {
@@ -28,16 +28,16 @@ export const Field = styled.div`
    }
 `
 export const FieldTitle = styled.div`
-   ${tw`h-10 focus:outline-none items-center text-gray-700 flex`}max-width: 90%;
+   ${tw`items-center text-gray-700 flex max-h-screen`}max-width: 90%;
    font-weight: unset;
    font-size: 24px;
 `
 export const FieldDescription = styled.div`
-   ${tw` focus:outline-none text-lg mb-5 ml-5 overflow-x-hidden  text-gray-600 `}width: 90%;
+   ${tw` text-lg mb-5 ml-6 px-2 overflow-x-hidden  text-gray-600 `}width: 90%;
    font-weight: unset;
 `
 export const EndCardDescription = styled.div`
-   ${tw` focus:outline-none text-lg mb-5 text-center overflow-x-hidden text-gray-600 `}width: 90%;
+   ${tw` text-lg mb-5 text-center overflow-x-hidden text-gray-600 `}width: 90%;
    font-weight: unset;
 `
 export const EndCardPreviewWrapper = styled.div`
@@ -54,21 +54,21 @@ export const EndCardPreviewWrapper = styled.div`
    }
 `
 export const EndCardText = styled.div`
-   ${tw` focus:outline-none text-3xl  text-gray-700 mb-4 text-center`} width:100%;
+   ${tw` text-3xl  text-gray-700 mb-4 text-center`} width:100%;
    font-weight: unset;
 `
 export const FieldNumber = styled.span`
-   ${tw`mr-2 text-lg text-teal-500`}
+   ${tw`mr-2  text-teal-500 `}
 `
 
 export const FieldResponse = styled.input`
-   ${tw`h-16 text-2xl ml-5 focus:outline-none mb-5 text-teal-400`} width:90%;
+   ${tw`h-16 text-2xl ml-6 focus:outline-none mb-5 text-teal-400`} width:90%;
    line-height: unset;
    border-bottom: 1px solid #4fd1c5;
 `
 
 export const LongFieldResponse = styled.textarea`
-   ${tw`h-16 text-2xl ml-4 focus:outline-none mt-2 mb-5 text-teal-400`} width:90%;
+   ${tw`h-16 text-2xl ml-6 focus:outline-none mt-2 mb-5 text-teal-400`} width:90%;
    line-height: unset;
    border-bottom: 1px solid #4fd1c5;
    focus: border-bottom: 3px solid #4fd1c5;
