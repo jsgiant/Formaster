@@ -14,10 +14,10 @@ class CreateFormCard extends React.Component<CreateFormCardProps> {
    render() {
       const { onCreateForm } = this.props
       return (
-         <CreateCard>
+         <CreateCard onClick={onCreateForm}>
             <Title>{strings.formcard.create_card_title}</Title>
             <ButtonContainer>
-               <AddButton onClick={onCreateForm}>+</AddButton>
+               <AddButton>+</AddButton>
             </ButtonContainer>
          </CreateCard>
       )

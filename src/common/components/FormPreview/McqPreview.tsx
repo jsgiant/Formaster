@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { observer } from 'mobx-react'
+import strings from './../../i18n/strings.json'
 import { buttons } from '../../constants/Buttons'
 import {
    FieldTitle,
@@ -30,18 +31,25 @@ class McqPreview extends PureComponent<McqPreviewProps> {
       navigateToNext()
    }
 
+   isChecked = (id, choice_id) => {
+      if (id) {
+         return id === choice_id
+      }
+      return false
+   }
+
    renderChoices = () => {
       const { mcqChoices, responseId } = this.props.question
       return mcqChoices.map((choiceOption, index) => {
          const { choice_id, choice } = choiceOption
+         const isChecked = this.isChecked(responseId, choice_id)
          return (
             <ChoiceContainer key={index} id='choices'>
                <ChoiceOption
                   type='radio'
                   name='choices'
-                  value={choice_id}
                   onClick={this.onChangeChoice}
-                  defaultChecked={responseId === choice_id}
+                  defaultChecked={isChecked}
                />
                <ChoiceLabel>{choice || `choice ${index + 1}`}</ChoiceLabel>
             </ChoiceContainer>
@@ -53,15 +61,15 @@ class McqPreview extends PureComponent<McqPreviewProps> {
       const {
          questionId,
          questionTitle,
-         hasDescription,
+         position,
          description
       } = this.props.question
-      const { questionNumber, onSubmit, isFinalQuestion } = this.props
+      const { onSubmit, isFinalQuestion } = this.props
       return (
          <Field>
             <FieldTitle>
-               <FieldNumber>{questionNumber}.</FieldNumber>
-               {questionTitle || '...'}
+               <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
+               {questionTitle || strings.emptyTitle}
             </FieldTitle>
 
             <FieldDescription>{description}</FieldDescription>

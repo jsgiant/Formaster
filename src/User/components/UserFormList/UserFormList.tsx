@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { UserFormListContainer } from './styledComponents'
 import UserFormCard from '../UserFormCard/UserFormCard'
+import { UserFormListContainer } from './styledComponents'
 
 type UserFormListProps = {
    formsList: any

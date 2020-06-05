@@ -40,18 +40,6 @@ class FormsAPI {
       )
    }
 
-   getUpdatedFormAPI() {
-      return new Promise(resolve => {
-         setTimeout(() => resolve('success'), 2000)
-      })
-   }
-
-   getUpdatedFormsAPI() {
-      return new Promise(resolve => {
-         setTimeout(() => resolve('success'), 2000)
-      })
-   }
-
    deleteFormsAPI(formId: number) {
       return networkCallWithApisauce(
          this.api,
@@ -89,4 +77,4 @@ class FormsAPI {
    }
 }
 
-export { FormsAPI }
+export default FormsAPI

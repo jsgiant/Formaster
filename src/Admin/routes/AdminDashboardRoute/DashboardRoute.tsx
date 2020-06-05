@@ -27,20 +27,10 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
 
    onClickForm = formId => {
       const { history } = this.props
-      history.replace(`/form/${formId}`)
+      history.push(`/form/${formId}`)
    }
 
    renderFormsList = () => {
-      // toast.error('Wow so easy!', {
-      //    position: 'bottom-center',
-      //    autoClose: 5000,
-      //    hideProgressBar: true,
-      //    closeOnClick: true,
-      //    pauseOnHover: false,
-      //    draggable: true,
-      //    progress: undefined
-      // })
-
       return (
          <FormList
             formStore={this.props.formStore}

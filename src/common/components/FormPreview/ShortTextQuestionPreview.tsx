@@ -48,8 +48,8 @@ class ShortTextQuestionPreview extends Component<
       return (
          <Field>
             <FieldTitle>
-               <FieldNumber>{questionNumber}.</FieldNumber>
-               {questionTitle || '...'}
+               <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
+               {questionTitle || strings.emptyTitle}
             </FieldTitle>
 
             <FieldDescription>{description}</FieldDescription>

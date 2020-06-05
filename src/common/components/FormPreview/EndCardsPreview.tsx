@@ -13,22 +13,26 @@ import Button from './Button'
 type EndCardsPreviewProps = {
    question: any
    navigateToNext: () => void
+   onSubmit: () => void
 }
 
 @observer
 class EndCardsPreview extends Component<EndCardsPreviewProps> {
    renderButton = () => {
       const { type } = this.props.question
-      const { navigateToNext } = this.props
+      const { navigateToNext, onSubmit } = this.props
       return type === strings.welcome_screen ? (
          <Button buttonText={buttons.start} callback={navigateToNext} />
-      ) : null
+      ) : (
+         <Button buttonText={buttons.submit} callback={onSubmit} />
+      )
    }
+
    render() {
       const { questionTitle, description } = this.props.question
       return (
          <EndCardPreviewWrapper>
-            <EndCardText>{questionTitle || '...'}</EndCardText>
+            <EndCardText>{questionTitle || strings.emptyTitle}</EndCardText>
 
             <EndCardDescription>{description}</EndCardDescription>
 

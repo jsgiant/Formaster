@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
+import { reaction } from 'mobx'
+import { API_SUCCESS } from '@ib/api-constants'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import FormPreview from '../../../Common/components/FormPreview'
 import { UserFormContainer } from './styledComponents'
@@ -7,6 +9,7 @@ import { UserFormContainer } from './styledComponents'
 type SelectedFormRouteProps = {
    userFormStore: any
    match: any
+   history: any
 }
 
 @inject('userFormStore')
@@ -16,15 +19,31 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
       this.getQuestions()
    }
 
+   getFormId = (): number => {
+      return this.props.match.params.form_id
+   }
    getQuestions = (): void => {
       const { getSelectedFormQuestions } = this.props.userFormStore
-      const formId = this.props.match.params.form_id
-      getSelectedFormQuestions(formId)
+      getSelectedFormQuestions(this.getFormId())
    }
+
+   reaction = reaction(
+      () => {
+         const {
+            postResponsesAPIStatus
+         } = this.props.userFormStore.selectedForm
+         return postResponsesAPIStatus === API_SUCCESS
+      },
+      isSuccess => {
+         if (isSuccess) {
+            this.props.history.goBack()
+         }
+      }
+   )
 
    onSubmitForm = (): void => {
       const { postSubmittedResponses } = this.props.userFormStore.selectedForm
-      postSubmittedResponses()
+      postSubmittedResponses(this.getFormId())
    }
 
    renderUserForm = (): any => {

@@ -6,18 +6,22 @@ import { QuestionListWrapper } from './styledComponents'
 
 type QuestionListProps = {
    questionStore: any
+   onChangeSelectedQuestion: (questionNumber) => void
 }
 
 @observer
 class QuestionList extends React.Component<QuestionListProps> {
    renderQuestionList = () => {
       const { questionsList, onDeleteQuestion } = this.props.questionStore
-      return questionsList.map(question => {
+      const { onChangeSelectedQuestion } = this.props
+      return questionsList.map((question, index) => {
          return (
             <Question
-               key={question.questionId}
+               key={Math.random()}
                onDeleteQuestion={onDeleteQuestion}
                question={question}
+               number={index}
+               onSelectQuestion={onChangeSelectedQuestion}
             />
          )
       })

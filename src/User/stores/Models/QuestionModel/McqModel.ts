@@ -7,9 +7,9 @@ class MCQ extends Question {
 
    constructor(question) {
       super(question)
-      const { mcq_choices, response_id } = question
+      const { mcq_choices, choice_response_id } = question
       this.mcqChoices = mcq_choices
-      this.responseId = response_id
+      this.responseId = choice_response_id
    }
 
    @action.bound

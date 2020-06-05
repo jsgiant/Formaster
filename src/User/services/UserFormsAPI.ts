@@ -32,7 +32,6 @@ class UserFormsAPI {
    }
 
    postResponsesAPI(formId, responses) {
-      console.log(formId)
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/response/v1/`,

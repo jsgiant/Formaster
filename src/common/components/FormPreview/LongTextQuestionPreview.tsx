@@ -29,7 +29,7 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
    render() {
       const {
          description,
-         hasDescription,
+         position,
          questionTitle,
          response
       } = this.props.question
@@ -43,8 +43,8 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
       return (
          <Field>
             <FieldTitle>
-               <FieldNumber>{questionNumber}.</FieldNumber>
-               {questionTitle || '...'}
+               <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
+               {questionTitle || strings.emptyTitle}
             </FieldTitle>
             <FieldDescription>{description}</FieldDescription>
             <LongFieldResponse
