@@ -29,10 +29,12 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
 
    reaction = reaction(
       () => {
-         const {
-            postResponsesAPIStatus
-         } = this.props.userFormStore.selectedForm
-         return postResponsesAPIStatus === API_SUCCESS
+         if (this.props.userFormStore.selectedForm) {
+            const {
+               postResponsesAPIStatus
+            } = this.props.userFormStore.selectedForm
+            return postResponsesAPIStatus === API_SUCCESS
+         }
       },
       isSuccess => {
          if (isSuccess) {

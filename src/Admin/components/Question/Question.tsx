@@ -112,23 +112,20 @@ class Question extends React.Component<QuestionProps> {
    render() {
       const {
          description,
-         hasDescription,
          isRequired,
          onChangeIsRequired
       } = this.props.question
-      const { question, onDeleteQuestion } = this.props
       return (
-         <QuestionWrapper>
+         <QuestionWrapper onFocus={this.onSelectQuestion}>
             {isRequired && <Required>*</Required>}
             {this.renderQuestion()}
 
-            {!hasDescription && (
-               <DescriptionText
-                  onChange={this.onChangeDescription}
-                  defaultValue={description}
-                  placeholder={strings.description_placeholder}
-               />
-            )}
+            <DescriptionText
+               onChange={this.onChangeDescription}
+               defaultValue={description}
+               placeholder={strings.description_placeholder}
+            />
+
             <Toolbar>
                <RequiredToggler
                   type='checkbox'

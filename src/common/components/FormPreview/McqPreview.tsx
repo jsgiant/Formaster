@@ -24,10 +24,10 @@ type McqPreviewProps = {
 
 @observer
 class McqPreview extends PureComponent<McqPreviewProps> {
-   onChangeChoice = e => {
+   onChangeChoice = choiceId => {
       const { onChangeresponseId } = this.props.question
       const { navigateToNext } = this.props
-      onChangeresponseId(parseInt(e.target.value))
+      onChangeresponseId(choiceId)
       navigateToNext()
    }
 
@@ -48,7 +48,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
                <ChoiceOption
                   type='radio'
                   name='choices'
-                  onClick={this.onChangeChoice}
+                  onClick={() => this.onChangeChoice(choice_id)}
                   defaultChecked={isChecked}
                />
                <ChoiceLabel>{choice || `choice ${index + 1}`}</ChoiceLabel>

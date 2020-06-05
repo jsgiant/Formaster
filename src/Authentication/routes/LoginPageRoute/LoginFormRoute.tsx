@@ -46,7 +46,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    onLoginSuccess = () => {
       const { history } = this.props
 
-      const path = isAdmin() ? paths.dashboard : paths.userDashboard
+      const path = isAdmin() === 'true' ? paths.dashboard : paths.userDashboard
       history.replace(path)
       return null
    }

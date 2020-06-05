@@ -14,6 +14,7 @@ class MCQ extends Question {
 
    @action.bound
    onChangeresponseId(responseId) {
+      console.log(responseId)
       this.responseId = responseId
    }
 }
