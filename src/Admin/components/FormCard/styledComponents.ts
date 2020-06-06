@@ -1,12 +1,19 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
+type FormCardProps = {
+   isLoading: boolean
+}
+
 export const FormCardContainer = styled.div`
-   ${tw`text-black shadow cursor-pointer m-auto mt-6 text-lg h-64 bg-white w-56 sm:mt-0 sm:m-4 rounded-lg`}
+   ${(props: FormCardProps) =>
+      props.isLoading
+         ? tw`text-black shadow cursor-not-allowed m-auto mt-6 text-lg h-64 bg-white w-56 sm:mt-0 sm:m-4 rounded-lg`
+         : tw`text-black shadow cursor-pointer m-auto mt-6 text-lg h-64 bg-white w-56 sm:mt-0 sm:m-4 rounded-lg`}
 `
 
 export const NameContainer = styled.div`
-   ${tw`flex justify-center items-center h-48 w-full overflow-hidden`}
+   ${tw`flex justify-center items-center h-48 flex-wrap w-full overflow-hidden`}
 `
 export const FormName = styled.p``
 

@@ -109,12 +109,31 @@ class Question extends React.Component<QuestionProps> {
       }
    }
 
+   renderToolbar = () => {
+      const { type, onChangeIsRequired, isRequired } = this.props.question
+      return (
+         type !== strings.thankyou_screen &&
+         type !== strings.welcome_screen && (
+            <Toolbar>
+               <RequiredToggler
+                  type='checkbox'
+                  checked={isRequired}
+                  onChange={onChangeIsRequired}
+               />
+               Required
+               {/* <IconContainer onClick={() => onChangeIsRequired()}>
+                  <MdSettings />
+                  </IconContainer>
+                  <IconContainer onClick={() => onDeleteQuestion(question)}>
+                  <MdDelete />
+               </IconContainer> */}
+            </Toolbar>
+         )
+      )
+   }
+
    render() {
-      const {
-         description,
-         isRequired,
-         onChangeIsRequired
-      } = this.props.question
+      const { description, isRequired } = this.props.question
       return (
          <QuestionWrapper onFocus={this.onSelectQuestion}>
             {isRequired && <Required>*</Required>}
@@ -125,21 +144,7 @@ class Question extends React.Component<QuestionProps> {
                defaultValue={description}
                placeholder={strings.description_placeholder}
             />
-
-            <Toolbar>
-               <RequiredToggler
-                  type='checkbox'
-                  checked={isRequired}
-                  onChange={onChangeIsRequired}
-               />
-               Required
-               {/* <IconContainer onClick={() => onChangeIsRequired()}>
-                  <MdSettings />
-               </IconContainer>
-               <IconContainer onClick={() => onDeleteQuestion(question)}>
-                  <MdDelete />
-               </IconContainer> */}
-            </Toolbar>
+            {this.renderToolbar()}
          </QuestionWrapper>
       )
    }

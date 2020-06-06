@@ -19,6 +19,7 @@ type FormCardProps = {
    formDetails: any
    onDeleteForm: (form) => void
    onClickForm: (form) => void
+   isProcessing: boolean
 }
 
 @observer
@@ -92,11 +93,11 @@ class FormCard extends React.Component<FormCardProps> {
    }
 
    render() {
-      const { onClickForm } = this.props
+      const { onClickForm, isProcessing } = this.props
       const { name, id } = this.props.formDetails
 
       return (
-         <FormCardContainer>
+         <FormCardContainer isLoading={isProcessing}>
             <NameContainer onClick={() => onClickForm(id)}>
                <FormName>{name}</FormName>
             </NameContainer>

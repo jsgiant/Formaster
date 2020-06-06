@@ -19,7 +19,7 @@ class FormStore {
    @observable getQuestionsAPIStatus: any
    @observable getQuestionsAPIError: any
    @observable offset: number = 0
-   @observable initialLimit: number = 9
+   @observable initialLimit: number = 100
 
    formService: any
 
@@ -67,7 +67,7 @@ class FormStore {
    @action.bound
    setPostFormsAPIResponse(apiResponse) {
       this.postFormsAPIResponse = apiResponse
-      this.formList.push(new FormModel(apiResponse, this.formService))
+      this.formList.unshift(new FormModel(apiResponse, this.formService))
    }
 
    @action.bound

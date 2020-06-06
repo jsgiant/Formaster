@@ -38,7 +38,7 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
       },
       isSuccess => {
          if (isSuccess) {
-            this.props.history.goBack()
+            this.props.history.replace('/user/dashboard/')
          }
       }
    )

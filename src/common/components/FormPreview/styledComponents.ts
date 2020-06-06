@@ -14,7 +14,7 @@ export const FieldWrapper = styled.div`
 `
 
 export const Field = styled.div`
-   ${tw`w-full`} animation: field-animate 0.2s ease-in;
+   ${tw`w-full flex flex-wrap`} animation: field-animate 0.2s ease-in;
    transition: all 0.2s ease-in;
    @keyframes field-animate {
       from {
@@ -28,7 +28,7 @@ export const Field = styled.div`
    }
 `
 export const FieldTitle = styled.div`
-   ${tw`items-center text-gray-700 flex max-h-screen`}max-width: 90%;
+   ${tw`items-center text-gray-700 flex max-h-screen`}width: 90%;
    font-weight: unset;
    font-size: 24px;
 `
@@ -58,7 +58,7 @@ export const EndCardText = styled.div`
    font-weight: unset;
 `
 export const FieldNumber = styled.span`
-   ${tw`mr-2  text-teal-500 `}
+   ${tw`mr-2 text-teal-500 relative h-4 bg-teal-300 text-lg flex flex-col mt-1 justify-start`}
 `
 
 export const FieldResponse = styled.input`
@@ -109,7 +109,18 @@ export const NavigationButton = styled.button`
 `
 
 export const ChoicesList = styled.form`
-   ${tw`flex-col w-full justify-start ml-5`}
+   ${tw`flex-col w-full justify-start ml-5`} animation: button-animate 0.2s ease-in;
+   transition: all 0.2s ease-in;
+   @keyframes button-animate {
+      from {
+         opacity: 0;
+         transform: translateY(20px);
+      }
+      to {
+         opacity: 1;
+         transform: translateY(0px);
+      }
+   }
 `
 
 export const ChoiceContainer = styled.div`

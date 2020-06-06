@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, API_FETCHING } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
 import strings from './../../../../Common/i18n/strings.json'
@@ -10,6 +10,7 @@ import MCQ from '../QuestionModel/McqModel'
 class FormModel {
    @observable postResponsesAPIStatus: number
    @observable postResponsesAPIError: any
+
    id
    name
    formAPI
@@ -43,18 +44,26 @@ class FormModel {
    @action.bound
    setPostResponsesAPIError(apiError) {
       this.postResponsesAPIError = apiError
+      const errorMessage = getUserDisplayableErrorMessage(apiError)
+      if (errorMessage.includes(strings.required)) {
+         notify(strings.error)
+      } else {
+         notify(errorMessage)
+      }
    }
 
    postSubmittedResponses = formId => {
-      const postPromise = this.formAPI.postResponsesAPI(
-         formId,
-         this.getSubmittedData()
-      )
-      return bindPromiseWithOnSuccess(postPromise)
-         .to(this.setPostResponsesAPIStatus, res =>
-            showSuccessMessage('Submitted!')
+      if (this.postResponsesAPIStatus !== API_FETCHING) {
+         const postPromise = this.formAPI.postResponsesAPI(
+            formId,
+            this.getSubmittedData()
          )
-         .catch(e => notify(getUserDisplayableErrorMessage(e)))
+         return bindPromiseWithOnSuccess(postPromise)
+            .to(this.setPostResponsesAPIStatus, res =>
+               showSuccessMessage(strings.submitted)
+            )
+            .catch(e => this.setPostResponsesAPIError(e))
+      }
    }
 
    getSubmittedData = () => {

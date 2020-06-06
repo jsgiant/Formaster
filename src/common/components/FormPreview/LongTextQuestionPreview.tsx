@@ -44,7 +44,7 @@ class LongTextQuestionPreview extends Component<LongTextQuestionPreviewProps> {
       return (
          <Field>
             <FieldTitle>
-               <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
+               {position ? `${position}. ` : '🡢'}
                {questionTitle || strings.emptyTitle}
                {isRequired && '*'}
             </FieldTitle>
