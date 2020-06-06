@@ -10,5 +10,8 @@
    "upArrow": "up",
    "welcome": "Welcome🙏",
    "thankyou": "Thank you👍!",
-   "emptyTitle": "..."
+   "emptyTitle": "...",
+   "submitted":"Submitted!",
+   "required":"required field",
+   "error":"Please fill required fields!"
 }

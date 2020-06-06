@@ -26,7 +26,6 @@ export function isAdmin() {
 }
 
 export function setIsAdmin(isAdmin) {
-   console.log(typeof isAdmin)
    setCookie(IS_ADMIN, isAdmin)
 }
 

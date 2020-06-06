@@ -50,8 +50,13 @@ class FormList extends React.Component<FormListProps> {
    )
 
    renderFormCards = () => {
-      const { formList, onDeleteForm } = this.props.formStore
+      const {
+         formList,
+         onDeleteForm,
+         deleteFormsAPIStatus
+      } = this.props.formStore
       const { onClickForm } = this.props
+      const isProcessing = deleteFormsAPIStatus === API_FETCHING
       return formList.map(form => {
          return (
             <FormCard
@@ -59,6 +64,7 @@ class FormList extends React.Component<FormListProps> {
                onDeleteForm={onDeleteForm}
                formDetails={form}
                onClickForm={onClickForm}
+               isProcessing={isProcessing}
             />
          )
       })

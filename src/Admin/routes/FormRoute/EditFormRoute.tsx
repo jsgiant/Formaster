@@ -59,7 +59,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
          <LoadingWrapperWithFailure
             apiStatus={getQuestionsAPIStatus}
             apiError={getQuestionsAPIError}
-            onRetryClick={() => getFormQuestions(this.formId)}
+            onRetryClick={this.onNavigateBack}
             renderSuccessUI={this.renderSuccessUI}
          />
       )

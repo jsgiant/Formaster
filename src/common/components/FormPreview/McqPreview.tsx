@@ -32,7 +32,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
    }
 
    isChecked = (id, choice_id) => {
-      if (id) {
+      if (choice_id !== null && choice_id !== undefined) {
          return id === choice_id
       }
       return false
@@ -42,14 +42,14 @@ class McqPreview extends PureComponent<McqPreviewProps> {
       const { mcqChoices, responseId } = this.props.question
       return mcqChoices.map((choiceOption, index) => {
          const { choice_id, choice } = choiceOption
-         const isChecked = this.isChecked(responseId, choice_id)
+         const isChecked = this.isChecked(choice_id, responseId)
          return (
             <ChoiceContainer key={index} id='choices'>
                <ChoiceOption
-                  type='radio'
+                  type='checkbox'
                   name='choices'
-                  onClick={() => this.onChangeChoice(choice_id)}
-                  defaultChecked={isChecked}
+                  onChange={() => this.onChangeChoice(choice_id)}
+                  checked={isChecked}
                />
                <ChoiceLabel>{choice || `choice ${index + 1}`}</ChoiceLabel>
             </ChoiceContainer>
@@ -62,6 +62,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
          questionId,
          questionTitle,
          position,
+         responseId,
          isRequired,
          description
       } = this.props.question
@@ -69,7 +70,7 @@ class McqPreview extends PureComponent<McqPreviewProps> {
       return (
          <Field>
             <FieldTitle>
-               <FieldNumber>{position ? `${position} .` : '🡢'}</FieldNumber>
+               {position ? `${position}. ` : '🡢'}
                {questionTitle || strings.emptyTitle}
                {isRequired && '*'}
             </FieldTitle>

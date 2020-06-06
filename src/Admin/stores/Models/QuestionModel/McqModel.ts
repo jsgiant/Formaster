@@ -4,7 +4,7 @@ import QuestionModel from '.'
 import Choice from './ChoiceModel'
 
 class McqModel extends QuestionModel {
-   @observable mcqChoices: Array<any> = [{ choice_id: null, choice: '' }]
+   @observable mcqChoices: any = [{ choice: '', choice_id: null }]
    @observable responseId: number | null = null
 
    constructor(type, question?) {
@@ -32,10 +32,8 @@ class McqModel extends QuestionModel {
 
    @action.bound
    onAddChoice() {
-      this.mcqChoices.push({
-         choice: '',
-         choice_id: null
-      })
+      // this.mcqChoices.push(new Choice('', null))
+      this.mcqChoices.push({ choice: '', choice_id: null })
    }
 }
 
