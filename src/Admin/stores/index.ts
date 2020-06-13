@@ -1,6 +1,6 @@
 import FormStore from './FormStore'
-import FormsAPI from '../services/FormsService/FormsAPI'
-// import FormsAPI from '../services/FormsService/FormsFixture'
+// import FormsAPI from '../services/FormsService/FormsAPI'
+import FormsAPI from '../services/FormsService/FormsFixture'
 
 const formAPI = new FormsAPI()
 

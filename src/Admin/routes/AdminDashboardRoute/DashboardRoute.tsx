@@ -1,9 +1,11 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { toast } from 'react-toastify'
-import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 import Dashboard from '../../../Common/components/Dashboard'
+import {
+   goToSelectedForm,
+   goToLoginForm
+} from '../../../Common/utils/NavigationUtils'
 import FormList from '../../components/FormList'
 
 type DashboardRouteProps = {
@@ -18,7 +20,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
-      history.push(LOGIN_PATH)
+      goToLoginForm(history)
    }
    componentDidMount() {
       const { getUserForms } = this.props.formStore
@@ -27,7 +29,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
 
    onClickForm = formId => {
       const { history } = this.props
-      history.push(`/form/${formId}`)
+      goToSelectedForm(history, formId)
    }
 
    renderFormsList = () => {
