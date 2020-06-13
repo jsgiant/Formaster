@@ -5,6 +5,10 @@ import { withRouter } from 'react-router-dom'
 import { LOGIN_PATH } from '../../../Authentication/constants/paths'
 import Dashboard from '../../../Common/components/Dashboard'
 import NoDataView from '../../../Common/components/NoDataView'
+import {
+   goToLoginForm,
+   goToSelectedFormResponse
+} from '../../../Common/utils/NavigationUtils'
 import UserFormList from '../../components/UserFormList/UserFormList'
 
 type UserDashboardRouteProps = {
@@ -25,12 +29,12 @@ class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
-      history.replace(LOGIN_PATH)
+      goToLoginForm(history)
    }
 
    onClickForm = formId => {
       const { history } = this.props
-      history.push(`/form/${formId}/response`)
+      goToSelectedFormResponse(history, formId)
    }
 
    renderUserFormsList = () => {

@@ -9,6 +9,10 @@ import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
+import {
+   goToAdminDashboard,
+   goToUserDashboard
+} from '../../../Common/utils/NavigationUtils'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -46,15 +50,17 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    onLoginSuccess = () => {
       const { history } = this.props
 
-      const path = isAdmin() === 'true' ? paths.dashboard : paths.userDashboard
-      history.replace(path)
+      const path =
+         isAdmin() === 'true'
+            ? goToAdminDashboard(history)
+            : goToUserDashboard(history)
+
       return null
    }
 
    @action.bound
    onLoginFailure(error) {
       this.errorMessage = getUserDisplayableErrorMessage(error)
-      console.log(this.errorMessage)
    }
 
    @action.bound
