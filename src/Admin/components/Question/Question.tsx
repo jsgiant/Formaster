@@ -121,12 +121,6 @@ class Question extends React.Component<QuestionProps> {
                   onChange={onChangeIsRequired}
                />
                Required
-               {/* <IconContainer onClick={() => onChangeIsRequired()}>
-                  <MdSettings />
-                  </IconContainer>
-                  <IconContainer onClick={() => onDeleteQuestion(question)}>
-                  <MdDelete />
-               </IconContainer> */}
             </Toolbar>
          )
       )
@@ -135,7 +129,10 @@ class Question extends React.Component<QuestionProps> {
    render() {
       const { description, isRequired } = this.props.question
       return (
-         <QuestionWrapper onFocus={this.onSelectQuestion}>
+         <QuestionWrapper
+            data-testid='test-question'
+            onFocus={this.onSelectQuestion}
+         >
             {isRequired && <Required>*</Required>}
             {this.renderQuestion()}
 

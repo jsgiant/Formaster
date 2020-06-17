@@ -29,7 +29,9 @@ class FormHeader extends React.Component<FormHeaderProps> {
       return (
          <HeaderContainer>
             <HeaderLeftSection>
-               <GoBack onClick={onNavigateBack}>&larr;</GoBack>
+               <GoBack data-testid='test-back' onClick={onNavigateBack}>
+                  &larr;
+               </GoBack>
                <FormTitle>{name}</FormTitle>
             </HeaderLeftSection>
             <HeaderRightSection>

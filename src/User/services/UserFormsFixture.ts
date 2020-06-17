@@ -13,6 +13,10 @@ class UserFormsAPI {
          resolve(userFormsData.form_questions[--formId])
       )
    }
+
+   postResponsesAPI(formId, responses) {
+      return new Promise(resolve => resolve('success'))
+   }
 }
 
 export default UserFormsAPI

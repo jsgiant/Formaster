@@ -1,5 +1,19 @@
 {
    "total": 0,
+   "test_forms": [
+      {
+         "id": 1,
+         "name": "Admin form1"
+      },
+      {
+         "id": 2,
+         "name": "Admin form2"
+      },
+      {
+         "id": 3,
+         "name": "Admin form3"
+      }
+   ],
    "forms": [
       {
          "form_id": 1,

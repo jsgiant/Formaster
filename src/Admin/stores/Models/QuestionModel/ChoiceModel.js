@@ -1,9 +1,9 @@
 import { observable, action } from 'mobx'
 
 class Choice {
-   @observable choice: string
-   choice_id: number | null
-   constructor(choice: string, choiceId: number | null) {
+   @observable choice
+   choice_id
+   constructor(choice, choiceId) {
       this.choice = choice
       this.choice_id = choiceId
    }

@@ -1,12 +1,11 @@
 import formsData from '../../fixtures/forms-data.json'
-import updatedFormData from '../../fixtures/updated-forms-data.json'
 
 class FormsAPI {
    api
 
    getFormsAPI(limit, offset) {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(formsData), 2000)
+      return new Promise(resolve => {
+         resolve(formsData)
       })
    }
 

@@ -1,5 +1,5 @@
 import Cookie from 'js-cookie'
-import AuthService from '../../services/AuthService'
+import AuthService from '../../services/AuthService/AuthFixture'
 import getLoginAPIResponse from '../../fixtures/login-api-response.json'
 import AuthStore from '.'
 
@@ -73,12 +73,6 @@ describe('authStore tests', () => {
          username: 'test-user',
          password: 'test-password'
       }
-      const mockSuccessPromise = new Promise(function(resolve, reject) {
-         resolve(getLoginAPIResponse)
-      })
-      const mockLoginAPI = jest.fn()
-      mockLoginAPI.mockReturnValue(mockSuccessPromise)
-      authAPI.getLoginAPI = mockLoginAPI
 
       const mockSetCookie = jest.fn()
       Cookie.set = mockSetCookie

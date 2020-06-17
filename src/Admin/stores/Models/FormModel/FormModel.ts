@@ -2,29 +2,30 @@ import { observable, action, toJS } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import strings from './../../../i18n/form-strings.json'
-import QuestionStore from '../../QuestionStore'
 import { notify, showSuccessMessage } from '../../../../Common/utils/ToastUtils'
 import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
 
 class FormModel {
    @observable name: string
    @observable postQuestionsAPIStatus: number
-   @observable putFormsAPIStatus: any
+   @observable putFormsAPIStatus: number
+   @observable postQuestionsAPIError: any
+   @observable putFormsAPIError: any
 
    formService
    questionStore
    id
 
-   constructor(form, formService) {
-      const { form_name, form_id, questions } = form
+   constructor(form, formService, questionStore) {
+      const { form_name, form_id } = form
       this.name = form_name
       this.id = form_id
-      if (questions) {
-         this.questionStore = new QuestionStore(form.questions)
-      }
+      this.questionStore = questionStore
       this.formService = formService
       this.postQuestionsAPIStatus = API_INITIAL
       this.putFormsAPIStatus = API_INITIAL
+      this.putFormsAPIError = null
+      this.postQuestionsAPIError = null
    }
 
    @action.bound
@@ -34,7 +35,9 @@ class FormModel {
 
    @action.bound
    setPutFormsAPIError(apiError) {
-      notify(getUserDisplayableErrorMessage(apiError))
+      console.log(apiError)
+      this.putFormsAPIError = getUserDisplayableErrorMessage(apiError)
+      notify(this.putFormsAPIError)
    }
 
    @action.bound
@@ -44,7 +47,8 @@ class FormModel {
 
    @action.bound
    setPostQuestionsAPIError(apiError) {
-      notify(getUserDisplayableErrorMessage(apiError))
+      this.postQuestionsAPIError = getUserDisplayableErrorMessage(apiError)
+      notify(this.postQuestionsAPIError)
    }
 
    showSuccessMessage = () => {
@@ -64,7 +68,7 @@ class FormModel {
             this.name = name
             this.showSuccessMessage()
          })
-         .catch(e => this.setPutFormsAPIError)
+         .catch(e => this.setPutFormsAPIError(e))
    }
 
    @action.bound

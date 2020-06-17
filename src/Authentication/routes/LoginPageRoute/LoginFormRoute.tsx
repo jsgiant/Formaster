@@ -3,16 +3,17 @@ import { withRouter } from 'react-router-dom'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
-import { paths } from '../../../Common/constants/Paths'
-import { getAccessToken, isAdmin } from '../../../Common/utils/StorageUtils'
-import messages from './../../i18n/messages.json'
-import strings from './../../i18n/strings.json'
-import LoginForm from '../../components/LoginForm'
+import { isAdmin } from '../../../Common/utils/StorageUtils'
+import { isLoggedIn } from '../../../Common/utils/AuthUtils'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import {
    goToAdminDashboard,
    goToUserDashboard
 } from '../../../Common/utils/NavigationUtils'
+
+import messages from './../../i18n/messages.json'
+import strings from './../../i18n/strings.json'
+import LoginForm from '../../components/LoginForm'
 
 type LoginFormRouteProps = {
    authStore: any
@@ -75,7 +76,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
 
    render() {
       const { getLoginAPIStatus } = this.props.authStore
-      if (getAccessToken() !== undefined) {
+      if (isLoggedIn()) {
          return this.onLoginSuccess()
       }
       return (

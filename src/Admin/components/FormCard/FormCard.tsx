@@ -98,7 +98,10 @@ class FormCard extends React.Component<FormCardProps> {
 
       return (
          <FormCardContainer isLoading={isProcessing}>
-            <NameContainer onClick={() => onClickForm(id)}>
+            <NameContainer
+               data-testid='test-form'
+               onClick={() => onClickForm(id)}
+            >
                <FormName>{name}</FormName>
             </NameContainer>
             <FooterContainer>

@@ -1,5 +1,4 @@
-import getData from '@ib/api'
-
+import { getData } from '@ib/api-utils'
 import {
    apiMethods,
    statusCodes,

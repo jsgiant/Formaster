@@ -10,8 +10,6 @@ class UserFormStore {
    @observable getUserFormsAPIError: any
    @observable getQuestionsAPIStatus: any
    @observable getQuestionsAPIError: any
-   @observable postUserResponsesStatus: any
-   @observable postUserResponsesError: any
 
    userFormsAPI: any
 
@@ -24,8 +22,8 @@ class UserFormStore {
    init() {
       this.getUserFormsAPIError = null
       this.getUserFormsAPIStatus = API_INITIAL
-      this.postUserResponsesError = null
-      this.postUserResponsesStatus = API_INITIAL
+      this.getQuestionsAPIError = null
+      this.getQuestionsAPIStatus = API_INITIAL
    }
 
    @action.bound

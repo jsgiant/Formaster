@@ -12,6 +12,7 @@ class UserFormCard extends Component<UserFormCardProps> {
       const { formName, onClickForm, formId } = this.props
       return (
          <UserFormCardContainer
+            data-testid='test-card'
             onClick={() => {
                onClickForm(formId)
             }}

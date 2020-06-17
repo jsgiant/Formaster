@@ -5,7 +5,7 @@ import formsData from './../../fixtures/forms-data.json'
 import FormCard from '.'
 
 describe('Formcard tests', () => {
-   const formDetails = formsData.forms[0]
+   const formDetails = formsData.test_forms[0]
    it('should test the form name', () => {
       const { getByText } = render(<FormCard formDetails={formDetails} />)
 

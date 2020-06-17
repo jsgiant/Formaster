@@ -66,6 +66,3 @@ class FormNameDialog extends React.Component<FormNameDialogProps> {
 }
 
 export { FormNameDialog }
-
-//onClick for outer div
-// value for rename

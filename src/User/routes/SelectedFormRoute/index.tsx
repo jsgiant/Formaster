@@ -1,7 +1,7 @@
 import React from 'react'
 import ProtectedRoute from '../../../Common/routes/ProtectedRoute'
 import { paths } from '../../../Common/constants/Paths'
-import { SelectedFormRoute } from './SelectedFormRoute'
+import SelectedFormRoute from './SelectedFormRoute'
 
 export const selectedFormRoute = (
    <ProtectedRoute
