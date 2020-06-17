@@ -3,9 +3,9 @@ import { render, fireEvent } from '@testing-library/react'
 import strings from '../../i18n/strings.json'
 import FormNameDialog from '.'
 
-describe('FormNamePopup tests', () => {
+describe('FormNameDialog tests', () => {
    it('should render given name', () => {
-      const { getByPlaceholderText } = render(<FormNamePopup />)
+      const { getByPlaceholderText } = render(<FormNameDialog />)
       const name = 'test-form'
       const renameField = getByPlaceholderText(strings.popup.namePlaceholder)
       fireEvent.change(renameField, { target: { value: name } })
@@ -15,7 +15,7 @@ describe('FormNamePopup tests', () => {
    it('should test on click continue button', () => {
       const mockContinue = jest.fn()
       const { getByRole, getByPlaceholderText } = render(
-         <FormNamePopup onClickContinue={mockContinue} />
+         <FormNameDialog onClickContinue={mockContinue} />
       )
       const name = 'test-form'
       const renameField = getByPlaceholderText(strings.popup.namePlaceholder)

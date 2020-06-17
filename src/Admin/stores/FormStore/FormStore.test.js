@@ -28,8 +28,9 @@ describe('formstore tests', () => {
    it('should test initialising the store', () => {
       expect(formStore.getFormsDataAPIStatus).toBe(API_INITIAL)
       expect(formStore.postFormsAPIStatus).toBe(API_INITIAL)
-      expect(formStore.putFormsAPIStatus).toBe(API_INITIAL)
       expect(formStore.deleteFormsAPIStatus).toBe(API_INITIAL)
+      expect(formStore.getQuestionsAPIStatus).toBe(API_INITIAL)
+      expect(formStore.getQuestionsAPIError).toBe(null)
       expect(formStore.updateFormsAPIError).toBe(null)
       expect(formStore.getFormsDataAPIError).toBe(null)
    })
@@ -68,7 +69,6 @@ describe('formstore tests', () => {
       const mockGetFormsAPI = jest.fn()
       mockGetFormsAPI.mockReturnValue(mockSuccessPromise)
       formsAPI.getFormsAPI = mockGetFormsAPI
-
       await formStore.getUserForms()
       waitFor(() => {
          expect(formStore.getFormsDataAPIStatus).toBe(API_SUCCESS)
@@ -97,7 +97,6 @@ describe('formstore tests', () => {
       const mockPostFormsAPI = jest.fn()
       mockPostFormsAPI.mockReturnValue(mockSuccessPromise)
       formsAPI.postFormsAPI = mockPostFormsAPI
-
       await formStore.onCreateForm(formName)
       waitFor(() => {
          expect(formStore.postFormsAPIStatus).toBe(API_SUCCESS)
@@ -140,21 +139,21 @@ describe('formstore tests', () => {
       })
    })
 
-   // it('should test deleteFormsAPI failure state', async () => {
-   //    const mockFailurePromise = new Promise((_, reject) => {
-   //       reject(new Error('error'))
-   //    }).catch()
+   it('should test deleteFormsAPI failure state', async () => {
+      const mockFailurePromise = new Promise((_, reject) => {
+         reject(new Error('error'))
+      }).catch()
 
-   //    const mockDeleteFormsAPI = jest.fn()
-   //    mockDeleteFormsAPI.mockReturnValue(mockFailurePromise)
-   //    formsAPI.deleteFormsAPI = mockDeleteFormsAPI
+      const mockDeleteFormsAPI = jest.fn()
+      mockDeleteFormsAPI.mockReturnValue(mockFailurePromise)
+      formsAPI.deleteFormsAPI = mockDeleteFormsAPI
 
-   //    await formStore.onDeleteForm(formsData.forms[0])
-   //    waitFor(() => {
-   //       expect(formStore.deleteFormsAPIStatus).toBe(API_FAILED)
-   //       expect(formStore.updateFormsAPIError).toBe('error')
-   //    })
-   // })
+      await formStore.onDeleteForm(formsData.forms[0])
+      waitFor(() => {
+         expect(formStore.deleteFormsAPIStatus).toBe(API_FAILED)
+         expect(formStore.updateFormsAPIError).toBe('error')
+      })
+   })
 
    it('should test getQuestionsAPI success state', async () => {
       const mockSuccessPromise = new Promise(resolve => {
@@ -169,6 +168,22 @@ describe('formstore tests', () => {
       waitFor(() => {
          expect(formStore.getQuestionsAPIStatus).toBe(API_SUCCESS)
          expect(formStore.getQuestionsAPIResponse).toBe(formsData.forms[0])
+      })
+   })
+
+   it('should test getQuestionsAPI failure state', async () => {
+      const mockFailurePromise = new Promise((_, reject) => {
+         reject(new Error('error'))
+      })
+
+      const mockQuestionsAPI = jest.fn()
+      mockQuestionsAPI.mockReturnValue(mockFailurePromise)
+      formsAPI.getQuestionsAPI = mockQuestionsAPI
+      await formStore.getFormQuestions(0)
+
+      waitFor(() => {
+         expect(formStore.getQuestionsAPIStatus).toBe(API_FAILED)
+         expect(formStore.getQuestionsAPIError).toBe('error')
       })
    })
 })

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { LOGIN_PATH } from '../../../Authentication/constants/paths'
-import { getAccessToken } from '../../utils/StorageUtils'
+
+import { isLoggedIn } from '../../utils/AuthUtils'
 
 type ProtectedRouteProps = {
    component: any
@@ -10,7 +11,7 @@ type ProtectedRouteProps = {
 export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
    render() {
       const { path, component: Component } = this.props
-      if (getAccessToken() === undefined || getAccessToken() === '') {
+      if (!isLoggedIn()) {
          return <Redirect to={LOGIN_PATH} />
       } else {
          return <Route exact path={path} component={Component} />

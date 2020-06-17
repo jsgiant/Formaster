@@ -11,7 +11,7 @@
    "welcome": "Welcome🙏",
    "thankyou": "Thank you👍!",
    "emptyTitle": "...",
-   "submitted":"Submitted!",
-   "required":"required field",
-   "error":"Please fill required fields!"
+   "submitted": "Submitted!",
+   "required": "required",
+   "error": "Please fill required fields!"
 }

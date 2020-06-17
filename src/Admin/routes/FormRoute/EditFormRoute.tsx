@@ -41,7 +41,6 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
       return (
          <EditForm
             onClickLogout={this.onClickLogout}
-            onClickPreview={() => {}}
             onNavigateBack={this.onNavigateBack}
             formDetails={currentForm}
             formId={this.formId}
@@ -52,8 +51,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
    render() {
       const {
          getQuestionsAPIStatus,
-         getQuestionsAPIError,
-         getFormQuestions
+         getQuestionsAPIError
       } = this.props.formStore
       return (
          <LoadingWrapperWithFailure

@@ -14,7 +14,7 @@ import {
 
 type EditFormProps = {
    onClickLogout: () => void
-   onClickPreview: () => void
+
    formDetails: any
    formId: number
    onNavigateBack: () => void

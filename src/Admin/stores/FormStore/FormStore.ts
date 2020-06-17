@@ -5,6 +5,7 @@ import { notify, showSuccessMessage } from '../../../Common/utils/ToastUtils'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import FormsAPI from '../../services/FormsService/FormsFixture'
 import FormModel from '../models/FormModel'
+import QuestionStore from '../QuestionStore'
 
 class FormStore {
    @observable formList
@@ -31,12 +32,12 @@ class FormStore {
    @action.bound
    init() {
       this.getFormsDataAPIStatus = API_INITIAL
-      this.getFormsDataAPIError = null
       this.postFormsAPIStatus = API_INITIAL
-      this.postFormsAPIResponse = null
       this.deleteFormsAPIStatus = API_INITIAL
-      this.getFormsDataAPIStatus = API_INITIAL
+      this.getQuestionsAPIStatus = API_INITIAL
+      this.postFormsAPIResponse = null
       this.getFormsDataAPIError = null
+      this.getQuestionsAPIError = null
       this.deleteFormsAPIResponse = null
       this.updateFormsAPIError = null
       this.formList = []
@@ -55,7 +56,10 @@ class FormStore {
    @action.bound
    setGetFormDataAPIResponse(formsData) {
       this.formList = formsData.forms.map(form => {
-         return new FormModel(form, this.formService)
+         const questionStore = form.questions
+            ? new QuestionStore(form.questions)
+            : new QuestionStore([])
+         return new FormModel(form, this.formService, questionStore)
       })
    }
 
@@ -67,7 +71,12 @@ class FormStore {
    @action.bound
    setPostFormsAPIResponse(apiResponse) {
       this.postFormsAPIResponse = apiResponse
-      this.formList.unshift(new FormModel(apiResponse, this.formService))
+      const questionStore = apiResponse.questions
+         ? new QuestionStore(apiResponse.questions)
+         : new QuestionStore([])
+      this.formList.unshift(
+         new FormModel(apiResponse, this.formService, questionStore)
+      )
    }
 
    @action.bound
@@ -92,7 +101,14 @@ class FormStore {
 
    @action.bound
    setGetQuestionsAPIResponse(apiResponse) {
-      this.currentForm = new FormModel(apiResponse, this.formService)
+      const questionStore = apiResponse.questions
+         ? new QuestionStore(apiResponse.questions)
+         : new QuestionStore([])
+      this.currentForm = new FormModel(
+         apiResponse,
+         this.formService,
+         questionStore
+      )
    }
 
    @action.bound

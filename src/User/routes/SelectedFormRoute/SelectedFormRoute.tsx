@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { reaction } from 'mobx'
 import { API_SUCCESS } from '@ib/api-constants'
@@ -76,4 +77,4 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
    }
 }
 
-export { SelectedFormRoute }
+export default withRouter(SelectedFormRoute)
