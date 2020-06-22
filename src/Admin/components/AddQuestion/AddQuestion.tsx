@@ -29,7 +29,6 @@ class AddQuestion extends React.Component<AddQuestionProps> {
    }
 
    render() {
-      const { onAddQuestion } = this.props
 
       return (
          <Menu>

@@ -1,17 +1,21 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
+
 import Dashboard from '../../../Common/components/Dashboard'
 import {
    goToSelectedForm,
    goToLoginForm
 } from '../../../Common/utils/NavigationUtils'
+import AuthStore from "../../../Authentication/stores/AuthStore"
+
 import FormList from '../../components/FormList'
+import FormStore from "../../stores/FormStore"
 
 type DashboardRouteProps = {
-   authStore: any
+   authStore: AuthStore
    history: any
-   formStore: any
+   formStore: FormStore
 }
 @inject('authStore', 'formStore')
 @observer
