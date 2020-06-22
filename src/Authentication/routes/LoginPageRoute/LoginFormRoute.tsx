@@ -14,21 +14,22 @@ import {
 import messages from './../../i18n/messages.json'
 import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
+import AuthStore from '../../stores/AuthStore'
 
 type LoginFormRouteProps = {
-   authStore: any
-   history: any
+   authStore: AuthStore
+   history: History
 }
 
 @inject('authStore')
 @observer
 class LoginFormRoute extends React.Component<LoginFormRouteProps> {
-   @observable userName = strings.login.empty
-   @observable password = strings.login.empty
-   @observable errorMessage = strings.login.empty
+   @observable userName: string = strings.login.empty
+   @observable password: string = strings.login.empty
+   @observable errorMessage: string = strings.login.empty
 
    @action.bound
-   onClickLogin() {
+   onClickLogin(): void {
       const { userLogin } = this.props.authStore
       if (
          this.userName !== strings.login.empty &&
@@ -37,7 +38,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
          this.errorMessage = strings.login.empty
          userLogin(
             {
-               username: this.userName,
+               userName: this.userName,
                password: this.password
             },
             this.onLoginSuccess,
@@ -48,7 +49,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
       }
    }
 
-   onLoginSuccess = () => {
+   onLoginSuccess = (): null => {
       const { history } = this.props
 
       const path =
@@ -60,18 +61,17 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    @action.bound
-   onLoginFailure(error) {
+   onLoginFailure(error: string): void {
       this.errorMessage = getUserDisplayableErrorMessage(error)
    }
 
    @action.bound
-   onChangeUserName(e: React.SyntheticEvent<HTMLInputElement>): void{
-      const  element = e.target as HTMLInputElement
-      this.userName = element.value
+   onChangeUserName(e: React.ChangeEvent<HTMLInputElement>): void {
+      this.userName = e.target.value
    }
 
    @action.bound
-   onChangePassword(e) {
+   onChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
       this.password = e.target.value
    }
 

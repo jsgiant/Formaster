@@ -1,24 +1,28 @@
 import React from 'react'
 import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
+
+import { render, fireEvent, waitFor } from '@testing-library/react'
+
 import { paths } from '../../../Common/constants/Paths'
+
 import AuthService from '../../services/AuthService'
 import AuthStore from '../../stores/AuthStore'
-import strings from './../../i18n/strings.json'
-import loginAPIResponse from './../../fixtures/login-api-response.json'
-import { LOGIN_PATH } from '../../constants/paths'
+import strings from '../../i18n/strings.json'
+import loginAPIResponse from '../../fixtures/login-api-response.json'
+import { LOGIN_PATH } from '../../constants/Paths'
+
 import LoginFormRoute from './LoginFormRoute'
 
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
 ))
 describe('loginRoute tests', () => {
-   let authAPI
-   let authStore
-   let username = 'test-user'
-   let password = 'test-password'
+   let authAPI: AuthService
+   let authStore: AuthStore
+   let username: string = 'test-user'
+   let password: string = 'test-password'
    const { usernamePlaceholder, passwordPlaceholder } = strings.login
 
    beforeEach(() => {
@@ -88,7 +92,7 @@ describe('loginRoute tests', () => {
 
    it('should render login route success state', () => {
       const history = createMemoryHistory()
-      const route = LOGIN_PATH
+      const route: string = LOGIN_PATH
       history.push(route)
 
       const {
