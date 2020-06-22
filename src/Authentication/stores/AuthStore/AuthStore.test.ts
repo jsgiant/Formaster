@@ -1,7 +1,4 @@
 import Cookie from 'js-cookie'
-import AuthService from '../../services/AuthService/AuthFixture'
-import getLoginAPIResponse from '../../fixtures/login-api-response.json'
-import AuthStore from '.'
 
 import {
    API_INITIAL,
@@ -10,9 +7,13 @@ import {
    API_SUCCESS
 } from '@ib/api-constants'
 
+import AuthService from '../../services/AuthService/AuthFixture'
+import { requestObject } from '../../services/AuthService/AuthAPI'
+import AuthStore from '.'
+
 describe('authStore tests', () => {
-   let authAPI
-   let authStore
+   let authAPI: AuthService
+   let authStore: AuthStore
 
    beforeEach(() => {
       authAPI = new AuthService()
@@ -25,14 +26,14 @@ describe('authStore tests', () => {
    })
 
    it('should test loginAPI data fetching state', () => {
-      const onSucccess = jest.fn()
-      const onFailure = jest.fn()
+      const onSucccess: () => null = jest.fn()
+      const onFailure: (error: string) => void = jest.fn()
 
-      const requestObject = {
-         username: 'test-user',
+      const requestObject: requestObject = {
+         userName: 'test-user',
          password: 'test-password'
       }
-      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockLoadingPromise: Promise<{}> = new Promise(_ => {})
       const mockLoginAPI = jest.fn()
       mockLoginAPI.mockReturnValue(mockLoadingPromise)
       authAPI.getLoginAPI = mockLoginAPI
@@ -44,14 +45,14 @@ describe('authStore tests', () => {
    })
 
    it('should test LoginAPI data failure state', async () => {
-      const onSucccess = jest.fn()
-      const onFailure = jest.fn()
-      const requestObject = {
-         username: 'test-user',
+      const onSucccess: () => null = jest.fn()
+      const onFailure: (error: string) => void = jest.fn()
+      const requestObject: requestObject = {
+         userName: 'test-user',
          password: 'test-password'
       }
 
-      const mockFailurePromise = new Promise(function(resolve, reject) {
+      const mockFailurePromise: Promise<{}> = new Promise((_, reject) => {
          reject(new Error('error'))
       })
 
@@ -66,11 +67,11 @@ describe('authStore tests', () => {
    })
 
    it('should test userLoginAPI data success state', async () => {
-      const onSucccess = jest.fn()
-      const onFailure = jest.fn()
+      const onSucccess: () => null = jest.fn()
+      const onFailure: (error: string) => void = jest.fn()
 
-      const requestObject = {
-         username: 'test-user',
+      const requestObject: requestObject = {
+         userName: 'test-user',
          password: 'test-password'
       }
 

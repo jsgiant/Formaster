@@ -2,14 +2,9 @@ import React from 'react'
 
 type SignupFormProps = {
    name: string
-   userName: any
-   password: any
-   confirmPassword: any
-   onChangeName: (event) => void
-   onChangeUserName: (event) => void
-   onChangePassword: (event) => void
-   onChangeConfirmPassword: (event) => void
-   onClickSignup: (event) => void
+   userName: string
+   password: string
+   confirmPassword: string
 }
 
 class SignUpPage extends React.Component<SignupFormProps> {
@@ -19,11 +14,6 @@ class SignUpPage extends React.Component<SignupFormProps> {
          userName,
          password,
          confirmPassword,
-         onChangeConfirmPassword,
-         onChangeName,
-         onChangePassword,
-         onChangeUserName,
-         onClickSignup
       } = this.props
       return <div>SignUp</div>
    }

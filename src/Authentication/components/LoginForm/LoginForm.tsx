@@ -16,14 +16,14 @@ import {
    LoginButtonWhileLoading
 } from './styledComponents'
 
-type LoginFormProps = {
+export interface LoginFormProps {
    userName: string
    password: string
    errorMessage: string
    onClickLogin: () => void
    apiStatus: number
-   onChangeUserName: (e) => void
-   onChangePassword: (e) => void
+   onChangeUserName: (e: React.ChangeEvent<HTMLInputElement>) => void
+   onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 class LoginForm extends React.Component<LoginFormProps> {

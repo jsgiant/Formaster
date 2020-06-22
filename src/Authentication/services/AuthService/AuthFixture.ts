@@ -1,11 +1,11 @@
 import authData from './../../fixtures/login-api-response.json'
+import { requestObject } from './AuthAPI'
 
 class AuthService {
-   api
-   getLoginAPI(request) {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(authData.admin), 2000)
-         // reject(new Error('Invalid credentials'))
+   api: any
+   getLoginAPI(request: requestObject): Promise<any> {
+      return new Promise(resolve => {
+         setTimeout(() => resolve(authData.admin))
       })
    }
 }

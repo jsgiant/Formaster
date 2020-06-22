@@ -6,58 +6,66 @@ import {
    clearUserSession,
    setIsAdmin
 } from '../../../Common/utils/StorageUtils'
+import AuthService from '../../services/AuthService'
+import { apiResponse, requestObject } from '../../services/AuthService/AuthAPI'
 
 class AuthStore {
-   @observable getLoginAPIStatus
-   @observable getLoginAPIError
-   @observable isAdmin
+   @observable getLoginAPIStatus: number = API_INITIAL
+   @observable getLoginAPIError: string | null = null
+   @observable isAdmin: boolean = false
 
-   authAPIService
+   authAPIService: AuthService
 
-   constructor(authAPIService) {
+   constructor(authAPIService: AuthService) {
       this.init()
       this.authAPIService = authAPIService
    }
 
    @action.bound
-   init() {
+   init(): void {
       this.getLoginAPIStatus = API_INITIAL
       this.getLoginAPIError = null
       this.isAdmin = false
    }
 
    @action.bound
-   setGetLoginAPIStatus(apiStatus) {
+   setGetLoginAPIStatus(apiStatus: number): void {
       this.getLoginAPIStatus = apiStatus
    }
 
    @action.bound
-   setGetLoginAPIError(apiError) {
+   setGetLoginAPIError(apiError: string): void {
       this.getLoginAPIError = apiError
    }
 
    @action.bound
-   setGetLoginAPIResponse(apiResponse) {
+   setGetLoginAPIResponse(apiResponse: apiResponse): void {
       this.isAdmin = apiResponse.is_admin
       setIsAdmin(apiResponse.is_admin)
       setAccessToken(apiResponse.access_token)
    }
 
    @action.bound
-   userLogin(request, onSuccess, onFailure) {
-      const loginPromise = this.authAPIService.getLoginAPI(request)
+   userLogin(
+      request: requestObject,
+      onSuccess: () => null,
+      onFailure: (error: string) => void
+   ): Promise<any> {
+      const loginPromise: Promise<any> = this.authAPIService.getLoginAPI(
+         request
+      )
       return bindPromiseWithOnSuccess(loginPromise)
-         .to(this.setGetLoginAPIStatus, response => {
+         .to(this.setGetLoginAPIStatus, (response: any) => {
             this.setGetLoginAPIResponse(response)
             onSuccess()
          })
-         .catch(error => {
+         .catch((error: string) => {
             this.setGetLoginAPIError(error)
             onFailure(error)
          })
    }
 
-   onSignOut = () => {
+   onSignOut = (): void => {
       this.init()
       clearUserSession()
    }
