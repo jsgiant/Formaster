@@ -7,20 +7,20 @@ import {
    goToSelectedForm,
    goToLoginForm
 } from '../../../Common/utils/NavigationUtils'
-import AuthStore from "../../../Authentication/stores/AuthStore"
+import AuthStore from '../../../Authentication/stores/AuthStore'
 
 import FormList from '../../components/FormList'
-import FormStore from "../../stores/FormStore"
+import FormStore from '../../stores/FormStore'
 
 type DashboardRouteProps = {
    authStore: AuthStore
-   history: any
+   history: History
    formStore: FormStore
 }
 @inject('authStore', 'formStore')
 @observer
 class DashboardRoute extends React.Component<DashboardRouteProps> {
-   onLogoutClick = () => {
+   onLogoutClick = (): void => {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
@@ -31,19 +31,17 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
       getUserForms()
    }
 
-   onClickForm = formId => {
+   onClickForm = (formId: number) => {
       const { history } = this.props
       goToSelectedForm(history, formId)
    }
 
-   renderFormsList = () => {
-      return (
-         <FormList
-            formStore={this.props.formStore}
-            onClickForm={this.onClickForm}
-         />
-      )
-   }
+   renderFormsList = (): React.ReactNode => (
+      <FormList
+         formStore={this.props.formStore}
+         onClickForm={this.onClickForm}
+      />
+   )
    render() {
       const {
          getFormsDataAPIStatus,

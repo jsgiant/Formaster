@@ -1,13 +1,21 @@
 import { observable, action } from 'mobx'
 
+import { QuestionType } from './QuestionModel'
 import QuestionModel from '.'
-import Choice from './ChoiceModel'
+
+export interface McqQuestionType extends QuestionType {
+   mcq_choices: Array<McqType>
+}
+export type McqType = {
+   choice: string
+   choice_id: number | null
+}
 
 class McqModel extends QuestionModel {
-   @observable mcqChoices: any = [{ choice: '', choice_id: null }]
+   @observable mcqChoices: Array<McqType> = [{ choice: '', choice_id: null }]
    @observable responseId: number | null = null
 
-   constructor(type, question?) {
+   constructor(type: string, question?: McqQuestionType) {
       super(type, question)
       if (question) {
          this.mcqChoices = question.mcq_choices
@@ -15,24 +23,22 @@ class McqModel extends QuestionModel {
    }
 
    @action.bound
-   onChangeresponseId(choiceId) {
+   onChangeresponseId(choiceId: string): void {
       this.responseId = parseInt(choiceId)
    }
 
    @action.bound
-   onChangeChoiceText(index, value) {
+   onChangeChoiceText(index: number, value: string): void {
       this.mcqChoices[index].choice = value
    }
 
    @action.bound
-   onRemoveChoice(index) {
-      // this.mcqChoices.remove(choice)
+   onRemoveChoice(index: number): void {
       this.mcqChoices.length > 1 && this.mcqChoices.splice(index, 1)
    }
 
    @action.bound
-   onAddChoice() {
-      // this.mcqChoices.push(new Choice('', null))
+   onAddChoice(): void {
       this.mcqChoices.push({ choice: '', choice_id: null })
    }
 }
