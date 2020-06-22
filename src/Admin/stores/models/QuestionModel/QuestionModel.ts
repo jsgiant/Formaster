@@ -1,17 +1,26 @@
 import { observable, action } from 'mobx'
 
+export interface QuestionType {
+   question_id: number
+   question_text: string
+   question_type: string
+   position_number: number
+   is_required: boolean
+   description: string
+   response: string
+}
 class QuestionModel {
-   questionId = null
-   @observable type = ''
-   @observable questionTitle = ''
-   @observable description = ''
-   @observable isRequired = false
-   @observable hasDescription
-   @observable imageURL = ''
-   @observable position = null
-   @observable response = ''
+   questionId: number | null = null
+   @observable type: string = ''
+   @observable questionTitle: string = ''
+   @observable description: string = ''
+   @observable isRequired: boolean = false
+   @observable hasDescription: boolean
+   @observable imageURL: string = ''
+   @observable position: number | null = null
+   @observable response: string = ''
 
-   constructor(type, question?) {
+   constructor(type: string, question?: QuestionType) {
       this.hasDescription = false
       this.type = type
       if (question) {
@@ -20,7 +29,7 @@ class QuestionModel {
    }
 
    @action.bound
-   initializeQuestion(question) {
+   initializeQuestion(question: QuestionType): void {
       const {
          question_text,
          is_required,
@@ -36,27 +45,27 @@ class QuestionModel {
    }
 
    @action.bound
-   onChangeResponse(updatedResponse) {
+   onChangeResponse(updatedResponse: string): void {
       this.response = updatedResponse
    }
 
    @action.bound
-   onChangeTitle(title) {
+   onChangeTitle(title: string): void {
       this.questionTitle = title
    }
 
    @action.bound
-   onChangeHasDescription() {
+   onChangeHasDescription(): void {
       this.hasDescription = !this.hasDescription
    }
 
    @action.bound
-   onChangeIsRequired() {
+   onChangeIsRequired(): void {
       this.isRequired = !this.isRequired
    }
 
    @action.bound
-   onChangeDescription(description) {
+   onChangeDescription(description: string): void {
       this.description = description
    }
 }

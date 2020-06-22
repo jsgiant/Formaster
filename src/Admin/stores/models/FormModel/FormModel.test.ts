@@ -11,9 +11,9 @@ import QuestionStore from '../../QuestionStore'
 import FormModel from '.'
 
 describe('Form model tests', () => {
-   let formsAPI
-   let questionStore
-   let formModel
+   let formsAPI: FormsAPI
+   let questionStore: QuestionStore
+   let formModel: FormModel
    const formDetails = formsData.form_questions[0]
    beforeEach(() => {
       formsAPI = new FormsAPI()

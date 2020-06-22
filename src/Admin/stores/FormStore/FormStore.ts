@@ -1,26 +1,37 @@
 import { observable, action } from 'mobx'
+
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+
 import { notify, showSuccessMessage } from '../../../Common/utils/ToastUtils'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import FormsAPI from '../../services/FormsService/FormsFixture'
+
 import FormModel from '../models/FormModel'
 import QuestionStore from '../QuestionStore'
 
+export type Form = {
+   form_id?: number | undefined
+   form_name: string
+   questions?: Array<object>
+}
+export interface formsResponse {
+   total: number
+   forms: Array<Form>
+   test_forms: Array<object>
+}
 class FormStore {
-   @observable formList
-   @observable currentForm
-   @observable getFormsDataAPIStatus: any
-   @observable getFormsDataAPIError: any
-   @observable postFormsAPIStatus: any
-   @observable postFormsAPIResponse: any
-   @observable deleteFormsAPIStatus: any
-   @observable deleteFormsAPIResponse: any
-   @observable updateFormsAPIError: any
-   @observable getQuestionsAPIStatus: any
-   @observable getQuestionsAPIError: any
-   @observable offset: number = 0
-   @observable initialLimit: number = 100
+   @observable formList!: Array<FormModel>
+   @observable currentForm!: FormModel | null
+   @observable getFormsDataAPIStatus!: number
+   @observable getFormsDataAPIError!: string | null
+   @observable postFormsAPIStatus!: number
+   @observable deleteFormsAPIStatus!: number
+   @observable updateFormsAPIError!: string | null
+   @observable getQuestionsAPIStatus!: number
+   @observable getQuestionsAPIError!: string | null
+   @observable offset!: number
+   @observable initialLimit!: number
 
    formService: any
 
@@ -30,31 +41,32 @@ class FormStore {
    }
 
    @action.bound
-   init() {
+   init(): void {
       this.getFormsDataAPIStatus = API_INITIAL
       this.postFormsAPIStatus = API_INITIAL
       this.deleteFormsAPIStatus = API_INITIAL
       this.getQuestionsAPIStatus = API_INITIAL
-      this.postFormsAPIResponse = null
       this.getFormsDataAPIError = null
       this.getQuestionsAPIError = null
-      this.deleteFormsAPIResponse = null
       this.updateFormsAPIError = null
+      this.currentForm = null
       this.formList = []
+      this.offset = 0
+      this.initialLimit = 100
    }
 
    @action.bound
-   setGetFormDataAPIStatus(apiStatus) {
+   setGetFormDataAPIStatus(apiStatus: number): void {
       this.getFormsDataAPIStatus = apiStatus
    }
 
    @action.bound
-   setGetFormDataAPIError(apiError) {
+   setGetFormDataAPIError(apiError: string): void {
       this.getFormsDataAPIError = apiError
    }
 
    @action.bound
-   setGetFormDataAPIResponse(formsData) {
+   setGetFormDataAPIResponse(formsData: formsResponse) {
       this.formList = formsData.forms.map(form => {
          const questionStore = form.questions
             ? new QuestionStore(form.questions)
@@ -64,43 +76,42 @@ class FormStore {
    }
 
    @action.bound
-   setPostFormsAPIStatus(apiStatus) {
+   setPostFormsAPIStatus(apiStatus: number): void {
       this.postFormsAPIStatus = apiStatus
    }
 
    @action.bound
-   setPostFormsAPIResponse(apiResponse) {
-      this.postFormsAPIResponse = apiResponse
-      const questionStore = apiResponse.questions
-         ? new QuestionStore(apiResponse.questions)
+   setPostFormsAPIResponse(postFormsResponse: Form) {
+      const questionStore = postFormsResponse.questions
+         ? new QuestionStore(postFormsResponse.questions)
          : new QuestionStore([])
       this.formList.unshift(
-         new FormModel(apiResponse, this.formService, questionStore)
+         new FormModel(postFormsResponse, this.formService, questionStore)
       )
    }
 
    @action.bound
-   setDeleteFormsAPIStatus(apiStatus) {
+   setDeleteFormsAPIStatus(apiStatus: number): void {
       this.deleteFormsAPIStatus = apiStatus
    }
 
    @action.bound
-   setUpdateFormError(apiError) {
+   setUpdateFormError(apiError: string): void {
       notify(getUserDisplayableErrorMessage(apiError))
    }
 
    @action.bound
-   setGetQuestionsAPIStatus(apiStatus) {
+   setGetQuestionsAPIStatus(apiStatus: number): void {
       this.getQuestionsAPIStatus = apiStatus
    }
 
    @action.bound
-   setGetQuestionsAPIError(apiError) {
+   setGetQuestionsAPIError(apiError: string): void {
       this.getQuestionsAPIError = apiError
    }
 
    @action.bound
-   setGetQuestionsAPIResponse(apiResponse) {
+   setGetQuestionsAPIResponse(apiResponse: Form): void {
       const questionStore = apiResponse.questions
          ? new QuestionStore(apiResponse.questions)
          : new QuestionStore([])
@@ -112,7 +123,7 @@ class FormStore {
    }
 
    @action.bound
-   getUserForms(): any {
+   getUserForms(): void {
       const getFormsPromise = this.formService.getFormsAPI(
          this.initialLimit,
          this.offset
@@ -126,7 +137,7 @@ class FormStore {
    }
 
    @action.bound
-   getFormQuestions(formId: number) {
+   getFormQuestions(formId: number): void {
       const getQuestionsPromise = this.formService.getQuestionsAPI(
          formId,
          this.initialLimit,
@@ -141,7 +152,7 @@ class FormStore {
    }
 
    @action.bound
-   onCreateForm(formName: string): any {
+   onCreateForm(formName: string): void {
       const postFormPromise = this.formService.postFormsAPI({
          form_name: formName
       })
@@ -154,19 +165,24 @@ class FormStore {
    }
 
    @action.bound
-   onBindPromiseWithOnSuccess(promise, setStatus, onSuccess, onFailure) {
+   async onBindPromiseWithOnSuccess(
+      promise: Promise<any>,
+      setStatus: (status: number) => void,
+      onSuccess: (res: any) => void,
+      onFailure: (e: string) => void
+   ): Promise<any> {
       return bindPromiseWithOnSuccess(promise)
          .to(setStatus, onSuccess)
          .catch(error => onFailure(error))
    }
 
    @action.bound
-   onDeleteForm(form) {
+   async onDeleteForm(form: FormModel): Promise<any> {
       const deleteFormsResponse = this.formService.deleteFormsAPI(form.id)
       return bindPromiseWithOnSuccess(deleteFormsResponse)
-         .to(this.setDeleteFormsAPIStatus, response => {
+         .to(this.setDeleteFormsAPIStatus, _ => {
             showSuccessMessage(`${form.name} successfully deleted!`)
-            this.formList.remove(form)
+            this.formList = this.formList.filter(eachForm => eachForm !== form)
          })
          .catch(error => this.setUpdateFormError(error))
    }

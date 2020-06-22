@@ -1,14 +1,13 @@
 import React from 'react'
 import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
-import { act } from 'react-dom/test-utils'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 
 import AuthService from '../../../Authentication/services/AuthService'
 import AuthStore from '../../../Authentication/stores/AuthStore'
 import { paths } from '../../../Common/constants/Paths'
-import { LOGIN_PATH } from '../../../Authentication/constants/paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
 import formsData from '../../fixtures/forms-data.json'
 import FormsAPI from '../../services/FormsService/FormsFixture'
@@ -16,19 +15,19 @@ import FormStore from '../../stores/FormStore'
 
 import DashboardRoute from './DashboardRoute'
 
-const LoginDisplay = withRouter(({ location }) => (
-   <div data-testid='login-display'>LoginForm</div>
-))
+const LoginDisplay = withRouter(
+   (): JSX.Element => <div data-testid='login-display'>LoginForm</div>
+)
 
-const SelectedForm = withRouter(({ location }) => (
-   <div data-testid='selected-form'>Selected form</div>
-))
+const SelectedForm = withRouter(
+   (): JSX.Element => <div data-testid='selected-form'>Selected form</div>
+)
 
 describe('dashboard route tests', () => {
-   let authAPI
-   let authStore
-   let formsAPI
-   let formStore
+   let authAPI: AuthService
+   let authStore: AuthStore
+   let formsAPI: FormsAPI
+   let formStore: FormStore
    const history = createMemoryHistory()
 
    beforeEach(() => {
@@ -61,7 +60,6 @@ describe('dashboard route tests', () => {
       fireEvent.click(getByTestId('logout-btn'))
 
       waitFor(() => {
-         // expect(getByTestId('logout-btn')).not.toBeInTheDocument()
          expect(getByTestId('login-display')).toHaveTextContent('LoginForm')
       })
    })
@@ -115,7 +113,7 @@ describe('dashboard route tests', () => {
    })
 
    it('should test get forms failure state', async () => {
-      const { getByTestId, getByText, queryByRole } = render(
+      const { getByText, queryByRole } = render(
          <Router history={history}>
             <DashboardRoute authStore={authStore} formStore={formStore} />
          </Router>
@@ -136,7 +134,7 @@ describe('dashboard route tests', () => {
    })
 
    it('should test get forms success state', async () => {
-      const { getAllByTestId, getAllByRole, debug } = render(
+      const { getAllByTestId } = render(
          <Router history={history}>
             <DashboardRoute authStore={authStore} formStore={formStore} />
          </Router>
