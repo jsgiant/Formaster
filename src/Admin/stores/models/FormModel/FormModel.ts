@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import strings from './../../../i18n/form-strings.json'
+import strings from '../../../i18n/form-strings.json'
 import { notify, showSuccessMessage } from '../../../../Common/utils/ToastUtils'
 import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
 

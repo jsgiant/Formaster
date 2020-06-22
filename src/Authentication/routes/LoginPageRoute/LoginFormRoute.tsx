@@ -65,8 +65,9 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    @action.bound
-   onChangeUserName(e) {
-      this.userName = e.target.value
+   onChangeUserName(e: React.SyntheticEvent<HTMLInputElement>): void{
+      const  element = e.target as HTMLInputElement
+      this.userName = element.value
    }
 
    @action.bound

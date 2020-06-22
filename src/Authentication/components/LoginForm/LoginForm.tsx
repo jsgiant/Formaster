@@ -3,6 +3,7 @@ import Loader from 'react-loader-spinner'
 import { API_FETCHING } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
+
 import {
    LoginContainer,
    LoginFormWrapper,
@@ -16,8 +17,8 @@ import {
 } from './styledComponents'
 
 type LoginFormProps = {
-   userName: any
-   password: any
+   userName: string
+   password: string
    errorMessage: string
    onClickLogin: () => void
    apiStatus: number

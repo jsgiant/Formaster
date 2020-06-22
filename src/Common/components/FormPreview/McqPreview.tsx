@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { observer } from 'mobx-react'
-import strings from './../../i18n/strings.json'
+import strings from '../../i18n/strings.json'
 import { buttons } from '../../constants/Buttons'
 import {
    FieldTitle,

@@ -1,4 +1,4 @@
-import { LOGIN_PATH } from '../../Authentication/constants/paths'
+import { LOGIN_PATH } from '../../Authentication/constants/Paths'
 import { paths } from '../constants/Paths'
 
 export const goToAdminDashboard = history => {

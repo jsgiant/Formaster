@@ -4,7 +4,7 @@ import { observable, action, reaction } from 'mobx'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import { Line } from 'rc-progress'
 
-import strings from './../../i18n/strings.json'
+import strings from '../../i18n/strings.json'
 
 import NoDataView from '../NoDataView'
 
