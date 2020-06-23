@@ -1,9 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action, reaction } from 'mobx'
-import { API_SUCCESS, API_FETCHING, API_FAILED } from '@ib/api-constants'
+import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
+import FormStore from '../../stores/FormStore'
 
 import CreateFormCard from '../CreateFormCard/CreateFormCard'
 import FormCard from '../FormCard'
@@ -12,33 +13,32 @@ import FormNameDialog from '../FormNameDialog'
 import { FormListContainer } from './styledComponents'
 
 type FormListProps = {
-   formStore: any
-   onClickForm: (form) => void
+   formStore: FormStore
+   onClickForm: (formId: number) => void
 }
 
 @observer
 class FormList extends React.Component<FormListProps> {
    @observable shouldShowDialog: boolean = false
-   @observable isFormCreated
 
    @action.bound
-   onShowDialog() {
+   onShowDialog(): void {
       this.shouldShowDialog = true
    }
 
    @action.bound
-   onHideDialog() {
+   onHideDialog(): void {
       this.shouldShowDialog = false
    }
 
    @action.bound
-   async onClickContinue(name) {
+   async onClickContinue(name: string) {
       const { onCreateForm } = this.props.formStore
       onCreateForm(name)
    }
 
    reaction = reaction(
-      () => {
+      (): boolean => {
          const { postFormsAPIStatus } = this.props.formStore
          return postFormsAPIStatus === API_SUCCESS
       },
@@ -49,7 +49,7 @@ class FormList extends React.Component<FormListProps> {
       }
    )
 
-   renderFormCards = () => {
+   renderFormCards = (): React.ReactNode => {
       const {
          formList,
          onDeleteForm,
@@ -70,7 +70,7 @@ class FormList extends React.Component<FormListProps> {
       })
    }
 
-   renderFormNameDialog = () => {
+   renderFormNameDialog = (): React.ReactNode | undefined => {
       const { postFormsAPIStatus } = this.props.formStore
       const isProcessing = postFormsAPIStatus === API_FETCHING
       if (this.shouldShowDialog) {

@@ -1,7 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { FiCheck } from 'react-icons/fi'
+
 import strings from './../../i18n/form-strings.json'
+import { McqType } from '../../stores/models/QuestionModel/McqModel'
+
 import {
    QuestionTextInput,
    McqIcon,
@@ -10,16 +13,16 @@ import {
 } from './styledComponents'
 
 type McqQuestionProps = {
-   onChangeText: (name) => void
+   onChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void
    text: string
-   choices: Array<any>
-   onAddOrRemoveChoice: (event) => void
-   onChangeChoiceText: (event) => void
+   choices: Array<McqType>
+   onAddOrRemoveChoice: (event: any) => void
+   onChangeChoiceText: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 @observer
 class McqQuestion extends React.Component<McqQuestionProps> {
-   renderChoices = () => {
+   renderChoices = (): React.ReactNode => {
       const { choices, onChangeChoiceText, onAddOrRemoveChoice } = this.props
       return choices.map((choiceOption, index) => {
          const { choice } = choiceOption

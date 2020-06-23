@@ -18,7 +18,7 @@ export const FormNamePopupContainer = styled.div`
    ${tw`absolute p-0 m-auto rounded bg-white sm:p-8 `}left: 35%;
    right: 35%;
    top: 25%;
-   bottom: 35%;
+   bottom: 45%;
 `
 
 export const Caption = styled.h1`

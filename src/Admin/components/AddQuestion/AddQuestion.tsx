@@ -10,7 +10,7 @@ import {
 } from './styledComponents'
 
 type AddQuestionProps = {
-   onAddQuestion: (type) => void
+   onAddQuestion: (type: string) => void
 }
 
 class AddQuestion extends React.Component<AddQuestionProps> {
@@ -29,7 +29,6 @@ class AddQuestion extends React.Component<AddQuestionProps> {
    }
 
    render() {
-
       return (
          <Menu>
             <MenuButton>

@@ -2,8 +2,12 @@ import React from 'react'
 import { reaction, observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
+
 import FormPreview from '../../../Common/components/FormPreview'
+
 import strings from './../../i18n/form-strings.json'
+import FormModel from '../../stores/models/FormModel'
+
 import FormHeader from '../FormHeader'
 import QuestionList from '../QuestionList'
 import {
@@ -14,8 +18,7 @@ import {
 
 type EditFormProps = {
    onClickLogout: () => void
-
-   formDetails: any
+   formDetails: FormModel
    formId: number
    onNavigateBack: () => void
 }
@@ -33,22 +36,21 @@ class EditForm extends React.Component<EditFormProps> {
    }
 
    @action.bound
-   onChangeSelectedQuestion(questionNumber) {
+   onChangeSelectedQuestion(questionNumber: number): void {
       this.selectedQuestion = questionNumber
    }
 
    reaction = reaction(
-      () => {
+      (): boolean => {
          const { postQuestionsAPIStatus } = this.props.formDetails
          return postQuestionsAPIStatus === API_SUCCESS
       },
-      isSuccess => {
+      (data: boolean): void => {
          this.props.onNavigateBack()
       }
    )
 
-   onPublish = formId => {
-      const { onNavigateBack } = this.props
+   onPublish = (formId: number): void => {
       const { onPublishForm } = this.props.formDetails
       onPublishForm(formId)
    }

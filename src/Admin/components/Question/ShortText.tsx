@@ -4,7 +4,7 @@ import strings from './../../i18n/form-strings.json'
 import { QuestionTextInput, ShortTextIcon } from './styledComponents'
 
 type ShortTextProps = {
-   onChangeText: (name) => void
+   onChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void
    text: string
 }
 class ShortText extends React.Component<ShortTextProps> {

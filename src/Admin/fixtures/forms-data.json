@@ -2,16 +2,16 @@
    "total": 0,
    "test_forms": [
       {
-         "id": 1,
-         "name": "Admin form1"
+         "from_id": 1,
+         "form_name": "Admin form1"
       },
       {
-         "id": 2,
-         "name": "Admin form2"
+         "from_id": 2,
+         "form_name": "Admin form2"
       },
       {
-         "id": 3,
-         "name": "Admin form3"
+         "from_id": 3,
+         "form_name": "Admin form3"
       }
    ],
    "forms": [

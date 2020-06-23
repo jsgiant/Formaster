@@ -2,49 +2,60 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
+import {
+   goToLoginForm,
+   goToAdminDashboard
+} from '../../../Common/utils/NavigationUtils'
 
-import { LOGIN_PATH } from "../../../Authentication/constants/Paths"
-import { paths } from '../../../Common/constants/Paths'
 import EditForm from '../../components/EditForm'
+import AuthStore from '../../../Authentication/stores/AuthStore'
+import FormStore from '../../stores/FormStore'
 
+interface match {
+   params: { form_id: number }
+   isExact: boolean
+   path: string
+   url: string
+}
 type EditFormRouteProps = {
-   authStore: any
-   formStore: any
-   history: any
-   match: any
+   authStore: AuthStore
+   formStore: FormStore
+   history: History
+   match: match
 }
 
 @inject('authStore', 'formStore')
 @observer
 class EditFormRoute extends React.Component<EditFormRouteProps> {
-   formId
-
    componentDidMount() {
       const { getFormQuestions } = this.props.formStore
-      this.formId = this.props.match.params.form_id
-      getFormQuestions(this.formId)
+      getFormQuestions(this.getFormId())
    }
 
-   onClickLogout = () => {
+   getFormId = (): number => {
+      return this.props.match.params.form_id
+   }
+
+   onClickLogout = (): void => {
       const { onSignOut } = this.props.authStore
       const { history } = this.props
       onSignOut()
-      history.replace(LOGIN_PATH)
+      goToLoginForm(history)
    }
 
-   onNavigateBack = () => {
+   onNavigateBack = (): void => {
       const { history } = this.props
-      history.replace(paths.dashboard)
+      goToAdminDashboard(history)
    }
 
-   renderSuccessUI = () => {
+   renderSuccessUI = (): React.ReactNode => {
       const { currentForm } = this.props.formStore
       return (
          <EditForm
             onClickLogout={this.onClickLogout}
             onNavigateBack={this.onNavigateBack}
             formDetails={currentForm}
-            formId={this.formId}
+            formId={this.getFormId()}
          />
       )
    }

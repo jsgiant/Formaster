@@ -2,11 +2,15 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action, reaction } from 'mobx'
 import { MdMoreHoriz } from 'react-icons/md'
-import { API_FETCHING, API_SUCCESS, API_INITIAL } from '@ib/api-constants'
+import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
+
 import strings from '../../i18n/strings.json'
+import FormModel from '../../stores/models/FormModel'
+
 import FormNamePopup from '../FormNameDialog'
+
 import {
    FormCardContainer,
    FormName,
@@ -16,9 +20,9 @@ import {
 } from './styledComponents'
 
 type FormCardProps = {
-   formDetails: any
-   onDeleteForm: (form) => void
-   onClickForm: (form) => void
+   formDetails: FormModel
+   onDeleteForm: (form: FormModel) => void
+   onClickForm: (formId: number) => void
    isProcessing: boolean
 }
 
@@ -28,28 +32,28 @@ class FormCard extends React.Component<FormCardProps> {
    @observable shouldShowDialog: boolean = false
 
    @action.bound
-   onToogleList() {
+   onToogleList(): void {
       this.isListOpen = !this.isListOpen
    }
 
    @action.bound
-   onShowOrHideDialog() {
+   onShowOrHideDialog(): void {
       this.shouldShowDialog = !this.shouldShowDialog
    }
 
    @action.bound
-   onFormRename() {
+   onFormRename(): void {
       this.onToogleList()
       this.onShowOrHideDialog()
    }
    @action.bound
-   onClickContinue(name) {
+   onClickContinue(name: string): void {
       const { onRenameForm } = this.props.formDetails
       onRenameForm(name)
    }
 
    reaction = reaction(
-      () => {
+      (): boolean => {
          const { putFormsAPIStatus } = this.props.formDetails
          return putFormsAPIStatus === API_SUCCESS
       },
@@ -59,12 +63,12 @@ class FormCard extends React.Component<FormCardProps> {
          }
       }
    )
-   onDeleteForm = () => {
+   onDeleteForm = (): void => {
       const { onDeleteForm, formDetails } = this.props
       onDeleteForm(formDetails)
    }
 
-   renderMenuBar = () => {
+   renderMenuBar = (): React.ReactNode => {
       return (
          <Menu>
             <MenuButton>
@@ -78,7 +82,7 @@ class FormCard extends React.Component<FormCardProps> {
       )
    }
 
-   renderFormNameDialog = () => {
+   renderFormNameDialog = (): React.ReactNode | null => {
       const { name, putFormsAPIStatus } = this.props.formDetails
       const isProcessing = putFormsAPIStatus === API_FETCHING
       return this.shouldShowDialog ? (
@@ -100,7 +104,7 @@ class FormCard extends React.Component<FormCardProps> {
          <FormCardContainer isLoading={isProcessing}>
             <NameContainer
                data-testid='test-form'
-               onClick={() => onClickForm(id)}
+               onClick={() => onClickForm(id!)}
             >
                <FormName>{name}</FormName>
             </NameContainer>
