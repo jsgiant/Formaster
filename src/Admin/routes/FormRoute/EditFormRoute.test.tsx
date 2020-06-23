@@ -7,26 +7,24 @@ import { createMemoryHistory } from 'history'
 import AuthService from '../../../Authentication/services/AuthService/AuthFixture'
 import AuthStore from '../../../Authentication/stores/AuthStore'
 import { paths } from '../../../Common/constants/Paths'
-import { LOGIN_PATH } from '../../../Authentication/constants/paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 
 import formsData from '../../fixtures/forms-data.json'
 import FormsAPI from '../../services/FormsService/FormsFixture'
 import FormStore from '../../stores/FormStore'
 import EditFormRoute from './EditFormRoute'
 
-const LoginDisplay = withRouter(({ location }) => (
+const LoginDisplay = withRouter(() => (
    <div data-testid='login-display'>LoginForm</div>
 ))
 
-const Dashboard = withRouter(({ location }) => (
-   <div data-testid='dashboard'>Dashboard</div>
-))
+const Dashboard = withRouter(() => <div data-testid='dashboard'>Dashboard</div>)
 
 describe('Edit form route tests', () => {
-   let authAPI
-   let authStore
-   let formsAPI
-   let formStore
+   let authAPI: AuthService
+   let authStore: AuthStore
+   let formsAPI: FormsAPI
+   let formStore: FormStore
 
    const history = createMemoryHistory()
 

@@ -4,7 +4,7 @@ import strings from './../../i18n/form-strings.json'
 import { QuestionTextInput, WelcomeIcon } from './styledComponents'
 
 type WelcomeScreenProps = {
-   onChangeText: (name) => void
+   onChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void
    text: string
 }
 

@@ -4,7 +4,7 @@ import strings from './../../i18n/form-strings.json'
 import { QuestionTextInput, LargeTextIcon } from './styledComponents'
 
 type LargeTextProps = {
-   onChangeText: (name) => void
+   onChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void
    text: string
 }
 class LargeText extends React.Component<LargeTextProps> {

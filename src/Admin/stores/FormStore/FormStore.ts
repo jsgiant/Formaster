@@ -22,7 +22,7 @@ export interface formsResponse {
 }
 class FormStore {
    @observable formList!: Array<FormModel>
-   @observable currentForm!: FormModel | null
+   @observable currentForm!: FormModel
    @observable getFormsDataAPIStatus!: number
    @observable getFormsDataAPIError!: string | null
    @observable postFormsAPIStatus!: number
@@ -49,7 +49,6 @@ class FormStore {
       this.getFormsDataAPIError = null
       this.getQuestionsAPIError = null
       this.updateFormsAPIError = null
-      this.currentForm = null
       this.formList = []
       this.offset = 0
       this.initialLimit = 100

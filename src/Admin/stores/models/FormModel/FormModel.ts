@@ -9,8 +9,6 @@ import strings from '../../../i18n/form-strings.json'
 import FormsAPI from '../../../services/FormsService/FormsFixture'
 import QuestionStore from '../../QuestionStore'
 import { Form } from '../../FormStore/FormStore'
-import { QuestionType } from '../QuestionModel/QuestionModel'
-import { McqQuestionType } from '../QuestionModel/McqModel'
 
 class FormModel {
    @observable name: string
@@ -70,7 +68,7 @@ class FormModel {
    onRenameForm(name: string): Promise<any> {
       const putFormPromise = this.formService.putFormsAPI(name, this.id)
       return bindPromiseWithOnSuccess(putFormPromise)
-         .to(this.setPutFormsAPIStatus, response => {
+         .to(this.setPutFormsAPIStatus, () => {
             this.name = name
             this.showSuccessMessage()
          })
@@ -79,7 +77,6 @@ class FormModel {
 
    @action.bound
    onPublishForm(formId: number): Promise<any> {
-      //post call
       const postQuestionsPromise = this.formService.postQuestionsAPI(
          formId,
          this.getDataToPost()

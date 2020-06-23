@@ -1,8 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { API_FETCHING } from '@ib/api-constants'
+
 import strings from '../../i18n/strings.json'
+
 import {
    FormNamePopupWrapper,
    FormNamePopupContainer,
@@ -13,7 +14,7 @@ import {
 } from './styledComponents'
 
 type FormNameDialogProps = {
-   onClickContinue: (name) => void
+   onClickContinue: (name: string) => void
    caption: string
    isProcessing: boolean
    defaultValue: string
@@ -26,17 +27,17 @@ class FormNameDialog extends React.Component<FormNameDialogProps> {
    @observable name: string = this.props.defaultValue
 
    @action.bound
-   onChangeName(e) {
+   onChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
       this.name = e.target.value
    }
 
    @action.bound
-   onClickContinue() {
+   onClickContinue(): void {
       const { onClickContinue } = this.props
       onClickContinue(this.name)
    }
 
-   isContinueDisabled() {
+   isContinueDisabled(): boolean {
       return this.name === empty || this.props.isProcessing
    }
 

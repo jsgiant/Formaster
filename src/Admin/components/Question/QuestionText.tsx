@@ -2,7 +2,7 @@ import React from 'react'
 import { QuestionTextInput } from './styledComponents'
 type QuestionTextProps = {
    placeholder: string
-   onChangeText: (name) => void
+   onChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void
    text: string
 }
 

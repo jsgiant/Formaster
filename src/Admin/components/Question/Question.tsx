@@ -1,16 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { MdSettings } from 'react-icons/md'
-import { MdDelete } from 'react-icons/md'
+
 import strings from '../../i18n/form-strings.json'
-import {
-   QuestionWrapper,
-   DescriptionText,
-   Toolbar,
-   IconContainer,
-   Required,
-   RequiredToggler
-} from './styledComponents'
+import QuestionModel from '../../stores/models/QuestionModel'
+import McqModel from '../../stores/models/QuestionModel/McqModel'
 
 import WelcomeScreen from './WelcomeScreen'
 import ThankyouScreen from './ThankYouScreen'
@@ -18,32 +11,40 @@ import ShortText from './ShortText'
 import LargeText from './LargeText'
 import McqQuestion from './Mcq'
 
+import {
+   QuestionWrapper,
+   DescriptionText,
+   Toolbar,
+   Required,
+   RequiredToggler
+} from './styledComponents'
+
 type QuestionProps = {
    question: any
-   onDeleteQuestion: (question) => void
-   onSelectQuestion: (number) => void
-   number: number
+   onDeleteQuestion: (question: QuestionModel | McqModel) => void
+   onSelectQuestion: (questionNumber: number) => void
+   questionNumber: number
 }
 
 @observer
 class Question extends React.Component<QuestionProps> {
-   onChangeTitle = e => {
+   onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
       const { onChangeTitle } = this.props.question
       this.onSelectQuestion()
       onChangeTitle(e.target.value)
    }
 
    onSelectQuestion = () => {
-      const { number, onSelectQuestion } = this.props
-      onSelectQuestion(number)
+      const { questionNumber, onSelectQuestion } = this.props
+      onSelectQuestion(questionNumber)
    }
-   onChangeDescription = e => {
+   onChangeDescription = (e: React.ChangeEvent<HTMLInputElement>): void => {
       const { onChangeDescription } = this.props.question
       this.onSelectQuestion()
       onChangeDescription(e.target.value)
    }
 
-   onAddOrRemoveChoice = e => {
+   onAddOrRemoveChoice = (e: any): void => {
       const keyCode = e.keyCode
       const { onAddChoice, onRemoveChoice } = this.props.question
       this.onSelectQuestion()
@@ -54,15 +55,15 @@ class Question extends React.Component<QuestionProps> {
       }
    }
 
-   onChangeChoiceText = e => {
+   onChangeChoiceText = (e: React.ChangeEvent<HTMLInputElement>): void => {
       const { onChangeChoiceText } = this.props.question
-      const { number, onSelectQuestion } = this.props
-      onSelectQuestion(number)
+      const { questionNumber, onSelectQuestion } = this.props
+      onSelectQuestion(questionNumber)
       onChangeChoiceText(e.target.tabIndex, e.target.value)
    }
 
-   renderQuestion = () => {
-      const { questionTitle, questionId, type } = this.props.question
+   renderQuestion = (): React.ReactNode => {
+      const { questionTitle, type } = this.props.question
 
       switch (type) {
          case strings.welcome_screen:
@@ -109,7 +110,7 @@ class Question extends React.Component<QuestionProps> {
       }
    }
 
-   renderToolbar = () => {
+   renderToolbar = (): React.ReactNode => {
       const { type, onChangeIsRequired, isRequired } = this.props.question
       return (
          type !== strings.thankyou_screen &&
