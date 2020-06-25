@@ -7,8 +7,13 @@ import {
    RetryButton
 } from './styledComponents'
 
+type FailureViewProps = {
+   onRetryClick: () => void
+   errorMessage: string | Error | null
+}
+
 @observer
-class FailureView extends React.Component {
+class FailureView extends React.Component<FailureViewProps> {
    render() {
       const { onRetryClick, errorMessage } = this.props
 

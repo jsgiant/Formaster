@@ -141,10 +141,6 @@ class FormPreview extends React.Component<FormPreviewProps> {
          <FormPreviewContainer>
             <FieldWrapper>{this.renderQuestions()}</FieldWrapper>
             <PaginationContainer>
-               {/* <ProgressBar>
-                  progress
-                  <Line percent={50} strokeWidth={2} strokeColor='#4fd1c5' />
-               </ProgressBar> */}
                <PaginationButtons>
                   <NavigationButton
                      disabled={isUpArrowDisabled}
