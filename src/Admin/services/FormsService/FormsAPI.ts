@@ -5,9 +5,10 @@ import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
 import { paths } from '../../../Common/constants/Paths'
 
 import urls from '../../i18n/urls.json'
+import FormService from '.'
 
-class FormsAPI {
-   api: any
+class FormsAPI implements FormService {
+   api: Record<string, any>
 
    constructor() {
       this.api = create({
@@ -15,7 +16,7 @@ class FormsAPI {
       })
    }
 
-   getFormsAPI(limit: number, offset: number): Promise<any> {
+   async getFormsAPI(limit, offset) {
       return networkCallWithApisauce(
          this.api,
          `${urls.get_forms}?limit=${limit}&offset=${offset}`,
@@ -24,7 +25,7 @@ class FormsAPI {
       )
    }
 
-   postFormsAPI(formname: string): Promise<any> {
+   async postFormsAPI(formname) {
       return networkCallWithApisauce(
          this.api,
          `${urls.create_form}`,
@@ -33,7 +34,7 @@ class FormsAPI {
       )
    }
 
-   putFormsAPI(formName: string, formId: number | undefined): Promise<any> {
+   async putFormsAPI(formName, formId) {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/v1/`,
@@ -42,7 +43,7 @@ class FormsAPI {
       )
    }
 
-   deleteFormsAPI(formId: number): Promise<any> {
+   deleteFormsAPI(formId) {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/v1/`,
@@ -51,11 +52,7 @@ class FormsAPI {
       )
    }
 
-   getQuestionsAPI(
-      formId: number,
-      limit: number,
-      offset: number
-   ): Promise<any> {
+   getQuestionsAPI(formId, limit, offset) {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/questions/v1/?limit=${limit}&offset=${offset}`,
@@ -64,7 +61,7 @@ class FormsAPI {
       )
    }
 
-   postQuestionsAPI(formId: number, questions): Promise<any> {
+   postQuestionsAPI(formId, questions) {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/questions/v1/`,
@@ -73,10 +70,7 @@ class FormsAPI {
       )
    }
 
-   putQuestionsAPI(
-      formId: number,
-      questions: { questions: never[] }
-   ): Promise<any> {
+   putQuestionsAPI(formId, questions) {
       return networkCallWithApisauce(
          this.api,
          `/form/${formId}/questions/v1/`,

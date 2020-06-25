@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
 import Dashboard from '../../../Common/components/Dashboard'
@@ -12,23 +12,28 @@ import AuthStore from '../../../Authentication/stores/AuthStore'
 import FormList from '../../components/FormList'
 import FormStore from '../../stores/FormStore'
 
-type DashboardRouteProps = {
+interface DashboardRouteProps extends RouteComponentProps {}
+interface InjectedProps extends DashboardRouteProps {
    authStore: AuthStore
-   history: History
    formStore: FormStore
 }
 @inject('authStore', 'formStore')
 @observer
 class DashboardRoute extends React.Component<DashboardRouteProps> {
+   componentDidMount() {
+      const { getUserForms } = this.getInjectedProps().formStore
+      getUserForms()
+   }
+
+   getInjectedProps = () => {
+      const props = this.props as InjectedProps
+      return { authStore: props.authStore, formStore: props.formStore }
+   }
    onLogoutClick = (): void => {
-      const { onSignOut } = this.props.authStore
+      const { onSignOut } = this.getInjectedProps().authStore
       const { history } = this.props
       onSignOut()
       goToLoginForm(history)
-   }
-   componentDidMount() {
-      const { getUserForms } = this.props.formStore
-      getUserForms()
    }
 
    onClickForm = (formId: number) => {
@@ -38,7 +43,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
 
    renderFormsList = (): React.ReactNode => (
       <FormList
-         formStore={this.props.formStore}
+         formStore={this.getInjectedProps().formStore}
          onClickForm={this.onClickForm}
       />
    )
@@ -47,7 +52,7 @@ class DashboardRoute extends React.Component<DashboardRouteProps> {
          getFormsDataAPIStatus,
          getFormsDataAPIError,
          getUserForms
-      } = this.props.formStore
+      } = this.getInjectedProps().formStore
 
       return (
          <Dashboard
