@@ -9,3 +9,8 @@ export interface formsResponse {
    forms: Array<FormType>
    test_forms: Array<object>
 }
+
+export interface post_forms_resonse {
+   form_id: number
+   form_name: string
+}

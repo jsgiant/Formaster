@@ -1,29 +1,30 @@
 import { observable, action, toJS } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import { notify, showSuccessMessage } from '../../../../Common/utils/ToastUtils'
-import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
+import { getFormattedErrorDescription } from '../../../../Common/utils/APIUtils'
 
 import strings from '../../../i18n/form-strings.json'
-import FormsAPI from '../../../services/FormsService/FormsFixture'
+import FormService from '../../../services/FormsService'
+
 import QuestionStore from '../../QuestionStore'
-import { Form } from '../../FormStore/FormStore'
+import { FormType } from '../../types'
 
 class FormModel {
    @observable name: string
-   @observable postQuestionsAPIStatus: number
-   @observable putFormsAPIStatus: number
+   @observable postQuestionsAPIStatus: APIStatus
+   @observable putFormsAPIStatus: APIStatus
    @observable postQuestionsAPIError: string | null
    @observable putFormsAPIError: string | null
 
-   formService: FormsAPI
+   formService: FormService
    questionStore: QuestionStore
    id: number | undefined
 
    constructor(
-      form: Form,
-      formService: FormsAPI,
+      form: FormType,
+      formService: FormService,
       questionStore: QuestionStore
    ) {
       const { form_name, form_id } = form
@@ -38,14 +39,14 @@ class FormModel {
    }
 
    @action.bound
-   setPutFormsAPIStatus(apiStatus: number): void {
+   setPutFormsAPIStatus(apiStatus): void {
       this.putFormsAPIStatus = apiStatus
    }
 
    @action.bound
-   setPutFormsAPIError(apiError: string): void {
+   setPutFormsAPIError(apiError): void {
       console.log(apiError)
-      this.putFormsAPIError = getUserDisplayableErrorMessage(apiError)
+      this.putFormsAPIError = getFormattedErrorDescription(apiError)
       notify(this.putFormsAPIError)
    }
 
@@ -55,8 +56,8 @@ class FormModel {
    }
 
    @action.bound
-   setPostQuestionsAPIError(apiError: string): void {
-      this.postQuestionsAPIError = getUserDisplayableErrorMessage(apiError)
+   setPostQuestionsAPIError(apiError): void {
+      this.postQuestionsAPIError = getFormattedErrorDescription(apiError)
       notify(this.postQuestionsAPIError)
    }
 
@@ -65,18 +66,20 @@ class FormModel {
    }
 
    @action.bound
-   onRenameForm(name: string): Promise<any> {
-      const putFormPromise = this.formService.putFormsAPI(name, this.id)
-      return bindPromiseWithOnSuccess(putFormPromise)
-         .to(this.setPutFormsAPIStatus, () => {
-            this.name = name
-            this.showSuccessMessage()
-         })
-         .catch(e => this.setPutFormsAPIError(e))
+   onRenameForm(name: string) {
+      if (this.id) {
+         const putFormPromise = this.formService.putFormsAPI(name, this.id)
+         return bindPromiseWithOnSuccess(putFormPromise)
+            .to(this.setPutFormsAPIStatus, () => {
+               this.name = name
+               this.showSuccessMessage()
+            })
+            .catch(e => this.setPutFormsAPIError(e))
+      }
    }
 
    @action.bound
-   onPublishForm(formId: number): Promise<any> {
+   onPublishForm(formId: number) {
       const postQuestionsPromise = this.formService.postQuestionsAPI(
          formId,
          this.getDataToPost()

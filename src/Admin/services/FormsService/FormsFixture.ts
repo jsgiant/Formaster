@@ -1,44 +1,31 @@
 import formsData from '../../fixtures/forms-data.json'
+import { resolveWithTimeout } from '../../../Common/utils/TestUtils'
 
-class FormsAPI {
-   api: any
+import FormService from '.'
 
-   getFormsAPI(limit: number, offset: number): Promise<any> {
-      return new Promise(resolve => {
-         resolve(formsData)
-      })
+class FormsAPI implements FormService {
+   getFormsAPI() {
+      return resolveWithTimeout(formsData)
    }
 
-   postFormsAPI(formName: string): Promise<any> {
-      return new Promise((resolve, _) => {
-         setTimeout(() => resolve(formsData.post_forms_resonse), 1500)
-      })
-   }
-   putFormsAPI(formName: string, formId: number | undefined): Promise<any> {
-      return new Promise(resolve => setTimeout(() => resolve('success'), 2000))
+   postFormsAPI(_formName) {
+      return resolveWithTimeout(formsData.post_forms_resonse)
    }
 
-   deleteFormsAPI(formId: number): Promise<any> {
-      return new Promise(resolve =>
-         setTimeout(() => resolve(formsData.delete_form_data), 2000)
-      )
+   putFormsAPI(_formName, _formId) {
+      return resolveWithTimeout('success')
    }
 
-   getQuestionsAPI(
-      formId: number,
-      limit: number,
-      offset: number
-   ): Promise<any> {
-      return new Promise(resolve => {
-         setTimeout(() => resolve(formsData.form_questions[--formId]), 2000)
-      })
+   deleteFormsAPI(_formId) {
+      return resolveWithTimeout(formsData.delete_form_data)
    }
 
-   postQuestionsAPI(
-      formId: number,
-      questions: { questions: object[] }
-   ): Promise<any> {
-      return new Promise(resolve => setTimeout(() => resolve('success'), 1500))
+   getQuestionsAPI(formId, _limit, _offset) {
+      return resolveWithTimeout(formsData.form_questions[--formId])
+   }
+
+   postQuestionsAPI(_formId, _questions) {
+      return resolveWithTimeout({})
    }
 }
 

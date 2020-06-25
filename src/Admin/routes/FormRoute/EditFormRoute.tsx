@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import {
@@ -11,25 +11,24 @@ import EditForm from '../../components/EditForm'
 import AuthStore from '../../../Authentication/stores/AuthStore'
 import FormStore from '../../stores/FormStore'
 
-interface match {
-   params: { form_id: number }
-   isExact: boolean
-   path: string
-   url: string
-}
-type EditFormRouteProps = {
+interface EditFormRouteProps extends RouteComponentProps {}
+
+interface InjectedProps extends EditFormRouteProps {
    authStore: AuthStore
    formStore: FormStore
-   history: History
-   match: match
 }
 
 @inject('authStore', 'formStore')
 @observer
 class EditFormRoute extends React.Component<EditFormRouteProps> {
    componentDidMount() {
-      const { getFormQuestions } = this.props.formStore
+      const { getFormQuestions } = this.getInjectedProps().formStore
       getFormQuestions(this.getFormId())
+   }
+
+   getInjectedProps = () => {
+      const props = this.props as InjectedProps
+      return { formStore: props.formStore, authStore: props.authStore }
    }
 
    getFormId = (): number => {
@@ -37,7 +36,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
    }
 
    onClickLogout = (): void => {
-      const { onSignOut } = this.props.authStore
+      const { onSignOut } = this.getInjectedProps().authStore
       const { history } = this.props
       onSignOut()
       goToLoginForm(history)
@@ -49,7 +48,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
    }
 
    renderSuccessUI = (): React.ReactNode => {
-      const { currentForm } = this.props.formStore
+      const { currentForm } = this.getInjectedProps().formStore
       return (
          <EditForm
             onClickLogout={this.onClickLogout}
@@ -64,7 +63,7 @@ class EditFormRoute extends React.Component<EditFormRouteProps> {
       const {
          getQuestionsAPIStatus,
          getQuestionsAPIError
-      } = this.props.formStore
+      } = this.getInjectedProps().formStore
       return (
          <LoadingWrapperWithFailure
             apiStatus={getQuestionsAPIStatus}
