@@ -1,11 +1,11 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import { isAdmin } from '../../../Common/utils/StorageUtils'
 import { isLoggedIn } from '../../../Common/utils/AuthUtils'
-import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
+import { getFormattedErrorDescription } from '../../../Common/utils/APIUtils'
 import {
    goToAdminDashboard,
    goToUserDashboard
@@ -16,9 +16,10 @@ import strings from './../../i18n/strings.json'
 import LoginForm from '../../components/LoginForm'
 import AuthStore from '../../stores/AuthStore'
 
-type LoginFormRouteProps = {
+interface LoginFormRouteProps extends RouteComponentProps {}
+
+interface InjectedProps extends LoginFormRouteProps {
    authStore: AuthStore
-   history: History
 }
 
 @inject('authStore')
@@ -28,9 +29,13 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    @observable password: string = strings.login.empty
    @observable errorMessage: string = strings.login.empty
 
+   getAuthStore = () => {
+      const props = this.props as InjectedProps
+      return props.authStore
+   }
    @action.bound
    onClickLogin(): void {
-      const { userLogin } = this.props.authStore
+      const { userLogin } = this.getAuthStore()
       if (
          this.userName !== strings.login.empty &&
          this.password !== strings.login.empty
@@ -62,7 +67,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
 
    @action.bound
    onLoginFailure(error: string): void {
-      this.errorMessage = getUserDisplayableErrorMessage(error)
+      this.errorMessage = getFormattedErrorDescription(error)
    }
 
    @action.bound
@@ -76,7 +81,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    }
 
    render() {
-      const { getLoginAPIStatus } = this.props.authStore
+      const { getLoginAPIStatus } = this.getAuthStore()
       if (isLoggedIn()) {
          return this.onLoginSuccess()
       }
