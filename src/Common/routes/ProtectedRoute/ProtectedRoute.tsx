@@ -6,7 +6,7 @@ import { isLoggedIn } from '../../utils/AuthUtils'
 
 type ProtectedRouteProps = {
    component: any
-   path: any
+   path: string
 }
 export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
    render() {
