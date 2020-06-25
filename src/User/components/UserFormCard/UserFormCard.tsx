@@ -3,8 +3,8 @@ import { UserFormCardContainer, UserFormCardName } from './styledComponents'
 
 type UserFormCardProps = {
    formName: string
-   formId: number
-   onClickForm: (formId) => void
+   formId: number | undefined
+   onClickForm: (formId: number) => void
 }
 
 class UserFormCard extends Component<UserFormCardProps> {
@@ -14,7 +14,9 @@ class UserFormCard extends Component<UserFormCardProps> {
          <UserFormCardContainer
             data-testid='test-card'
             onClick={() => {
-               onClickForm(formId)
+               if (formId) {
+                  onClickForm(formId)
+               }
             }}
          >
             <UserFormCardName>{formName}</UserFormCardName>
