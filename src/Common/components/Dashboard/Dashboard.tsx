@@ -7,7 +7,7 @@ import { DashboardWrapper } from './styledComponents'
 type DashboardProps = {
    onLogoutClick: () => void
    apiStatus: number
-   apiError: any
+   apiError: string | null
    onRetryClick: () => void
    successUI: () => any
 }
