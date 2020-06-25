@@ -1,11 +1,11 @@
 import { create } from 'apisauce'
+
 import { paths } from '../../Common/constants/Paths'
-import { getAccessToken } from '../../Common/utils/StorageUtils'
 import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 
 class UserFormsAPI {
-   api
+   api: Record<string, any>
 
    constructor() {
       this.api = create({

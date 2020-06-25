@@ -1,32 +1,40 @@
 import React, { PureComponent } from 'react'
 import { observer, inject } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import Dashboard from '../../../Common/components/Dashboard'
 import NoDataView from '../../../Common/components/NoDataView'
 import {
    goToLoginForm,
    goToSelectedFormResponse
 } from '../../../Common/utils/NavigationUtils'
-import UserFormList from '../../components/UserFormList/UserFormList'
 
-type UserDashboardRouteProps = {
-   authStore: any
-   history: any
-   userFormStore: any
+import UserFormList from '../../components/UserFormList/UserFormList'
+import AuthStore from '../../../Authentication/stores/AuthStore'
+import UserFormStore from '../../stores/UserFormStore'
+
+interface UserDashboardRouteProps extends RouteComponentProps {}
+
+interface InjectedProps extends UserDashboardRouteProps {
+   authStore: AuthStore
+   userFormStore: UserFormStore
 }
 
 @inject('authStore', 'userFormStore')
 @observer
 class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
    componentDidMount() {
-      const { getUserForms } = this.props.userFormStore
+      const { getUserForms } = this.getInjectedProps().userFormStore
       getUserForms()
    }
 
+   getInjectedProps = () => {
+      const props = this.props as InjectedProps
+      return { authStore: props.authStore, userFormStore: props.userFormStore }
+   }
+
    onClickLogout = () => {
-      const { onSignOut } = this.props.authStore
+      const { onSignOut } = this.getInjectedProps().authStore
       const { history } = this.props
       onSignOut()
       goToLoginForm(history)
@@ -38,7 +46,7 @@ class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
    }
 
    renderUserFormsList = () => {
-      const { userFormsList } = this.props.userFormStore
+      const { userFormsList } = this.getInjectedProps().userFormStore
       if (userFormsList.length) {
          return (
             <UserFormList
@@ -53,12 +61,12 @@ class UserDashboardRoute extends PureComponent<UserDashboardRouteProps> {
    render() {
       const {
          getUserFormsAPIStatus,
-         getUserFormsDataAPIError,
+         getUserFormsAPIError,
          getUserForms
-      } = this.props.userFormStore
+      } = this.getInjectedProps().userFormStore
       return (
          <Dashboard
-            apiError={getUserFormsDataAPIError}
+            apiError={getUserFormsAPIError}
             apiStatus={getUserFormsAPIStatus}
             onRetryClick={getUserForms}
             onLogoutClick={this.onClickLogout}

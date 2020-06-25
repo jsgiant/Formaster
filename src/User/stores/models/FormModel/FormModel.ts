@@ -1,27 +1,33 @@
 import { action, observable } from 'mobx'
-import { API_INITIAL, API_FETCHING } from '@ib/api-constants'
+import { API_INITIAL, API_FETCHING, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { getUserDisplayableErrorMessage } from '../../../../Common/utils/APIUtils'
+
 import strings from '../../../../Common/i18n/strings.json'
+import { getFormattedErrorDescription } from '../../../../Common/utils/APIUtils'
 import { notify, showSuccessMessage } from '../../../../Common/utils/ToastUtils'
+
+import { UserFormService } from '../../../services'
+
+import { Form } from '../../types'
+
 import Question from '../QuestionModel/QuestionModel'
 import MCQ from '../QuestionModel/McqModel'
 
 class FormModel {
-   @observable postResponsesAPIStatus: number
-   @observable postResponsesAPIError: any
+   @observable postResponsesAPIStatus: APIStatus
+   @observable postResponsesAPIError: Error | null
+   @observable questionsList!: Array<any>
 
-   id
-   name
-   formAPI
-   @observable questionsList: Array<any> = []
+   id: number
+   name: string
+   formAPI: UserFormService
 
-   constructor(form: any, formAPI: any) {
+   constructor(form: Form, formAPI: any) {
       this.postResponsesAPIError = null
       this.postResponsesAPIStatus = API_INITIAL
       this.formAPI = formAPI
       const { form_name, questions, form_id } = form
-      this.id = form_id
+      this.id = form_id!
       this.name = form_name
       this.initializeQuestions(questions)
    }
@@ -44,7 +50,7 @@ class FormModel {
    @action.bound
    setPostResponsesAPIError(apiError) {
       this.postResponsesAPIError = apiError
-      const errorMessage = getUserDisplayableErrorMessage(apiError)
+      const errorMessage = getFormattedErrorDescription(apiError)
       if (errorMessage.includes(strings.required)) {
          notify(strings.error)
       } else {
@@ -84,11 +90,11 @@ class FormModel {
       return { text_responses, choice_responses }
    }
 
-   getResponseObject = (id: number, response: any): any => {
+   getResponseObject = (id: number, response) => {
       return { question_id: id, user_response: response }
    }
 
-   isMCQ = type => {
+   isMCQ = (type: string) => {
       return type === strings.mcq
    }
 }

@@ -1,21 +1,18 @@
 import userFormsData from './../fixtures/user-forms.json'
+import { UserFormService } from '.'
+import { resolveWithTimeout } from '../../Common/utils/TestUtils'
 
-class UserFormsAPI {
-   api
+class UserFormsAPI implements UserFormService {
    getUserFormsAPI() {
-      return new Promise(resolve => {
-         resolve(userFormsData)
-      })
+      return resolveWithTimeout(userFormsData)
    }
 
    getQuestionsAPI(formId) {
-      return new Promise(resolve =>
-         resolve(userFormsData.form_questions[--formId])
-      )
+      return resolveWithTimeout(userFormsData.form_questions[--formId])
    }
 
-   postResponsesAPI(formId, responses) {
-      return new Promise(resolve => resolve('success'))
+   postResponsesAPI() {
+      return resolveWithTimeout('success')
    }
 }
 

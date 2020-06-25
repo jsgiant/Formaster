@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import UserFormCard from '../UserFormCard/UserFormCard'
 import { UserFormListContainer } from './styledComponents'
+import { Form } from '../../stores/types'
 
 type UserFormListProps = {
-   formsList: any
-   onClickForm: (formId) => void
+   formsList: Array<Form>
+   onClickForm: (formId: number) => void
 }
 
 @observer

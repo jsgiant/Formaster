@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { reaction } from 'mobx'
 import { API_SUCCESS } from '@ib/api-constants'
+
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import FormPreview from '../../../Common/components/FormPreview'
-import { UserFormContainer } from './styledComponents'
 
-type SelectedFormRouteProps = {
-   userFormStore: any
-   match: any
-   history: any
+import UserFormStore from '../../stores/UserFormStore'
+
+import { UserFormContainer } from './styledComponents'
+import { goToUserDashboard } from '../../../Common/utils/NavigationUtils'
+
+interface SelectedFormRouteProps extends RouteComponentProps {}
+
+interface InjectedProps extends SelectedFormRouteProps {
+   userFormStore: UserFormStore
 }
 
 @inject('userFormStore')
@@ -20,37 +25,42 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
       this.getQuestions()
    }
 
+   getUserFormStore = () => {
+      const props = this.props as InjectedProps
+      return props.userFormStore
+   }
+
    getFormId = (): number => {
       return this.props.match.params.form_id
    }
    getQuestions = (): void => {
-      const { getSelectedFormQuestions } = this.props.userFormStore
+      const { getSelectedFormQuestions } = this.getUserFormStore()
       getSelectedFormQuestions(this.getFormId())
    }
 
    reaction = reaction(
       () => {
-         if (this.props.userFormStore.selectedForm) {
+         if (this.getUserFormStore().selectedForm) {
             const {
                postResponsesAPIStatus
-            } = this.props.userFormStore.selectedForm
+            } = this.getUserFormStore().selectedForm
             return postResponsesAPIStatus === API_SUCCESS
          }
       },
       isSuccess => {
          if (isSuccess) {
-            this.props.history.replace('/user/dashboard/')
+            goToUserDashboard(this.props.history)
          }
       }
    )
 
    onSubmitForm = (): void => {
-      const { postSubmittedResponses } = this.props.userFormStore.selectedForm
+      const { postSubmittedResponses } = this.getUserFormStore().selectedForm
       postSubmittedResponses(this.getFormId())
    }
 
    renderUserForm = (): any => {
-      const { questionsList } = this.props.userFormStore.selectedForm
+      const { questionsList } = this.getUserFormStore().selectedForm
       return (
          <UserFormContainer>
             <FormPreview
@@ -65,7 +75,7 @@ class SelectedFormRoute extends Component<SelectedFormRouteProps> {
       const {
          getQuestionsAPIStatus,
          getQuestionsAPIError
-      } = this.props.userFormStore
+      } = this.getUserFormStore()
       return (
          <LoadingWrapperWithFailure
             apiStatus={getQuestionsAPIStatus}

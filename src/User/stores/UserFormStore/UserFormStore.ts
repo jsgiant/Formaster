@@ -1,15 +1,17 @@
 import { observable, action } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import FormModel from '../models/FormModel/FormModel'
+import { getFormattedErrorDescription } from '../../../Common/utils/APIUtils'
+import { Form } from '../types'
 
 class UserFormStore {
-   @observable userFormsList: Array<any> = []
-   @observable selectedForm: any
-   @observable getUserFormsAPIStatus: any
-   @observable getUserFormsAPIError: any
-   @observable getQuestionsAPIStatus: any
-   @observable getQuestionsAPIError: any
+   @observable userFormsList!: Array<Form>
+   @observable selectedForm!: FormModel
+   @observable getUserFormsAPIStatus!: APIStatus
+   @observable getUserFormsAPIError!: string | null
+   @observable getQuestionsAPIStatus!: APIStatus
+   @observable getQuestionsAPIError!: string | null
 
    userFormsAPI: any
 
@@ -33,7 +35,7 @@ class UserFormStore {
 
    @action.bound
    setGetUserFormAPIError(apiError) {
-      this.getUserFormsAPIError = apiError
+      this.getUserFormsAPIError = getFormattedErrorDescription(apiError)
    }
 
    @action.bound
@@ -48,7 +50,7 @@ class UserFormStore {
 
    @action.bound
    setGetQuestionsAPIError(apiError) {
-      this.getQuestionsAPIError = apiError
+      this.getQuestionsAPIError = getFormattedErrorDescription(apiError)
    }
 
    @action.bound
