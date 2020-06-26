@@ -9,8 +9,9 @@ import { waitFor } from '@testing-library/react'
 import formsData from '../../fixtures/forms-data.json'
 import updateFormData from '../../fixtures/updated-forms-data.json'
 import FormsAPI from '../../services/FormsService/FormsFixture'
-
 import FormModel from '../models/FormModel'
+import QuestionStore from '../QuestionStore'
+
 import FormStore from '.'
 
 describe('formstore tests', () => {
@@ -131,10 +132,10 @@ describe('formstore tests', () => {
       mockDeleteFormAPI.mockReturnValue(mockSuccessPromise)
       formsAPI.deleteFormsAPI = mockDeleteFormAPI
 
-      await formStore.getUserForms()
-      await formStore.onDeleteForm(formStore.formList[0])
+      await formStore.onDeleteForm(
+         new FormModel(formsData.test_forms[0], formsAPI, new QuestionStore([]))
+      )
 
-      //TODO: How to test dependent APIs
       waitFor(() => {
          expect(formStore.deleteFormsAPIStatus).toBe(API_SUCCESS)
       })
@@ -143,14 +144,15 @@ describe('formstore tests', () => {
    it('should test deleteFormsAPI failure state', async () => {
       const mockFailurePromise = new Promise((_, reject) => {
          reject(new Error('error'))
-      }).catch()
+      }).catch(e => {})
 
       const mockDeleteFormsAPI = jest.fn()
       mockDeleteFormsAPI.mockReturnValue(mockFailurePromise)
       formsAPI.deleteFormsAPI = mockDeleteFormsAPI
 
-      await formStore.getUserForms()
-      await formStore.onDeleteForm(formStore.formList[0])
+      await formStore.onDeleteForm(
+         new FormModel(formsData.test_forms[0], formsAPI, new QuestionStore([]))
+      )
       waitFor(() => {
          expect(formStore.deleteFormsAPIStatus).toBe(API_FAILED)
          expect(formStore.updateFormsAPIError).toBe('error')

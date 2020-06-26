@@ -20,7 +20,7 @@ class FormModel {
 
    formService: FormService
    questionStore: QuestionStore
-   id: number | undefined
+   id: any
 
    constructor(
       form: FormType,
@@ -67,15 +67,13 @@ class FormModel {
 
    @action.bound
    onRenameForm(name: string) {
-      if (this.id) {
-         const putFormPromise = this.formService.putFormsAPI(name, this.id)
-         return bindPromiseWithOnSuccess(putFormPromise)
-            .to(this.setPutFormsAPIStatus, () => {
-               this.name = name
-               this.showSuccessMessage()
-            })
-            .catch(e => this.setPutFormsAPIError(e))
-      }
+      const putFormPromise = this.formService.putFormsAPI(name, this.id)
+      return bindPromiseWithOnSuccess(putFormPromise)
+         .to(this.setPutFormsAPIStatus, () => {
+            this.name = name
+            this.showSuccessMessage()
+         })
+         .catch(e => this.setPutFormsAPIError(e))
    }
 
    @action.bound

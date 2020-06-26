@@ -31,7 +31,7 @@ describe('User selected form tests', () => {
          <Provider userFormStore={userFormStore}>
             <Router history={history}>
                <Route path={`/form/${1}/response/`}>
-                  <SelectedFormRoute history={history} />
+                  <SelectedFormRoute />
                </Route>
             </Router>
          </Provider>
@@ -53,7 +53,7 @@ describe('User selected form tests', () => {
          <Provider userFormStore={userFormStore}>
             <Router history={history}>
                <Route path={`/form/:form_id/response/`}>
-                  <SelectedFormRoute history={history} />
+                  <SelectedFormRoute />
                </Route>
             </Router>
          </Provider>
@@ -72,7 +72,7 @@ describe('User selected form tests', () => {
          <Provider userFormStore={userFormStore}>
             <Router history={history}>
                <Route path={`/form/:form_id/response/`}>
-                  <SelectedFormRoute history={history} />
+                  <SelectedFormRoute />
                </Route>
             </Router>
          </Provider>

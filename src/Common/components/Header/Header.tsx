@@ -1,4 +1,7 @@
 import React from 'react'
+
+import Logo from '../../Logo'
+
 import {
    HeaderDiv,
    TitleDiv,
@@ -18,6 +21,7 @@ class Header extends React.Component<HeaderProps> {
             <TitleDiv>
                <a href='/'>Formaster</a>
             </TitleDiv>
+            <Logo />
             <HeaderRightSection>
                <LogoutButton data-testid='logout-btn' onClick={onLogoutClick}>
                   Logout

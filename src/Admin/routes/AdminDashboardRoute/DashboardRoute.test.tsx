@@ -48,7 +48,7 @@ describe('dashboard route tests', () => {
          <Provider authStore={authStore} formStore={formStore}>
             <Router history={history}>
                <Route path={paths.dashboard}>
-                  <DashboardRoute history={history} />
+                  <DashboardRoute />
                </Route>
                <Route path={LOGIN_PATH}>
                   <LoginDisplay />
@@ -71,7 +71,7 @@ describe('dashboard route tests', () => {
          <Provider authStore={authStore} formStore={formStore}>
             <Router history={history}>
                <Route path={paths.dashboard}>
-                  <DashboardRoute history={history} />
+                  <DashboardRoute />
                </Route>
                <Route path={`/form/${1}`}>
                   <SelectedForm />
@@ -97,9 +97,11 @@ describe('dashboard route tests', () => {
 
    it('should test get forms loading state', async () => {
       const { getByTestId } = render(
-         <Router history={history}>
-            <DashboardRoute authStore={authStore} formStore={formStore} />
-         </Router>
+         <Provider authStore={authStore} formStore={formStore}>
+            <Router history={history}>
+               <DashboardRoute />
+            </Router>
+         </Provider>
       )
       const mockFormsLoadingPromise = new Promise(function(resolve, reject) {})
 
@@ -114,9 +116,11 @@ describe('dashboard route tests', () => {
 
    it('should test get forms failure state', async () => {
       const { getByText, queryByRole } = render(
-         <Router history={history}>
-            <DashboardRoute authStore={authStore} formStore={formStore} />
-         </Router>
+         <Provider authStore={authStore} formStore={formStore}>
+            <Router history={history}>
+               <DashboardRoute />
+            </Router>
+         </Provider>
       )
       const mockFailurePromise = new Promise((_, reject) => {
          reject(new Error('error'))
@@ -135,9 +139,11 @@ describe('dashboard route tests', () => {
 
    it('should test get forms success state', async () => {
       const { getAllByTestId } = render(
-         <Router history={history}>
-            <DashboardRoute authStore={authStore} formStore={formStore} />
-         </Router>
+         <Provider authStore={authStore} formStore={formStore}>
+            <Router history={history}>
+               <DashboardRoute />
+            </Router>
+         </Provider>
       )
       const mockFormsSuccessPromise = new Promise(function(resolve, reject) {
          resolve(formsData)

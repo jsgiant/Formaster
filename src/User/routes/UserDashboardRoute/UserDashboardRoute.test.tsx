@@ -6,10 +6,10 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 
 import { paths } from '../../../Common/constants/Paths'
-import { LOGIN_PATH } from '../../../Authentication/constants/paths'
+import { LOGIN_PATH } from '../../../Authentication/constants/Paths'
 import AuthService from '../../../Authentication/services/AuthService'
 import AuthStore from '../../../Authentication/stores/AuthStore'
-import userFormsData from './../../fixtures/user-forms.json'
+import userFormsData from '../../fixtures/user-forms.json'
 import UserFormsAPI from '../../services/UserFormsFixture'
 import UserFormStore from '../../stores/UserFormStore'
 import UserDashboardRoute from './UserDashboardRoute'
@@ -47,7 +47,7 @@ describe('User dashboard route tests', () => {
          <Provider authStore={authStore} userFormStore={userFormStore}>
             <Router history={history}>
                <Route path={paths.userDashboard}>
-                  <UserDashboardRoute history={history} />
+                  <UserDashboardRoute />
                </Route>
                <Route path={LOGIN_PATH}>
                   <LoginDisplay />
@@ -71,7 +71,7 @@ describe('User dashboard route tests', () => {
          <Provider authStore={authStore} userFormStore={userFormStore}>
             <Router history={history}>
                <Route path={paths.userDashboard}>
-                  <UserDashboardRoute history={history} />
+                  <UserDashboardRoute />
                </Route>
                <Route path={`/form/${1}/response`}>
                   <SelectedForm />
