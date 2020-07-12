@@ -38,6 +38,7 @@ export default class TextInput extends React.Component<ITextInputProps> {
             value={this.userInput}
             onChange={this.onChangeUserInput}
             onBlur={this.onBlurInput}
+            placeholder='Enter here...'
          />
       )
    }

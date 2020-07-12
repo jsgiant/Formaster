@@ -51,7 +51,11 @@ class LoginForm extends React.Component<LoginFormProps> {
       return (
          <LoginContainer>
             <LoginFormWrapper>
-               <Logo src={strings.login.logoURL} alt={strings.login.logoAlt} />
+               <Logo
+                  loading='lazy'
+                  src={strings.login.logoURL}
+                  alt={strings.login.logoAlt}
+               />
                <Heading>{strings.login.loginHeading}</Heading>
                <ValidationError>{errorMessage}</ValidationError>
                <Label>{strings.login.usernameLabel}</Label>

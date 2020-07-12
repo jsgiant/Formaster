@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import ProtectedRoute from '../../../Common/routes/ProtectedRoute'
 import { paths } from '../../../Common/constants/Paths'
-import SelectedFormRoute from './SelectedFormRoute'
+
+const SelectedFormRoute = lazy(() => import('./SelectedFormRoute'))
 
 export const selectedFormRoute = (
    <ProtectedRoute

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import ProtectedRoute from '../../../Common/routes/ProtectedRoute'
 import { paths } from '../../../Common/constants/Paths'
-import DashboardRoute from './DashboardRoute'
+
+const DashboardRoute = lazy(() => import('./DashboardRoute'))
 
 const dashboardRoute = (
    <ProtectedRoute

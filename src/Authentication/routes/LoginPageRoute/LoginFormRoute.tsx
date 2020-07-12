@@ -37,7 +37,7 @@ class LoginFormRoute extends React.Component<LoginFormRouteProps> {
    onClickLogin(): void {
       const { userLogin } = this.getAuthStore()
       if (
-         this.userName !== strings.login.empty &&
+         this.userName.trim() !== strings.login.empty &&
          this.password !== strings.login.empty
       ) {
          this.errorMessage = strings.login.empty
